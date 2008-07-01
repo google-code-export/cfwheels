@@ -1,5 +1,6 @@
-# RewriteEngine on
-# RewriteRule ^$ /rewrite.cfm [QSA]
-# RewriteRule ^([^.]+)$ $1.htm [QSA]
-# RewriteCond %{REQUEST_FILENAME} !-f
-# RewriteRule ^(.*)$ /rewrite.cfm/%{REQUEST_URI} [QSA,L]
+RewriteEngine on
+
+RewriteRule ^$ index.cfm [QSA]
+RewriteRule ^([^.]+)$ $1.htm [QSA]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ dispatch.cfm?wheelsaction=%{REQUEST_URI} [QSA,L]

@@ -1,16 +1,20 @@
 <!--- 
-	IMPORTANT: Only use this file if you have ColdFusion MX 7 or higher
-	If you have ColdFusion MX 6.1 you should use Application.cfm instead and can safely delete this file
+	IMPORTANT: Only use this file if you have ColdFusion MX 6.1
+	If you have ColdFusion MX 7 or higher you should use Application.cfc instead and can safely delete this file
 --->
-<cfcomponent>
 
-	<cfset this.name = listLast(getDirectoryFromPath(getBaseTemplatePath()),'/')>
-	<cfset this.clientManagement = false>
-	<cfset this.sessionManagement = true>
-	<cferror exception="cfwheels" template="/error.cfm" type="exception">
+<cfapplication name="#listLast(getDirectoryFromPath(getBaseTemplatePath()),'/')#" clientmanagement="false" sessionmanagement="true">
+
+<cferror exception="cfwheels" template="/error.cfm" type="exception">
+
+<!--- Reload all application variables --->
+<cfif structKeyExists(url,'reload')>
+	<cfset application.initialized = false>
+</cfif>
+
+<cfif NOT structKeyExists(application, "initialized") OR NOT application.initialized>
 	
-	<!--- Runs the first time the application is started --->
-	<cffunction name="onApplicationStart">
+	<cflock scope="application" type="exclusive" timeout="10">
 
 		<!--- Component paths --->
 		<cfset application.componentPathTo = structNew()>
@@ -61,48 +65,13 @@
 		<cfinclude template="#application.pathTo.config#/environment.ini" />
 		<cfinclude template="#application.pathTo.config#/database.ini" />
 
-	</cffunction>
-	
-	
-	<!--- Runs when the application ends or the server is shut down --->
-	<cffunction name="onApplicationEnd">
-	
-	</cffunction>
-	
-	
-	<!--- Runs the first time a user comes to the site (when their session begins) --->
-	<cffunction name="onSessionStart">
-	
-	</cffunction>
-	
-	
-	<!--- Runs when a user's session expires --->
-	<cffunction name="onSessionEnd">
-	
-	</cffunction>
-	
-	
-	<!--- Runs before each page load --->
-	<cffunction name="onRequestStart">
-			
-		<!--- Reload all application variables --->
-		<cfif structKeyExists(url,'reload')>
-			<cfset this.onApplicationStart()>
-		</cfif>
-		
-		<!--- Clear out session data --->
-		<cfif structKeyExists(url,'clearsession')>
-			<cfset structClear(session)>
-		</cfif>
-		
-		<!---<cfdump var="#application#">--->	
-	</cffunction>
-	
-	
-	<!--- Runs at the end of each page load --->
-	<cffunction name="onRequestEnd">
-	
-	</cffunction>
+	</cflock>
 
+	<cfset application.initialized = true>
 
-</cfcomponent>
+</cfif>
+
+<!--- Clear out session data --->
+<cfif structKeyExists(url,'clearsession')>
+	<cfset structClear(session)>
+</cfif>

@@ -1,0 +1,86 @@
+#summary How to track changes to objects in your application.
+#labels chapter,0.9.2
+
+Wheels provides some very useful methods for tracking changes to objects. You might think, why do I need that, won't I know that I changed the object?
+
+As you work with Wheels and move away from that procedural spaghetti
+mess you used to call code to a better, cleaner object-oriented
+approach you may get a sense that you have lost control of your code a
+little bit. Your new code is creating objects, they in turn call
+functions on other objects automatically, functions are being called
+from multiple places and so on. Don't worry though, this is a good
+thing. It just takes a while to get used to, and with the help of some
+Wheels functionality it won't take you that long.
+
+==An example with callbacks==
+
+One area where this sense of losing control is especially noticeable
+is when you are using _callbacks_ on objects so let's use that for our
+example...
+
+Let's say you have used a callback to set a method to be called
+whenever a `user` object is saved to the database. You won't know
+exactly *where* this callback was called from. It could have been the
+user themselves or it could have been done from your internal
+administration area. Generally speaking you don't need to know this
+either. One thing your business logic might need though is a way to
+tell exactly *what* was changed on the object. Maybe you want to
+handle things differently if the user's last name was changed than if
+the email address was changed.
+
+Let's look at the methods Wheels provides to make tracking changes
+easier for you.
+
+==Methods for tracking changes==
+
+Let's get to coding...
+
+{{{
+<cfset post = model("post").findByKey(1)>
+<cfset result = post.hasChanged()>
+}}}
+
+Here we are using the [hasChanged hasChanged()] method to see if any of the object properties has changed. When we are talking about "change" we always mean whether or not an object's properties have changed compared to what is stored in the columns they map to in the database table.
+
+In this case the `result` variable contains `false` of course since we just fetched the object from the database and did not make any changes to it at all.
+
+Well, let's make a change then (if we didn't, this chapter wouldn't be all that interesting, would it?).
+
+{{{
+<cfset post.title = "A New Post Title">
+<cfset result = post.hasChanged()>
+}}}
+
+Now `result` will be `true` since what is stored in `post.title` differs from what is stored in the `title` column for this record in the `posts` table (well, unless the title used to be "A New Post Title" in which case the result would be `false` still).
+
+When calling [hasChanged hasChanged()] with no arguments it will check *all* properties on the object and return `true` if any of them has changed. If you want to see if a specific property has changed you can pass in `property="title"` to it or use the dynamic method [XXXHasChanged XXXHasChanged()]. Replace `XXX` with the name of the property, in our case the method would be named `titleHasChanged`.
+
+If you want to see what the old value was you can do so by calling [changedFrom changedFrom()] and passing in the name of the property. This can also be done with the dynamic [XXXChangedFrom XXXChangedFrom()] method if you want cleaner code.
+
+Once an object has changed there are a couple methods you can use to report back on these changes. [changedProperties changedProperties()] will give you a list of the property names that have been changed. [allChanges allChanges()] returns a struct containing all changes (both the property names and the changed values themselves).
+
+If you have made changes to an object and for some reason you want to revert it back you can do so by calling [reload reload()] on it. This will query the database and update the object properties with their corresponding values in the database.
+
+Ok, let's save the object to the database and see what happens.
+
+{{{
+<cfset post.save()>
+<cfset result = post.hasChanged()>
+}}}
+
+Now `result` will once again contain `false`. When you save a changed (a.k.a. dirty) object it clears out its changed state tracking and is considered unchanged again.
+
+All of these simple examples in this chapter looks a little ridiculous since it doesn't make much sense to check the status of an object when you changed it just one line above. As we said in the beginning of the chapter though, when put into context of callbacks, multiple methods etc, it will become clear how useful these methods are.
+
+==Internal use of change tracking==
+
+It's worth noting here that Wheels makes good use of this change tracking internally as well. If you make changes to an object Wheels is smart enough to only update the changed columns, leaving the rest alone. This is good for a number of reasons but perhaps most importantly database performance. In high traffic web applications the bottleneck is often the database and anything that can be done to prevent unnecessary database access is a good thing.
+
+==One "gotcha" about tracking changes==
+
+If you create an object with the [new new()] method and call [hasChanged hasChanged()] on it, it will return `true`. The reason for this seemingly unexpected behavior is that
+change is always viewed from the database's perspective. The [hasChanged hasChanged()] method will return `true` in this case because it is different from what is stored in the database (i.e. it doesn't exist at all in the database yet).
+
+If you would simply like to know if an object exists in the database or not (which may be the reason you tried using [hasChanged hasChanged()] and learned about this "gotcha" in the first place) you can use the [isNew isNew()] method.
+
+Ok, I think we've covered everything you need to know about change now.

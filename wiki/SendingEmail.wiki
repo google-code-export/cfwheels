@@ -3,19 +3,13 @@
 
 ==Step 1: Establishing Mail Server and Account Information==
 
-Within `config/settings.cfm` are seven new application scope variables for utilizing [sendEmail sendEmail()]. These variables are as follows:
+Within `config/settings.cfm` are a few new configuration variables for utilizing [sendEmail sendEmail()]. These variables are as follows:
 
 {{{
-<cfset application.settings.sendEmail.layout = false>
-<cfset application.settings.sendEmail.from = "">
-<cfset application.settings.sendEmail.to = "">
-<cfset application.settings.sendEmail.subject = "">
-<cfset application.settings.sendEmail.server = "">
-<cfset application.settings.sendEmail.username = "">
-<cfset application.settings.sendEmail.password = "">
+<cfset set(functionName="sendEmail", server="", username="", password="")>
 }}}
 
-All fields can be left blank and specified directly in the [sendEmail sendEmail()] function call. Or you can use the more efficient approach to pre-define the [sendEmail sendEmail()] values that will remain constant across your application. This includes a default `from`, `server`, `username`, `password`, and `layout`.
+All fields can be left blank and specified directly in the [sendEmail sendEmail()] function call. Or you can use the more efficient approach to pre-define the [sendEmail sendEmail()] values that will remain constant across your application. This includes a default `server`, `username`, `password`, and `layout`.
 
 By specifying these values within `config/settings.cfm`, these arguments can be omitted from all [sendEmail sendEmail()] function calls, thus providing cleaner, less cluttered code.
 
@@ -53,6 +47,7 @@ Here's an example for `myemailtemplate.cfm`, which will contain HTML content. No
 <cfset
   sendEmail(
     type="html",
+    from="no-reply@yourwebsite.com",
     to=member.email,
     template="myemailtemplate",
     subject="Thank You for Becoming a Member",
@@ -62,7 +57,7 @@ Here's an example for `myemailtemplate.cfm`, which will contain HTML content. No
 >
 }}}
 
-If we pretend that `config/settings.cfm` sets default values for `server`, `username`, `password`, and `from`, only the desired fields need to be included as [sendEmail sendEmail()] arguments.
+If we pretend that `config/settings.cfm` sets default values for `server`, `username` and `password`, only the desired fields need to be included as [sendEmail sendEmail()] arguments.
 
 It is also important to note that the `template` argument should be the path to the view's folder name and CFM file name without the extension. If the template is in the current controller, then you don't need to specify a folder path to the template file. In that case, just be sure to store the template file in the folder with the rest of the views for that controller.
 
@@ -71,7 +66,7 @@ It is also important to note that the `template` argument should be the path to 
 That's it. With all attributes set in the `settings/config.cfm`, use of [sendEmail sendEmail()] could be as simple as this:
 
 {{{
-<cfset sendEmail("myemailtemplate")>
+<cfset sendEmail(from="no-reply@yourwebsite.com", to="someone@somewhere.com", subject="Thank you",  template="myemailtemplate")>
 }}}
 
 ==Bonus Step: Email Layouts==
@@ -95,6 +90,7 @@ In this case, the 2 calls to [sendEmail sendEmail()] would be identical, with th
 <cfset
   sendEmail(
     type="html",
+    from="no-reply@yourwebsite.com",
     template="myemailtemplate",
     layout="email/customer",
     to=member.email,
@@ -108,6 +104,7 @@ In this case, the 2 calls to [sendEmail sendEmail()] would be identical, with th
 <cfset
   sendEmail(
     type="html",
+    from="no-reply@yourwebsite.com",
     template="myemailtemplate",
     layout="email/admin",
     to="admin@domain.com",

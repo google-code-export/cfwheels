@@ -1,5 +1,5 @@
 #summary Use Wheels to simplify the task of setting up automated emails in your application.
-#labels chapter,0.9.2
+#labels chapter,0.9.2,draft
 
 Sending emails in Wheels is done from your controller files with the [sendEmail sendEmail()] function. It's basically a wrapper around `cfmail` but it has some smart functions and a more Wheels-like approach in general.
 

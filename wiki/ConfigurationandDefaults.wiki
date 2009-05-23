@@ -139,7 +139,7 @@ This will enable soft delete on all models that contains the `trashedAt` propert
 || `timeStampOnCreateProperty` || `string` || `createdAt` || Name of database column that Wheels will look for in order to automatically store a "created at" time stamp when records are created. ||
 || `timeStampOnUpdateProperty` || `string` || `updatedAt` || Name of the database column that Wheels will look for in order to automatically store an "updated at" time stamp when records are updated. ||
 || `ipExceptions` || `string` || `[empty string]` || IP addresses that Wheels will ignore when the environment is set to `maintenance`. That way administrators can test the site while in maintenance mode, while the rest of users will see the message loaded in `events/onmaintenance.cfm`. ||
-|| `overwritePlugins` || `boolean` || `true` ||  ||
+|| `overwritePlugins` || `boolean` || `true` || Whether or not Wheels should overwrite plugin files based on their source zip files on application reload. Setting this to `false` makes plugin development easier because you don't need to keep rezipping your plugin files every time you make a change. ||
 
 ===Wrapping It Up===
 

@@ -69,7 +69,7 @@ For example, let's say that we want to disable debugging information in our `dev
 
 || *Name* || *Type* || *Default* || *Description* ||
 || `showDebugInformation` || `boolean` || Enabled in `design` and `development` || When set to `true`, Wheels will show debugging information in the footers of your pages. ||
-|| `showErrorInformation` || `boolean` || When set to `false`, Wheels will run and display code stored at `events/onerror.cfm` instead of CFML errors. ||
+|| `showErrorInformation` || `boolean` || Enabled in `production` || When set to `false`, Wheels will run and display code stored at `events/onerror.cfm` instead of CFML errors. ||
 || `sendEmailOnError` || `boolean` || Enabled in `production` environments that have a TLD like `.com`, `.org`, etc. || When set to `true`, Wheels will send an email to administrators whenever Wheels throws an error. ||
 || `errorEmailAddress` || `string` || `[empty string]` || Comma-delimited list of email address to send error notifications to. Only applies if `sendEmailOnError` is set to `true`. ||
 

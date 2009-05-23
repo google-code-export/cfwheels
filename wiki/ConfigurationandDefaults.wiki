@@ -129,6 +129,18 @@ Let's say you don't like the convention name for the soft delete feature of Whee
 
 This will enable soft delete on all models that contains the `trashedAt` property instead of the Wheels default, `deletedAt`.
 
+====Full Listing of Miscellaneous Settings====
+
+|| *Name* || *Type* || *Default* || *Description* ||
+|| `tableNamePrefix` || `string` || `[empty string]` || String to prefix all database tables with so you don't need to define your model objects including it. Useful in environments that have table naming conventions like starting all table names with `tbl` ||
+|| `obfuscateURLs` || `boolean` || `false` || Whether or not to obfuscate primary keys in URLs. ||
+|| `reloadPassword` || `string` || `[empty string]` || Password to require when reloading the Wheels application from the URL. Leave empty to require no password. ||
+|| `softDeleteProperty` || `string` || `deletedAt` || Name of database column that Wheels will look for in order to enforce soft deletes. ||
+|| `timeStampOnCreateProperty` || `string` || `createdAt` || Name of database column that Wheels will look for in order to automatically store a "created at" time stamp when records are created. ||
+|| `timeStampOnUpdateProperty` || `string` || `updatedAt` || Name of the database column that Wheels will look for in order to automatically store an "updated at" time stamp when records are updated. ||
+|| `ipExceptions` || `string` || `[empty string]` || IP addresses that Wheels will ignore when the environment is set to `maintenance`. That way administrators can test the site while in maintenance mode, while the rest of users will see the message loaded in `events/onmaintenance.cfm`. ||
+|| `overwritePlugins` || `boolean` || `true` ||  ||
+
 ===Wrapping It Up===
 
 There are literally hundreds of configurations options in Wheels for you to play around with. So go ahead and sink your teeth into Wheels configuration and defaults.

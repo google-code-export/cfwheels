@@ -13,7 +13,7 @@ You can also set values based on what environment you have set. For example, you
 
 To change a Wheels application default, you generally use the [set set()] function. With it, you can perform all sorts of tweaks to the framework's default behaviors.
 
-If you would like to do your own application configurations outside of general Wheels behavior, we recommend setting those values in the files in the `config` folder as well. Just set them in the `application` scope, and you'll be able to access them anywhere in your app (though we generally recommend keeping that in the controllers).
+If you would like to do your own application configurations outside of general Wheels behavior, we recommend setting those values in the files in the `config` folder as well. Just set them in the `application` scope, and you'll be able to access them anywhere in your app (though we generally recommend keeping that access constrained to controllers).
 
 ==Types of Configurations Available==
 

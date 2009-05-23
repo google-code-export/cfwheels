@@ -62,7 +62,7 @@ Now `result` will once again contain `false`. When you save a changed (a.k.a. "d
 
 All of the examples in this chapter look a little ridiculous because it doesn't make much sense to check the status of an object when you changed it manually in your code. As we said in the beginning of the chapter, when put into context of callbacks, multiple methods, etc., it will become clear how useful these methods really are.
 
-==Internal Use of Change tracking==
+==Internal Use of Change Tracking==
 
 It's worth noting here that Wheels makes good use of this change tracking internally as well. If you make changes to an object, Wheels is smart enough to only update the changed columns, leaving the rest alone. This is good for a number of reasons but perhaps most importantly for database performance. In high traffic web applications, the bottleneck is often the database, and anything that can be done to prevent unnecessary database access is a good thing.
 

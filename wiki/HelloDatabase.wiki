@@ -290,7 +290,7 @@ Now we'll create the `update` action. This will be similar to the `create` actio
     <cfset user = model("user").findByKey(params.user.id)>
     <cfset user.update(params.user)>
     <cfset flashInsert(success="User #user.name# updated successfully.")>
-    <cfset redirectTo(action="edit")>
+    <cfset redirectTo(action="edit", key=user.id)>
 
 </cffunction>
 }}}

@@ -41,7 +41,6 @@ The controller continues with the simplicity of validation setup, and at the mos
 <cfcomponent extends="Controller">
 
     <cffunction name="apply">
-
         <!--- User model from form fields via params --->
         <cfset newUser = model("user").new(params.newUser)>
 
@@ -51,7 +50,6 @@ The controller continues with the simplicity of validation setup, and at the mos
         <cfelse>
             <cfset renderPage(action="index")>
         </cfif>
-
     </cffunction>
 
 </cfcomponent>

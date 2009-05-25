@@ -76,6 +76,7 @@ The view needs only be a simple form and associated inputs to the model's proper
     #textField(objectName="newUser", property="nameFirst", label="First Name")#
     #textField(objectName="newUser", property="nameLast", label="Last Name")#
     #textField(objectName="newUser", property="email", label="Email")#
+    #submitTag()#
 #endFormTag()#
 
 </cfoutput>

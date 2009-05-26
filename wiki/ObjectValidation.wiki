@@ -1,5 +1,5 @@
 #summary Wheels utilizes validation setup within the model to enforce appropriate data constraints and persistence. Validation may be performed for save, create and updates.
-#labels chapter,0.9.2
+#labels chapter,0.9.2,published_prod
 
 ==Basic Setup==
 
@@ -64,8 +64,6 @@ The important step here is to recognize that the `<cfelse>` renders the original
 ===The View===
 
 The view needs only be a simple form and associated inputs to the model's properties. The only aspect that sets this view apart from a non-validated form is the first line of Wheels code.
-
-In our example, this is the view at `views/example/index.cfm`:
 
 {{{
 <cfoutput>

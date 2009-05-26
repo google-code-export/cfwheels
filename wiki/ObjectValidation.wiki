@@ -63,7 +63,9 @@ The important step here is to recognize that the `<cfelse>` renders the original
 
 ===The View===
 
-The view needs only be a simple form and associated inputs to the model's properties. The only aspect that sets this view apart from a non-validated form is the first line of Wheels code:
+The view needs only be a simple form and associated inputs to the model's properties. The only aspect that sets this view apart from a non-validated form is the first line of Wheels code.
+
+In our example, this is the view at `views/example/index.cfm`:
 
 {{{
 <cfoutput>

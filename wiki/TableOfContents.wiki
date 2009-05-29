@@ -65,6 +65,7 @@
  * [DirectoryStructure Directory Structure]
  * [SwitchingEnvironments Switching Environments]
  * [UsingandCreatingPlugins Using and Creating Plugins]
+ * [CFMLandMVCBestPractices CFML and MVC Best Practices]
 
 ===Contributing to Wheels===
 

@@ -5,7 +5,7 @@
 
 Much of this chapter is a reference for which layer of the MVC pattern is most appropriate for each scope, tag, or function. Here's how you can take advantage of CFML elements while still honoring Wheels MVC best practices.
 
-And hey, this list may even be useful for you if you develop in other CFML controller/MVC frameworks like Fusebox, Mach-II, Model-Glue, and others.
+And hey, this reference may even be useful for you if you develop in other CFML controller/MVC frameworks like Fusebox, Mach-II, Model-Glue, and others.
 
 ==CFML Scopes==
 

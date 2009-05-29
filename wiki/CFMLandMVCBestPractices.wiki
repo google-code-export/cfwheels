@@ -1,9 +1,11 @@
 #labels chapter,draft
-#Wheels and all of the tools included in CFML engines offer quite a useful toolset. Here's how to best combine the 2 together.
+# Wheels and all of the tools included in CFML engines offer quite a useful toolset. Here's how to best combine the 2 together.
 
-!ColdFusion on Wheels mixes the best of both worlds: increased productivity characteristic of the Ruby on Rails framework along with the best-in-class tool set provided through built-in CFML tags and functions.
+!ColdFusion on Wheels mixes the best of both worlds: increased productivity characteristic of the Ruby on Rails framework along with the best-in-class tool set provided through built-in CFML scopes, tags, and functions.
 
-Much of this chapter is a reference for which layer of the MVC pattern is most appropriate for each tag or function. Here's how you can take advantage of CFML elements while still honoring Wheels MVC best practices.
+Much of this chapter is a reference for which layer of the MVC pattern is most appropriate for each scope, tag, or function. Here's how you can take advantage of CFML elements while still honoring Wheels MVC best practices.
+
+And hey, this list may even be useful for you if you develop in other CFML controller/MVC frameworks like Fusebox, Mach-II, Model-Glue, and others.
 
 ==CFML Scopes==
 

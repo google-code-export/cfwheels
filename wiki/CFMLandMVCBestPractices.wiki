@@ -1,5 +1,5 @@
 #labels chapter,draft
-#!ColdFusion on Wheels and all of the tools included in CFML engines offer quite a useful toolset. Here's how to best combine the 2 together.
+#Wheels and all of the tools included in CFML engines offer quite a useful toolset. Here's how to best combine the 2 together.
 
 !ColdFusion on Wheels mixes the best of both worlds: increased productivity characteristic of the Ruby on Rails framework along with the best-in-class tool set provided through built-in CFML tags and functions.
 
@@ -152,7 +152,7 @@ Much of this chapter is a reference for which layer of the MVC pattern is most a
 || *ACos* || || || || || ||
 || *AddSoapRequestHeader* || || || || || ||
 || *AddSoapResponseHeader* || || || || || ||
-|| *AjaxLink* || || || || || ||
+|| *!AjaxLink* || || || || || ||
 || *AjaxOnLoad* || || || || || ||
 || *ArrayAppend* || || || || || ||
 || *ArrayAvg* || || || || || ||

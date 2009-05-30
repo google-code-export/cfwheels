@@ -1,4 +1,4 @@
-#summary textAreaTag(name[value,label,wrapLabel,prepend,append,prependToLabel,appendToLabel])
+#summary textAreaTag(name[content,label,wrapLabel,prepend,append,prependToLabel,appendToLabel])
 #labels chapter,0.9.1
 
 *Category*:
@@ -21,7 +21,7 @@ String
 
 ||   || *Type* || *Required* || *Default* || *Description* ||
 || *name* || string || true || - || See documentation for `textFieldTag ` ||
-|| *value* || string || true || - || See documentation for `textFieldTag ` ||
+|| *content* || string || true || - || Sets the initial value of the `textarea` control ||
 || *label* || string || false ||   || See documentation for `textFieldTag ` ||
 || *wrapLabel* || boolean || false || true || See documentation for `textFieldTag ` ||
 || *prepend* || string || false ||   || See documentation for `textFieldTag ` ||

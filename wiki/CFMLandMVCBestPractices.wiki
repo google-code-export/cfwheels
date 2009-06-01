@@ -31,27 +31,30 @@ And hey, this reference may even be useful for you if you develop applications u
 ==CFML Tags==
 
 || *Tag* || *Docs* || *Model* || *View* || *Controller* || *Notes* ||
-|| *cfabort* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_a-b_1.html#3835579 CF8]|| || || || ||
-|| *cfajaximport* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_a-b_2.html#3980738 CF8] || || || || ||
-|| *cfajaxproxy* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_a-b_3.html#3983510 CF8] || || || || ||
-|| *cfapplet* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_a-b_4.html#1097239 CF8] || || || || ||
-|| *cfapplication* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_a-b_5.html#1097308 CF8] || || || || ||
-|| *cfargument* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_a-b_6.html#2855190 CF8] || || || || ||
-|| *cfassociate* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_a-b_7.html#3393273 CF8] || || || || ||
-|| *cfbreak* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_a-b_9.html#1097484 CF8] || || || || ||
-|| *cfcache* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_c_01.html#1097532 CF8] || || || || ||
-|| *cfcalendar* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_c_02.html#3798877 CF8] || || || || ||
-|| *cfcase* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_c_03.html#3798974 CF8] || || || || ||
-|| *cfcatch* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_c_04.html#3395038 CF8] || || || || ||
-|| *cfchart* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_c_05.html#2619630 CF8] || || || || ||
-|| *cfchartdata* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_c_06.html#2748541 CF8] || || || || ||
-|| *cfchartseries* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_c_07.html#2741830 CF8] || || || || ||
-|| *cfcol* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_c_08.html#1097607 CF8] || || || || ||
-|| *cfcollection* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_c_09.html#1097667 CF8] || || || || ||
-|| *cfcomponent* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_c_10.html#3350776 CF8] || || || || ||
-|| *cfcontent* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_c_11.html#2850760 CF8] || || || || ||
-|| *cfcookie* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_c_12.html#3839604 CF8] || || || || ||
-|| *cfdbinfo* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_d-e_01.html#3996857 CF8] || || || || ||
+|| *cfabort* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_a-b_1.html#3835579 CF8] [http://wiki.getrailo.org/wiki/3-1-Tags:CFAbort Railo 3.1] || || || || ||
+|| *cfadmin* || [http://wiki.getrailo.org/wiki/3-1-Tags:CFAdmin Railo 3.1] || || || || ||
+|| *cfajaximport* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_a-b_2.html#3980738 CF8] [http://wiki.getrailo.org/wiki/3-1-Tags:CFAjaximport Railo 3.1] || || || || ||
+|| *cfajaxproxy* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_a-b_3.html#3983510 CF8] [http://wiki.getrailo.org/wiki/3-1-Tags:CFAjaxProxy Railo 3.1] || || || || ||
+|| *cfapplet* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_a-b_4.html#1097239 CF8] [http://wiki.getrailo.org/wiki/3-1-Tags:CFApplet Railo 3.1] || || || || ||
+|| *cfapplication* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_a-b_5.html#1097308 CF8] [http://wiki.getrailo.org/wiki/3-1-Tags:CFApplication Railo 3.1] || || || || ||
+|| *cfargument* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_a-b_6.html#2855190 CF8] [http://wiki.getrailo.org/wiki/3-1-Tags:CFArgument Railo 3.1] || || || || ||
+|| *cfassociate* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_a-b_7.html#3393273 CF8] [http://wiki.getrailo.org/wiki/3-1-Tags:CFAssociate Railo 3.1] || || || || ||
+|| *cfauthenticate* || [http://wiki.getrailo.org/wiki/3-1-Tags:CFAuthenticate Railo 3.1] || || || || ||
+|| *cfbreak* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_a-b_9.html#1097484 CF8] [http://wiki.getrailo.org/wiki/3-1-Tags:CFBreak Railo 3.1] || || || || ||
+|| *cfcache* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_c_01.html#1097532 CF8] [http://wiki.getrailo.org/wiki/3-1-Tags:CFCache Railo 3.1] || || || || ||
+|| *cfcalendar* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_c_02.html#3798877 CF8] [http://wiki.getrailo.org/wiki/3-1-Tags:CFCalendar Railo 3.1] || || || || ||
+|| *cfcase* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_c_03.html#3798974 CF8] [http://wiki.getrailo.org/wiki/3-1-Tags:CFCase Railo 3.1] || || || || ||
+|| *cfcatch* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_c_04.html#3395038 CF8] [http://wiki.getrailo.org/wiki/3-1-Tags:CFCatch Railo 3.1] || || || || ||
+|| *cfchart* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_c_05.html#2619630 CF8] [http://wiki.getrailo.org/wiki/3-1-Tags:CFChart Railo 3.1] || || || || ||
+|| *cfchartdata* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_c_06.html#2748541 CF8] [http://wiki.getrailo.org/wiki/3-1-Tags:CFChartdata Railo 3.1] || || || || ||
+|| *cfchartseries* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_c_07.html#2741830 CF8] [http://wiki.getrailo.org/wiki/3-1-Tags:CFChartseries Railo 3.1] || || || || ||
+|| *cfcol* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_c_08.html#1097607 CF8] [http://wiki.getrailo.org/wiki/3-1-Tags:CFCol Railo 3.1] || || || || ||
+|| *cfcollection* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_c_09.html#1097667 CF8] [http://wiki.getrailo.org/wiki/3-1-Tags:CFCollection Railo 3.1] || || || || ||
+|| *cfcomponent* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_c_10.html#3350776 CF8] [http://wiki.getrailo.org/wiki/3-1-Tags:CFComponent Railo 3.1] || || || || ||
+|| *cfcontent* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_c_11.html#2850760 CF8] [http://wiki.getrailo.org/wiki/3-1-Tags:CFContent Railo 3.1] || || || || ||
+|| *cfcontinue* || [http://wiki.getrailo.org/wiki/3-1-Tags:CFContinue Railo 3.1] || || || || ||
+|| *cfcookie* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_c_12.html#3839604 CF8] [http://wiki.getrailo.org/wiki/3-1-Tags:CFCookie Railo 3.1] || || || || ||
+|| *cfdbinfo* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_d-e_01.html#3996857 CF8] [http://wiki.getrailo.org/wiki/3-1-Tags:CFDBInfo Railo 3.1] || || || || ||
 || *cfdefaultcase* || || || || || ||
 || *cfdiv* || || || || || ||
 || *cfdocument* || || || || || ||

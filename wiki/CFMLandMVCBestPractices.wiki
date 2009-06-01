@@ -1,5 +1,5 @@
+#summary Wheels and all of the tools included in CFML engines offer quite a useful toolset. Here's how to best combine the 2 together.
 #labels chapter,draft
-# Wheels and all of the tools included in CFML engines offer quite a useful toolset. Here's how to best combine the 2 together.
 
 !ColdFusion on Wheels mixes the best of both worlds: increased productivity characteristic of the Ruby on Rails framework along with the best-in-class tool set provided through built-in CFML scopes, tags, and functions.
 

@@ -31,13 +31,13 @@ And hey, this reference may even be useful for you if you develop in other CFML 
 ==CFML Tags==
 
 || *Tag* || *Docs* || *Model* || *View* || *Controller* || *Notes* ||
-|| *cfabort* || || || || || ||
-|| *cfajaximport* || || || || || ||
-|| *cfajaxproxy* || || || || || ||
-|| *cfapplet* || || || || || ||
-|| *cfapplication* || || || || || ||
-|| *cfargument* || || || || || ||
-|| *cfassociate* || || || || || ||
+|| *cfabort* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_a-b_1.html#3835579 CF8]|| || || || ||
+|| *cfajaximport* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_a-b_2.html#3980738 CF8] || || || || ||
+|| *cfajaxproxy* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_a-b_3.html#3983510 CF8] || || || || ||
+|| *cfapplet* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_a-b_4.html#1097239 CF8] || || || || ||
+|| *cfapplication* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_a-b_5.html#1097308 CF8] || || || || ||
+|| *cfargument* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_a-b_6.html#2855190 CF8] || || || || ||
+|| *cfassociate* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_a-b_7.html#3393273 CF8] || || || || ||
 || *cfbreak* || || || || || ||
 || *cfcache* || || || || || ||
 || *cfcalendar* || || || || || ||
@@ -209,7 +209,7 @@ And hey, this reference may even be useful for you if you develop in other CFML 
 || *!BitShln* || || || || || ||
 || *!BitShrn* || || || || || ||
 || *!BitXor* || || || || || ||
-|| *!Ceiling* || || || || || ||
+|| *Ceiling* || || || || || ||
 || *!CharsetDecode* || || || || || ||
 || *!CharsetEncode* || || || || || ||
 || *Chr* || || || || || ||
@@ -414,7 +414,7 @@ And hey, this reference may even be useful for you if you develop in other CFML 
 || *Len* || || || || || ||
 || *!ListAppend* || || || || || ||
 || *!ListChangeDelims* || || || || || ||
-|| *1ListContains* || || || || || ||
+|| *!ListContains* || || || || || ||
 || *!ListContainsNoCase* || || || || || ||
 || *!ListDeleteAt* || || || || || ||
 || *!ListFind* || || || || || ||

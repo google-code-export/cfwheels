@@ -1,0 +1,19 @@
+#summary Learn to use partial page templates.
+#labels chapter,0.9.3
+
+ROUGH DRAFT...
+
+same part from multiple pages - useful with partials.
+like cfinclude but with some extra goodies
+identified by prepending with an underscore in the file name (but referenced without it in the code)
+
+any args passed in will be var scoped and placed in a var with the same name as the partial
+can also access the view variables but cleaner to use local vars (no conflits, leads to bugs etc)
+
+can pass in partial=object and the partial "article" (name of object) will be used and the local var article set. can pass in the query and it will loop through and call each partial, will also set a counter variable (possible to get name of the query?).or is it better to pass in "article" and Wheels will look for an object named article, probably not.
+
+Also implement spacerTemplate. should accept straight html or a file name. no vars need to be passed to it.
+
+Can also share partials between controllers, normal to place them in its own folder then. Rendering follows the rule for renderPage(template)?
+
+can also use the partials directly from the controller using renderpartial. Useful for ajax calls, inlcude example with blog comments.

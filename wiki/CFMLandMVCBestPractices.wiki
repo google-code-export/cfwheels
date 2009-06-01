@@ -38,20 +38,20 @@ And hey, this reference may even be useful for you if you develop in other CFML 
 || *cfapplication* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_a-b_5.html#1097308 CF8] || || || || ||
 || *cfargument* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_a-b_6.html#2855190 CF8] || || || || ||
 || *cfassociate* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_a-b_7.html#3393273 CF8] || || || || ||
-|| *cfbreak* || || || || || ||
-|| *cfcache* || || || || || ||
-|| *cfcalendar* || || || || || ||
-|| *cfcase* || || || || || ||
-|| *cfcatch* || || || || || ||
-|| *cfchart* || || || || || ||
-|| *cfchartdata* || || || || || ||
-|| *cfchartseries* || || || || || ||
-|| *cfcol* || || || || || ||
-|| *cfcollection* || || || || || ||
-|| *cfcomponent* || || || || || ||
-|| *cfcontent* || || || || || ||
-|| *cfcookie* || || || || || ||
-|| *cfdbinfo* || || || || || ||
+|| *cfbreak* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_a-b_9.html#1097484 CF8] || || || || ||
+|| *cfcache* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_c_01.html#1097532 CF8] || || || || ||
+|| *cfcalendar* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_c_02.html#3798877 CF8] || || || || ||
+|| *cfcase* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_c_03.html#3798974 CF8] || || || || ||
+|| *cfcatch* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_c_04.html#3395038 CF8] || || || || ||
+|| *cfchart* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_c_05.html#2619630 CF8] || || || || ||
+|| *cfchartdata* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_c_06.html#2748541 CF8] || || || || ||
+|| *cfchartseries* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_c_07.html#2741830 CF8] || || || || ||
+|| *cfcol* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_c_08.html#1097607 CF8] || || || || ||
+|| *cfcollection* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_c_09.html#1097667 CF8] || || || || ||
+|| *cfcomponent* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_c_10.html#3350776 CF8] || || || || ||
+|| *cfcontent* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_c_11.html#2850760 CF8] || || || || ||
+|| *cfcookie* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_c_12.html#3839604 CF8] || || || || ||
+|| *cfdbinfo* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/Tags_d-e_01.html#3996857 CF8] || || || || ||
 || *cfdefaultcase* || || || || || ||
 || *cfdiv* || || || || || ||
 || *cfdocument* || || || || || ||

@@ -1,14 +1,24 @@
 #summary Rendering view pages to the browser.
 #labels chapter,0.9.3
 
-= Introduction =
+controller action decides what to render
+this chapter is about where to place templates and what goes in them
+normally html but can also be xml, javascript etc
+templates live in the views folder
+separate sub dir for each controller
+templates correspond to action
+not all controllers have views
+you can have templates not belonging to actions though (maybe they are called from multiple actions)
 
-Add your content here.
+describe some example and the diff between renderPage(action / template)
 
+what goes in a template - just your regular cf code and some additions wheels constructs to help you keep things clean
+has access to al vars set in the controller
+incl the params but might be recommended to do that work in contrller
+flash as well
+try avoiding putting too much code into a template, keep them simple so a designer can work in them
 
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+partials
+helpers
+layouts
+link to other chapters...

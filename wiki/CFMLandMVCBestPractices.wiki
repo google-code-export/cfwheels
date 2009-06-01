@@ -548,7 +548,7 @@ And hey, this reference may even be useful for you if you develop applications u
 || *!XmlSearch* || || || || || ||
 || *!XmlTransform* || || || || || ||
 || *!XmlValidate* || || || || || ||
-|| *Year* || || || || || ||
+|| *Year* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/help.html?content=functions_t-z_28.html#140465 CF8] [http://wiki.getrailo.org/wiki/3-1-Functions:Year Railo 3.1] || || View || || ||
 || *!YesNoFormat* || [http://livedocs.adobe.com/coldfusion/8/htmldocs/functions_t-z_28.html#140465 CF8] [http://wiki.getrailo.org/wiki/3-1-Functions:YesNoFormat Railo 3.1] || || View || || ||
 
 ==Agree to Disagree==

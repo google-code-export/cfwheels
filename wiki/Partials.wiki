@@ -4,8 +4,10 @@
 ROUGH DRAFT...
 
 same part from multiple pages - useful with partials.
+also useful to just break up pages into more manageable pieces so you can focus on each part indivdually.
 like cfinclude but with some extra goodies
 identified by prepending with an underscore in the file name (but referenced without it in the code)
+it's possible to use partials from layouts as well
 
 any args passed in will be var scoped and placed in a var with the same name as the partial
 can also access the view variables but cleaner to use local vars (no conflits, leads to bugs etc)

@@ -1,6 +1,8 @@
 #summary Rendering view pages to the browser.
 #labels chapter,0.9.3
 
+ROUGH DRAFT...
+
 controller action decides what to render
 this chapter is about where to place templates and what goes in them
 normally html but can also be xml, javascript etc

@@ -15,7 +15,7 @@
 ===Handling Requests With Controllers===
 
  * [RequestHandling Request Handling]
- * [RenderingPages Rendering Pages]
+ * [RenderingContent Rendering Content]
  * [RedirectingUsers Redirecting Users]
  * [SendingFiles Sending Files]
  * [SendingEmail Sending Email]

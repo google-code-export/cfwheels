@@ -19,6 +19,8 @@ You also need to call [renderPage renderPage()] explicitly if you wish to cache 
 
 If the `controller` and `action` arguments do not give you enough flexibility you can use the `template` argument that is available for [renderPage renderPage()].
 
+Please refer to the [Pages Pages] chapter for more details about rendering content. More specifically where to place those files and what goes in them.
+
 ==Rendering a Partial==
 
 This is done with the [renderPartial renderPartial()] function. It's most often used with AJAX requests that are meant to update only parts of a page.

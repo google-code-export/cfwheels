@@ -1,6 +1,10 @@
 #summary Rendering view pages to the browser.
 #labels chapter,0.9.3
 
+We've talked previously about how the controller is responsible for deciding what content to render to the user. Read the [RenderingContent Rendering Content] chapter if you need to refresh your memory.
+
+In this chapter we'll cover where to place the files that represent your view and what you can put in them.
+
 ROUGH DRAFT...
 
 controller action decides what to render

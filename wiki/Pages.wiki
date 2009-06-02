@@ -1,9 +1,43 @@
 #summary Rendering view pages to the browser.
 #labels chapter,0.9.3
 
-We've talked previously about how the controller is responsible for deciding what content to render to the user. Read the [RenderingContent Rendering Content] chapter if you need to refresh your memory.
+We've talked previously about how the controller is responsible for deciding which view files to render to the user. Read the [RenderingContent Rendering Content] chapter if you need to refresh your memory.
 
-In this chapter we'll cover where to place the files that represent your view and what you can put in them.
+In this chapter we'll cover where to place these files and what sort of code you can put in them.
+
+*Where do I Place the Files*
+
+In the simplest case your controller action will have one view file associated with it. As explained in the [RenderingContent Rendering Content] chapter this file will be included automatically at the end of the controller action code. So, if you're running the `show` action in the `blog` controller for example, Wheels will include the `views/blog/show.cfm` file.
+
+Some rules can be spotted here:
+
+ * All view files live in the `views` folder.
+ * Each controller gets a sub folder named after it in the `views` folder.
+ * The view file to include is just a regular `.cfm` file named after the action.
+
+For creating standard pages your work process will likely consist of creating the controller file and the view folder for it, then creating the actions (functions) in the controller file and their associated view files (the .cfm files in the controller's view folder).
+
+There are of course exceptions to this, let's go through the some of them.
+
+**Controller actions without an associated view file**
+
+Not all controller actions need a corresponding view file. Consider the case where you process a form submission for example. To make sure it's not possible for the user to refresh the page and cause multiple submissions you may choose to perform the form processing and then send the user directly to another page using the [redirectTo redirectTo()] function.
+
+**Rendering the view file for another action**
+
+Sometimes you want the controller action to render the view file for another action. This is is especially common when you process a form but the user made an input error and you need to display the same form again for correction. In this case you can use the renderPage function and specify the action argument (which will include the view page for that action but *not* run the controller code for it).
+
+
+render another actions view
+
+render a template (shared)
+
+Rules for where to find files
+
+Some exceptions 
+
+*What Goes in the Files*
+
 
 ROUGH DRAFT...
 

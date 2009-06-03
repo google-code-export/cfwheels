@@ -3,51 +3,52 @@
 
 We've talked previously about how the controller is responsible for deciding which view files to render to the user. Read the [RenderingContent Rendering Content] chapter if you need to refresh your memory about that topic.
 
-In this chapter we'll explain exactly *where* to place these files and *what* to put in them.
+In this chapter, we'll explain exactly _where_ to place these files and _what_ to put in them.
 
-*Where do I Place the Files?*
+==Where to Place the Files==
 
-In the simplest case your controller action (typically a function inside your controller `CFC` file) will have a view file associated with it. As explained in the [RenderingContent Rendering Content] chapter this file will be included automatically at the end of the controller action code. So, if you're running the `show` action in the `blog` controller for example, Wheels will include the `views/blog/show.cfm` file.
+In the simplest case, your controller action (typically a function inside your controller CFC file) will have a view file associated with it. As explained in the [RenderingContent Rendering Content] chapter, this file will be included automatically at the end of the controller action code. So if you're running the `show` action in the `blog` controller, for example, Wheels will include the `views/blog/show.cfm` file.
 
 Some rules can be spotted here:
 
  * All view files live in the `views` folder.
- * Each controller gets a sub folder named after it in the `views` folder.
+ * Each controller gets a subfolder named after it in the `views` folder.
  * The view file to include is just a regular `.cfm` file named after the action.
 
-For creating standard pages your work process will likely consist of:
+For creating standard pages, your work process will likely consist of the following steps:
 
-1) Create the controller action (a function in the controller `CFC` file).
-2) Create the corresponding view file for it (a .cfm file in the controller's view folder)
+ # Create the controller action (a function in the controller CFC file).
+ # Create the corresponding view file for it (a `.cfm` file in the controller's view folder).
 
-Of course, you'll need to create the controller `CFC` file itself and the view folder for it first.
+There can be some exceptions to this process though, let's go through some possible scenarios.
 
-There will be some exceptions to this process though, let's go through some possible scenarios.
+==Controller Actions Without Associated View Files==
 
-**Controller actions without an associated view file**
+Not all controller actions need a corresponding view file. Consider the case where you process a form submission. To make sure it's not possible for the user to refresh the page and cause multiple submissions, you may choose to perform the form processing and then send the user directly to another page using the [redirectTo redirectTo()] function.
 
-Not all controller actions need a corresponding view file. Consider the case where you process a form submission for example. To make sure it's not possible for the user to refresh the page and cause multiple submissions you may choose to perform the form processing and then send the user directly to another page using the [redirectTo redirectTo()] function.
+==Rendering the View File for Another Action==
 
-**Rendering the view file for another action**
+Sometimes you want the controller action to render the view file for a different action than the one currently executing. This is especially common when your application processes a form and the user makes an input error. In this case, you'll probably choose to have your application display the same form again for correction.
 
-Sometimes you want the controller action to render the view file for a different action than the one currently executing. This is is especially common when you process a form but the user made an input error and you need to display the same form again for correction. In this case you can use the [renderPage renderPage()] function and specify a different action in the `action` argument (which will include the view page for that action but *not* run the controller code for it).
+In this case, you can use the [renderPage renderPage()] function and specify a different action in the `action` argument (which will include the view page for that action but *not* run the controller code for it).
 
-**Sharing a view file between actions**
-Sometimes it's useful to have a view file that can be called from several controller actions. For these cases you'll typically call [renderPage renderPage()] with the `template` argument.
+==Sharing a View File Between Actions==
 
-When using the `template` argument there are specific rules that Wheels will follow in order to locate the file you want to include:
+Sometimes it's useful to have a view file that can be called from several controller actions. For these cases, you'll typically call [renderPage renderPage()] with the `template` argument.
+
+When using the `template` argument, there are specific rules that Wheels will follow in order to locate the file you want to include:
 
  * If the `template` argument starts with the `/` character, Wheels will start searching from the root of the `views` folder. Example: `renderPage(template="/common/page")` will include the `views/common/page.cfm` file.
- * If if contains the `/` character elsewhere in the string, the search will start from the controller's view folder. Example: `renderPage(template="misc/page")` will include the `views/blog/misc/page.cfm` file if we're currently in the "blog" controller.
- * In all other cases (i.e. when the `template` argument does not contain the `/` character at all), Wheels will just assume the file is in the controller's view folder and try to include it. Example: `renderPage(template="something")` will include the `views/blog/something.cfm` file if we're currently in the "blog" controller.
+ * If it contains the `/` character elsewhere in the string, the search will start from the controller's view folder. Example: `renderPage(template="misc/page")` will include the `views/blog/misc/page.cfm` file if we're currently in the `blog` controller.
+ * In all other cases (i.e. when the `template` argument does not contain the `/` character at all), Wheels will just assume the file is in the controller's view folder and try to include it. Example: `renderPage(template="something")` will include the `views/blog/something.cfm` file if we're currently in the `blog` controller.
 
-Also note that both `renderPage(template="thepage")` and `renderPage(template="thepage.cfm")` work fine but most of the time Wheels developers will tend to leave out the `.cfm` part.
+Also note that both `renderPage(template="thepage")` and `renderPage(template="thepage.cfm")` work fine. But most of the time, Wheels developers will tend to leave out the `.cfm` part.
 
 *What Goes in the Files?*
 
-This is the output of your application, what the users will see in their browsers. Most often this will consist of HTML but it can also be JavaScript, CSS, XML etc. You are of course free to use any ColdFusion tags and functions that you want to as well.
+This is the output of your application: what the users will see in their browsers. Most often this will consist of HTML, but it can also be !JavaScript, CSS, XML, etc. You are of course free to use any !ColdFusion tags and functions that you want to in the file as well. (This is a !ColdFusion application, right?)
 
-In addition to this normal code that you'll see in most ColdFusion applications whether they are made for a framework or not, Wheels also gives you some nice constructs to help keep your code clean. The most important ones of these are Layouts, Partials and Helpers. We'll cover all of these in detail in the following chapters.
+In addition to this normal code that you'll see in most !ColdFusion applications--whether they are made for a framework or not--Wheels also gives you some nice constructs to help keep your code clean. The most important ones of these are [Layouts Using Layouts], [Partials], and [CreatingYourOwnViewHelpers Helpers].
 
 When writing your view code you will have access to the variables you have setup in the controller file. The idea is that the variables you want to access in the view should be set unscoped (or in the `variables` scope if you prefer to set it explicitly) in the controller so that they are available to the view template.
 

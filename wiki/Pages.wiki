@@ -20,7 +20,7 @@ For creating standard pages, your work process will likely consist of the follow
  # Create the controller action (a function in the controller CFC file).
  # Create the corresponding view file for it (a `.cfm` file in the controller's view folder).
 
-There can be some exceptions to this process though, let's go through some possible scenarios.
+There can be some exceptions to this process though, so let's go through some possible scenarios.
 
 ==Controller Actions Without Associated View Files==
 

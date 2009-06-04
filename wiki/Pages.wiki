@@ -1,5 +1,5 @@
 #summary Where to place your view files and what to put in them.
-#labels chapter,0.9.2
+#labels chapter,0.9.2,draft
 
 We've talked previously about how the controller is responsible for deciding which view files to render to the user. Read the [RenderingContent Rendering Content] chapter if you need to refresh your memory about that topic.
 
@@ -50,8 +50,8 @@ This is the output of your application: what the users will see in their browser
 
 In addition to this normal code that you'll see in most !ColdFusion applications--whether they are made for a framework or not--Wheels also gives you some nice constructs to help keep your code clean. The most important ones of these are [UsingLayouts Layouts], [Partials Partials], and [CreatingYourOwnViewHelpers Helpers].
 
-When writing your view code you will have access to the variables you have setup in the controller file. The idea is that the variables you want to access in the view should be set unscoped (or in the `variables` scope if you prefer to set it explicitly) in the controller so that they are available to the view template.
+When writing your view code, you will have access to the variables you have set up in the controller file. The idea is that the variables you want to access in the view should be set unscoped (or in the `variables` scope if you prefer to set it explicitly) in the controller so that they are available to the view template.
 
-In addition to the variables you have set yourself you can also access the `params` struct which contains anything passed in through the URL or with a form. If you want to follow MVC rules more closely though we recommend only accessing the `params` struct in the controller and then setting new variables for the information you need access to in the view.
+In addition to the variables you have set yourself, you can also access the `params` struct. This contains anything passed in through the URL or with a form. If you want to follow MVC rules more closely though, we recommend only accessing the `params` struct in the controller and then setting new variables for the information you need access to in the view.
 
-The most important thing to remember when creating your view is to be careful not to put too much code in there. Avoid code dealing with the incoming request (this can be moved to the controller) and code containing business logic (consider moving this to a model). If you have view related code but too much of it, it may be beneficial to break it out into a helper or a partial.
+The most important thing to remember when creating your view is to be careful not to put too much code in there. Avoid code dealing with the incoming request (this can be moved to the controller) and code containing business logic (consider moving this to a model). If you have view-related code but too much of it, it may be beneficial to break it out into a helper or a partial.

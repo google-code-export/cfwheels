@@ -44,7 +44,7 @@ When using the `template` argument, there are specific rules that Wheels will fo
 
 Also note that both `renderPage(template="thepage")` and `renderPage(template="thepage.cfm")` work fine. But most of the time, Wheels developers will tend to leave out the `.cfm` part.
 
-*What Goes in the Files?*
+==What Goes in the Files?==
 
 This is the output of your application: what the users will see in their browsers. Most often this will consist of HTML, but it can also be !JavaScript, CSS, XML, etc. You are of course free to use any !ColdFusion tags and functions that you want to in the file as well. (This is a !ColdFusion application, right?)
 

@@ -46,7 +46,7 @@ Also note that both `renderPage(template="thepage")` and `renderPage(template="t
 
 ==What Goes in the Files?==
 
-This is the output of your application: what the users will see in their browsers. Most often this will consist of HTML, but it can also be !JavaScript, CSS, XML, etc. You are of course free to use any !ColdFusion tags and functions that you want to in the file as well. (This is a !ColdFusion application, right?)
+This is the output of your application: what the users will see in their browsers. Most often this will consist of HTML, but it can also be !JavaScript, CSS, XML, etc. You are of course free to use any CFML tags and functions that you want to in the file as well. (This is a CFML application, right?)
 
 In addition to this normal code that you'll see in most !ColdFusion applications--whether they are made for a framework or not--Wheels also gives you some nice constructs to help keep your code clean. The most important ones of these are [UsingLayouts Layouts], [Partials Partials], and [CreatingYourOwnViewHelpers Helpers].
 

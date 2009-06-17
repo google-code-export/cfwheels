@@ -93,11 +93,11 @@ In this case, the 2 calls to [sendEmail sendEmail()] would be nearly identical, 
 <!--- Get new member --->
 <cfset member = model("Member").findByKey(newMember.id)>
 
-<!--- Multi-part customer email with customized header/footer --->
+<!--- Customer email with customized header/footer --->
 <cfset
   sendEmail(
     from="service@yourwebsite.com",
-    template="myhtmlemailtemplate,mytextemailtemplate",
+    template="myemailtemplate",
     layout="customer",
     to=member.email,
     subject="Thank You for Becoming a Member",

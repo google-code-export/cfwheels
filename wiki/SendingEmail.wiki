@@ -1,13 +1,13 @@
 #summary Use Wheels to simplify the task of setting up automated emails in your application.
 #labels chapter,0.9.2,draft
 
-Sending emails in Wheels is done from your controller files with the [sendEmail sendEmail()] function. It's basically a wrapper around `cfmail` but it has some smart functions and a more Wheels-like approach in general.
+Sending emails in Wheels is done from your controller files with the [sendEmail sendEmail()] function. It's basically a wrapper around `cfmail`, but it has some smart functionality and a more Wheels-like approach in general.
 
-Getting this to work in Wheels can be broken down in 3 steps, we'll walk you through them...
+Getting this to work in Wheels can be broken down in 3 steps. We'll walk you through them.
 
 ==Step 1: Establishing Mail Server and Account Information==
 
-We recommend using Wheels ability to set global defaults for [sendEmail sendEmail()] so that you don't have to specify more arguments than necessary in your controller files. Since it's likely that you will use the same mail server across your application this makes it worthwhile to set a global default for it. 
+We recommend using Wheels ability to set global defaults for [sendEmail sendEmail()] so that you don't have to specify more arguments than necessary in your controller files. Because it's likely that you will use the same mail server across your application, this makes it worthwhile to set a global default for it. 
 
 This setting should be done in the `config/settings.cfm` file and can look something like this:
 
@@ -17,7 +17,7 @@ This setting should be done in the `config/settings.cfm` file and can look somet
 
 By specifying these values here, these arguments can be omitted from all [sendEmail sendEmail()] function calls, thus providing cleaner, less cluttered code.
 
-You are not limited to setting only these 3 variables, in fact, you can set a global default for any optional argument to [sendEmail sendEmail()] and since it accepts the same arguments that `cfmail` does, that's quite a few.
+But you are not limited to setting only these 3 variables. In fact, you can set a global default for any optional argument to [sendEmail sendEmail()] and since it accepts the same arguments that `cfmail` does. That's quite a few.
 
 ==Step 2: Create an Email Template==
 
@@ -46,7 +46,7 @@ Here's an example for `myemailtemplate.cfm`, which will contain HTML content.
 
 ==Step 3: Sending the Email==
 
-As we've said before, [sendEmail sendEmail()] accepts all attribute of CFML's `<cfmail>` tag as arguments but it also accepts any variables that you need to pass to the email template itself.
+As we've said before, [sendEmail sendEmail()] accepts all attribute of CFML's `<cfmail>` tag as arguments. But it also accepts any variables that you need to pass to the email template itself.
 
 Consider the following example:
 
@@ -54,7 +54,7 @@ Consider the following example:
 <cfset member = model("member").findByKey(newMember.id)>
 <cfset
   sendEmail(
-    from="no-reply@yourwebsite.com",
+    from="service@yourwebsite.com",
     to=member.email,
     template="myemailtemplate",
     subject="Thank You for Becoming a Member",
@@ -64,21 +64,23 @@ Consider the following example:
 >
 }}}
 
-Here we are sending an email by including the `myemailtemplate` and passing through `recipientName` and `startDate` to it.
+Here we are sending an email by including the `myemailtemplate` template and passing values for `recipientName` and `startDate` to it.
 
-Did you notice that we did not have to specify the `type` attribute of `cfmail`? Wheels is smart enough to figure out that you want to send as HTML since you have tags in the email body (you can of course override this behavior if necessary though by passing in the `type` argument).
+Did you notice that we did not have to specify the `type` attribute of `cfmail`? Wheels is smart enough to figure out that you want to send as HTML since you have tags in the email body. (You can override this behavior if necessary though by passing in the `type` argument.)
 
-The smartness doesn't end there though. You can have Wheels send a multi-part email by passing in a list of templates to the `templates` argument (notice the plural) and Wheels will automatically figure out which one is text and which one is HTML.
+===Multi-Part Emails===
 
-It is also important to note that the `template` argument should be the path to the view's folder name and CFM file name without the extension. If the template is in the current controller, then you don't need to specify a folder path to the template file. In that case, just be sure to store the template file in the folder with the rest of the views for that controller.
+The intelligence doesn't end there though. You can have Wheels send a multi-part email by passing in a list of templates to the `templates` argument (notice the plural), and Wheels will automatically figure out which one is text and which one is HTML.
 
-The logic for which file to include follows the same logic as the template argument to [renderPage renderPage()]
+It is also important to note that the `template` argument should be the path to the view's folder name and template file name without the extension. If the template is in the current controller, then you don't need to specify a folder path to the template file. In that case, just be sure to store the template file in the folder with the rest of the views for that controller.
+
+The logic for which file to include follows the same logic as the `template` argument to [renderPage renderPage()].
 
 ==Bonus Step: Email Layouts==
 
 Much like the layouts outlined in the [UsingLayouts Using Layouts] chapter, you can also create layouts for your emails.
 
-A layout should be used just as the name implies, for layout/stylistic aspects of the email body. Based on the example given above, let's assume that the same email content needs to be sent twice:
+A layout should be used just as the name implies: for layout and stylistic aspects of the email body. Based on the example given above, let's assume that the same email content needs to be sent twice:
 
  # Message is sent to a new member with a stylized header and footer.
  # A copy of message is sent to an admin at your company with a generic header and footer.
@@ -94,7 +96,7 @@ In this case, the 2 calls to [sendEmail sendEmail()] would be identical, with th
 <!--- Customer email with customized header/footer --->
 <cfset
   sendEmail(
-    from="no-reply@yourwebsite.com",
+    from="service@yourwebsite.com",
     template="myemailtemplate",
     layout="customer",
     to=member.email,
@@ -107,7 +109,7 @@ In this case, the 2 calls to [sendEmail sendEmail()] would be identical, with th
 <!--- Plain Message with "admin" layout --->
 <cfset
   sendEmail(
-    from="no-reply@yourwebsite.com",
+    from="service@yourwebsite.com",
     template="myemailtemplate",
     layout="admin",
     to="admin@domain.com",
@@ -118,4 +120,4 @@ In this case, the 2 calls to [sendEmail sendEmail()] would be identical, with th
 >
 }}}
 
-Now you're all set to send emails the Wheels way.
+Now you're all set to send emails the Wheels way. Just don't be a spammer, please!

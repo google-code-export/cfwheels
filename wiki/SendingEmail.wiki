@@ -1,5 +1,5 @@
 #summary Use Wheels to simplify the task of setting up automated emails in your application.
-#labels chapter,0.9.2,draft
+#labels chapter,0.9.2,published_dev
 
 Sending emails in Wheels is done from your controller files with the [sendEmail sendEmail()] function. It's basically a wrapper around `cfmail`, but it has some smart functionality and a more Wheels-like approach in general.
 
@@ -40,7 +40,7 @@ Here's an example for `myemailtemplate.cfm`, which will contain HTML content.
 <cfoutput>
 <p>Hi #recipientName#,</p>
 <p>We wanted to take a moment to thank you for joining our service and to confirm your start date.</p>
-<p>Our records indicate that your membership will begin on <strong>#DateFormat(startDate, 'dddd, mmmm, d, yyyy')#</strong>.</p>
+<p>Our records indicate that your membership will begin on <strong>#DateFormat(startDate, "dddd, mmmm, d, yyyy")#</strong>.</p>
 </cfoutput>
 }}}
 
@@ -87,7 +87,7 @@ A layout should be used just as the name implies: for layout and stylistic aspec
 
 Best practice is that variables (such as `recipientName` and `startDate`, in the example above) be placed as outputs in the template file.
 
-In this case, the 2 calls to [sendEmail sendEmail()] would be identical, with the exception of the `layout` attribute.
+In this case, the 2 calls to [sendEmail sendEmail()] would be nearly identical, with the exception of the `layout` attribute.
 
 {{{
 <!--- Get new member --->

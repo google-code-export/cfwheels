@@ -93,11 +93,11 @@ In this case, the 2 calls to [sendEmail sendEmail()] would be identical, with th
 <!--- Get new member --->
 <cfset member = model("Member").findByKey(newMember.id)>
 
-<!--- Customer email with customized header/footer --->
+<!--- Multi-part customer email with customized header/footer --->
 <cfset
   sendEmail(
     from="service@yourwebsite.com",
-    template="myemailtemplate",
+    template="myhtmlemailtemplate,mytextemailtemplate",
     layout="customer",
     to=member.email,
     subject="Thank You for Becoming a Member",
@@ -106,7 +106,7 @@ In this case, the 2 calls to [sendEmail sendEmail()] would be identical, with th
   )
 >
 
-<!--- Plain Message with "admin" layout --->
+<!--- Plain text message with "admin" layout --->
 <cfset
   sendEmail(
     from="service@yourwebsite.com",

@@ -40,7 +40,6 @@
  * [Associations Associations]
  * [ObjectValidation Object Validation]
  * [ObjectCallbacks Object Callbacks]
- * [DefaultValues Default Values]
  * [AdvancedProperties Advanced Properties]
  * [DirtyRecords Dirty Records]
  * [SoftDelete Soft Delete]

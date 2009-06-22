@@ -1,5 +1,5 @@
 #summary How to create new objects and save them to the database.
-#labels chapter,0.9.1
+#labels chapter,0.9.3
 
 In Wheels, one way to create objects that represent records in our table is by calling the [new new()] class-level method.
 
@@ -55,3 +55,13 @@ This means you can read the value by doing something like this (this example ass
 Don't forget that you can name your primary key whatever you want and you can even use composite keys, natural keys, non auto-incrementing and so on.
 
 No matter which method you prefer, Wheels will use database introspection to see how your table is structured and act accordingly.
+
+==Setting Default Values==
+
+If you're the kind of person who likes to give the database responsibility you may have told it to create default values for new records. Wouldn't it be nice if you can also set these values automatically when creating new objects? Well, you can (surprise!) and it's dead simple too. Just pass in `defaults=true` to the [new new()] method and it will return the object with all the default values set on it. In the background Wheels uses the excellent `cfdbinfo` tag on application start-up so no extra database calls are required to use this functionality.
+
+If you find that you end up passing in `defaults=true` all the time to [new new()], then you may consider overriding this Wheels convention and simply set `defaults` to `true` globally. This is done by adding the following line to your `config.cfm` file:
+
+{{{
+<cfset set(functionName="new", defaults=true)
+}}}

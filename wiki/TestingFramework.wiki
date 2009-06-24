@@ -1,18 +1,108 @@
 #summary An overview and examples of using the testing framework included in Wheels.
 #labels chapter,0.9.3,draft
 
-==Face it==
+=Writing and Running Tests Within Wheels=
+
+==Why bother doing this==
 
 At some point your code is going to break and the scary thing is it might not even be your fault. Upgrades, feature enhancements, bug fixes are all point of the development lifecycle and with deadlines and screaming managers you don't have the time to test the functionality of  your entire application with every change you make. Problem is; the today's fix could be tomorrow's bug. What if there was an automated way of seeing if that change you're making is going to break something? That's where writing tests for your application can be invaluable.
 
-However, in the past testing meant downloading, configuring and learning a completely separate application. Often times this caused more headaches then it was worth and was the reason why more developers didn't write tests. With Wheels we've included a customized version of the RocketUnit Testing Framework to help address just this issue. Now writing tests for your Wheels application is part of the application itself and running the test is as simple as clicking a link.
+However, in the past testing meant downloading, configuring and learning a completely separate application. Often times this caused more headaches then it was worth and was the reason why more developers didn't write tests. With Wheels we've included a customized version of the [http://rocketunit.riaforge.org RocketUnit Testing Framework] to help address just this issue. Now writing tests for your Wheels application is part of the application itself and running the test is as simple as clicking a link.
+
+==Touring the Testing Framework==
+
+Like everything else is Wheels, the testing framework is very simple yet powerful. You're not going to having to remember a hundred different methods and assertions since our testing framework has only one assertion and two methods. Can't get any simpler then that! Let just take a moment to go over these command and present a brief description of each:
+
+*assert()*: This is the main command that you be using when developing tests. To use all you have to do is provide an evaluated expression enclosed in quotes. The power of this is that *ANY* expression can be used.
+
+An example test that checks that two values equal each other:
+
+{{{
+<cffunction name="test_a_equals_b">
+  <cfset loc = {}>
+  <cfset loc.a = 1>
+  <cfset loc.b = 1>
+  <cfset assert("a eq b")>
+</cffunction>
+}}}
+
+An example test that checks that the first value is less then the second value:
+
+{{{
+<cffunction name="test_a_is_less_than_b">
+  <cfset loc = {}>
+  <cfset loc.a = 1>
+  <cfset loc.b = 5>
+  <cfset assert("a lt b")>
+</cffunction>
+}}}
+
+You get the idea since you've used these kinds of expressions a thousand times when using the `cfif` tag. If you think of the assert() method as another way of using `cfif` and it will all make sense. Remember that you can use *ANY* expression, so you can write assertions against structures, arrays, object, you name, you can test it!
+
+An example test that checks that a key exists in a structure:
+
+{{{
+<cffunction name="test_key_exists_in_structure">
+  <cfset loc = {}>
+  <cfset loc.a = {a=1, b=2, c=3}>
+  <cfset loc.b = "d">
+  <cfset assert("structkeyexists(loc.a, loc.b)")>
+</cffunction>
+}}}
+
+By now you're probably wondering why we keep using the a the structure `loc` to store all the variables inside the test and *NOT VARRING IT*. Relax grasshopper, the answers will come soon enough.
+
+*raised()*: Used when you want to throw an exception when someone does something wrong and you want to test that this exception is thrown. Raised() will raise and catch the exception and return to you the exception type so that you know your custom error type is being thrown to the user. Just like assert(), raise() takes and evaluated expression as it's argument.
+
+An example of catching an Wheels.TableNotFound error. Like when you specify an invalid model name. This is an actual Wheels Framework test (oh joy):
+
+{{{
+<cffunction name="test_table_not_found">
+  <cfset loc = {}>
+  <cfset loc.controller = createobject("component", "wheels.tests.ControllerBlank")>
+  <cfset loc.e = raised("loc.controller.model('InvalidModel')")>
+  <cfset loc.r = "Wheels.TableNotFound">
+  <cfset assert("loc.e eq loc.r")>
+</cffunction>
+}}}
+
+*halt()*: Think of this as a 'cfdump/cfabort` only having some control over it. Often times when testing, you want to make sure of the results so that you can write proper tests. The old way of doing this creating a test.cfm file somewhere, writing the code you want to check in it and running it. Tell me that doesn't slow you down. By using halt() you get that same benefit only you don't have to do anything extra.
+
+Halt() also takes an evaluated expression as a second argument, but it's the first argument that we need to take a moment to talk about. Halt() first argument is a boolean (true/false) value that tells halt() whether it should halt (see where it gets it name from) the testing process and dump the contents of the evaluated expression to the screen. By setting this first argument to `true`, halt() will do just that, but what if you set this first argument to `false`? In that case halt() will not only not display the results of the evaluated expression to the screen and continue with the testing process, it will also not even bother trying to evaluate the expression. With that, it's safe it keep halts() with the first argument set to `false` inside your tests for later reference.
+
+An example of halting the testing process and dumping an expression to the screen:
+
+{{{
+<cffunction name="test_key_exists_in_structure">
+  <cfset loc = {}>
+  <cfset loc.a = {a=1, b=2, c=3}>
+  <cfset loc.b = "d">
+  <cfset halt(true, "loc.a")>
+  <cfset assert("structkeyexists(loc.a, loc.b)")>
+</cffunction>
+}}}
+
+An example of keeping halt in a test for future reference:
+
+{{{
+<cffunction name="test_key_exists_in_structure">
+  <cfset loc = {}>
+  <cfset loc.a = {a=1, b=2, c=3}>
+  <cfset loc.b = "d">
+  <cfset halt(false, "loc.a")>
+  <cfset assert("structkeyexists(loc.a, loc.b)")>
+</cffunction>
+}}}
 
 ==Running Tests==
 
-Down in the debug area of your Wheels application (that grey area at the bottom of the page), you will notice a section called *Run Tests* with two links: *App* and *Core*. Also there is a *Test* link next to each installed plugin that you have in your application. Clicking the links will results in the following test to be run:
+Down in the debug area of your Wheels application (that grey area at the bottom of the page), you will notice a *Run Tests* in the following areas: *Application Name*, *Framework* and *Plugins*. Each of these links run the following suite of test:
 
-*App* - will run the tests that are located in `<your_app>/tests` folder you have created for your particular Wheels application. A suggestion would be to run these tests whenever you make changes to your application, are ready to publish it or upgrade your version of wheels.
+*Application Name*: Runs any tests that you have created for your application. By convention, any and all tests you create should be place in a _tests_ folder off the root of your application. You should run these tests before deploying your application.
 
-*Core* - wil run the tests that the Wheels Team has created for the Wheels framework itself. Even though the Wheels Team makes considerable effort to make sure all tests pass, we can't account for everything. To help the Wheels Team, please take time to run these tests after downloading or upgrading your Wheels installation and report back any failures to us.
+*Framework*: Runs any test that the Wheels Team has created for the Wheels framework itself. You should run these tests whenever you update your wheels installation or are switching platforms.
 
-*PluginsTests* - will run the test written for a particular plugin. Although the plugin author will makes considerable effort to make sure all tests pass, they can't account for everything. To help them, please take time to run these tests after downloading or upgrading a plugin and report back any failures.
+*Plugins*: A *Run Tests* link will be next to *each* installed plugin you have in your wheels installation. You should run these tests whenever you install or update a plugin.
+
+==Writing Tests==
+

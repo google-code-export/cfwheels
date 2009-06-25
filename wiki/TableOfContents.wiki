@@ -68,6 +68,7 @@
  * [SwitchingEnvironments Switching Environments]
  * [UsingandCreatingPlugins Using and Creating Plugins]
  * [CFMLandMVCBestPractices CFML and MVC Best Practices]
+ * [TestingFramework Creating and Running Tests]
 
 ===Contributing to Wheels===
 

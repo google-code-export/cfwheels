@@ -26,7 +26,7 @@ Void
 || *allowBlank* || boolean || false || false || See documentation for `validatesExclusionOf` ||
 || *exactly* || numeric || false || 0 || The exact length that the property value has to be ||
 || *maximum* || numeric || false || 0 || The maximum length that the property value has to be ||
-|| *minimum* || snumeric || false || 0 || The minimum length that the property value has to be ||
+|| *minimum* || numeric || false || 0 || The minimum length that the property value has to be ||
 || *within* || string || false ||   || A list of two values (minimum and maximum) that the length of the property value has to fall within ||
 
 *Examples*:

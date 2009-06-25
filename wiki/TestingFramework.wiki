@@ -1,19 +1,23 @@
 #summary An overview and examples of using the testing framework included in Wheels.
 #labels chapter,0.9.3,draft
 
-=Writing and Running Tests Within Wheels=
+==The Theory Behind Testing==
 
-==Why bother doing this==
+At some point your code is going to break and the scary thing is it might not even be your fault. Upgrades, feature enhancements, bug fixes are all point of the development lifecycle and with deadlines and screaming managers you don't have the time to test the functionality of  your entire application with every change you make.
 
-At some point your code is going to break and the scary thing is it might not even be your fault. Upgrades, feature enhancements, bug fixes are all point of the development lifecycle and with deadlines and screaming managers you don't have the time to test the functionality of  your entire application with every change you make. Problem is; the today's fix could be tomorrow's bug. What if there was an automated way of seeing if that change you're making is going to break something? That's where writing tests for your application can be invaluable.
+The problem is that today's fix could be tomorrow's bug. What if there was an automated way of seeing if that change you're making is going to break something? That's where writing tests for your application can be invaluable.
 
-However, in the past testing meant downloading, configuring and learning a completely separate application. Often times this caused more headaches then it was worth and was the reason why more developers didn't write tests. With Wheels we've included a customized version of the [http://rocketunit.riaforge.org RocketUnit Testing Framework] to help address just this issue. Now writing tests for your Wheels application is part of the application itself and running the test is as simple as clicking a link.
+In the past writing test against your application meant downloading, configuring and learning a completely separate framework. Often times this caused more headaches then it was worth and was the reason why most developers didn't write tests. With Wheels we've included a customized version of the [http://rocketunit.riaforge.org RocketUnit Testing Framework] to help address just this issue.
+
+Now writing tests for your Wheels application is part of the development lifecycle itself and running the test is as simple as clicking a link.
 
 ==Touring the Testing Framework==
 
-Like everything else is Wheels, the testing framework is very simple yet powerful. You're not going to having to remember a hundred different methods and assertions since our testing framework has only one assertion and two methods. Can't get any simpler then that! Let just take a moment to go over these command and present a brief description of each:
+Like everything else in Wheels, the testing framework is very simple yet powerful. You're not going to having to remember a hundred different commands and methods since Wheels' testing framework has only three commands and two methods (you can't get any simpler than that). Let just take a moment to go over these command and present a brief description and example for each:
 
-*assert()*: This is the main command that you be using when developing tests. To use all you have to do is provide an evaluated expression enclosed in quotes. The power of this is that *ANY* expression can be used.
+===Commands===
+
+*assert():* This is the main command that you be using when developing tests. To use, all you have to do is provide a quoted expression. The power of this is that *ANY* expression can be used.
 
 An example test that checks that two values equal each other:
 
@@ -37,7 +41,7 @@ An example test that checks that the first value is less then the second value:
 </cffunction>
 }}}
 
-You get the idea since you've used these kinds of expressions a thousand times when using the `cfif` tag. If you think of the assert() method as another way of using `cfif` and it will all make sense. Remember that you can use *ANY* expression, so you can write assertions against structures, arrays, object, you name, you can test it!
+You get the idea since you've used these kinds of expressions a thousand times. If you think of the assert() command as another way of using [http://livedocs.adobe.com/coldfusion/8/htmldocs/functions_e-g_03.html evaluate()], it will all make sense. Remember that you can use *ANY* expression, so you can write assertions against structures, arrays, objects, you name it, you can test it!
 
 An example test that checks that a key exists in a structure:
 
@@ -50,11 +54,11 @@ An example test that checks that a key exists in a structure:
 </cffunction>
 }}}
 
-By now you're probably wondering why we keep using the a the structure `loc` to store all the variables inside the test and *NOT VARRING IT*. Relax grasshopper, the answers will come soon enough.
+By now you're probably wondering why we keep using the structure `loc` to store all the variables inside the test and *NOT VARRING IT*. Relax grasshopper, the answers will come soon enough.
 
-*raised()*: Used when you want to throw an exception when someone does something wrong and you want to test that this exception is thrown. Raised() will raise and catch the exception and return to you the exception type so that you know your custom error type is being thrown to the user. Just like assert(), raise() takes and evaluated expression as it's argument.
+*raised():* Used when you want to test that an exception will be thrown. Raised() will raise and catch the exception and return to you the exception type (think cfcatch.type). Just like assert(), raise() takes a quoted expression as it's argument.
 
-An example of catching an Wheels.TableNotFound error. Like when you specify an invalid model name. This is an actual Wheels Framework test (oh joy):
+An example of raising the Wheels.TableNotFound error when you specify an invalid model name:
 
 {{{
 <cffunction name="test_table_not_found">
@@ -66,9 +70,9 @@ An example of catching an Wheels.TableNotFound error. Like when you specify an i
 </cffunction>
 }}}
 
-*halt()*: Think of this as a 'cfdump/cfabort` only having some control over it. Often times when testing, you want to make sure of the results so that you can write proper tests. The old way of doing this creating a test.cfm file somewhere, writing the code you want to check in it and running it. Tell me that doesn't slow you down. By using halt() you get that same benefit only you don't have to do anything extra.
+*halt():* Think of this as doing 'cfdump/cfabort` only having some control over it. Often times when testing you want to check the results of an expression so that you can write proper tests against it. The old way of doing this is creating a test.cfm template, writing the code you want to check in it, saving it and then finally running it. Tell me that doesn't slow you down. By using halt() you get that same benefit only you don't have to go through all that extra stuff.
 
-Halt() also takes an evaluated expression as a second argument, but it's the first argument that we need to take a moment to talk about. Halt() first argument is a boolean (true/false) value that tells halt() whether it should halt (see where it gets it name from) the testing process and dump the contents of the evaluated expression to the screen. By setting this first argument to `true`, halt() will do just that, but what if you set this first argument to `false`? In that case halt() will not only not display the results of the evaluated expression to the screen and continue with the testing process, it will also not even bother trying to evaluate the expression. With that, it's safe it keep halts() with the first argument set to `false` inside your tests for later reference.
+Halt() also takes a quoted expression as a second argument, but it's the first argument that we need to take a moment to talk about. The first argument in halt() is a boolean (true/false) value that tells halt() whether it should stop or halt (see where it gets it name from) the testing process and dump the contents of the quoted expression to the screen. By setting this first argument to `true`, halt() will do just that, but what if you set this first argument to `false`? In that case halt() will not only *NOT* display the results of the quoted expression to the screen and continue on with the testing process, it will also not even bother trying to evaluate the quoted expression. Because of that, it's safe it keep halts() with the first argument set to `false` inside your tests for later reference since there's no performance hit.
 
 An example of halting the testing process and dumping an expression to the screen:
 
@@ -94,15 +98,78 @@ An example of keeping halt in a test for future reference:
 </cffunction>
 }}}
 
+===Methods===
+
+There two optional methods that Wheels's testing framework provides for you for setting up and cleaning when each of your tests is run, appropriately named setup() and teardown(). 
+
+*setup():* Used to initialize any variables or execute any code that needs to be run before each test.
+
+An example of using setup() to initialize some variables that will be used throughout a group of tests:
+
+{{{
+<cfcomponent extends="wheels.test">
+
+  <cffunction name="setup">
+    <cfset a = 1>
+    <cfset b = 2>
+  </cffunction>
+
+  <cffunction name="test_a_equals_b">
+    <cfset assert("a eq b")>
+  </cffunction>
+
+  <cffunction name="test_a_is_less_than_b">
+    <cfset assert("a lt b")>
+  </cffunction>
+
+</cfcomponent>
+}}}
+
+*teardown():* Used to cleanup any variables after each test is ran.
+
+{{{
+<cfcomponent extends="wheels.test">
+
+  <cffunction name="setup">
+    <cfset a = 1>
+    <cfset b = 2>
+  </cffunction>
+
+  <cffunction name="test_a_equals_b">
+    <cfset assert("a eq b")>
+  </cffunction>
+
+  <cffunction name="test_a_is_less_than_b">
+    <cfset assert("a lt b")>
+  </cffunction>
+
+  <cffunction name="teardown">
+    <cfset a = "">
+    <cfset b = "">
+  </cffunction>
+
+</cfcomponent>
+}}}
+
+
 ==Running Tests==
 
-Down in the debug area of your Wheels application (that grey area at the bottom of the page), you will notice a *Run Tests* in the following areas: *Application Name*, *Framework* and *Plugins*. Each of these links run the following suite of test:
+Down in the debug area of your Wheels application (that grey area at the bottom of the page), you will notice a *Run Tests* link in the following areas: 
+
+*Application Name*, *Framework* and *Plugins*. Each of these links runs the following suite of tests:
 
 *Application Name*: Runs any tests that you have created for your application. By convention, any and all tests you create should be place in a _tests_ folder off the root of your application. You should run these tests before deploying your application.
 
-*Framework*: Runs any test that the Wheels Team has created for the Wheels framework itself. You should run these tests whenever you update your wheels installation or are switching platforms.
+*Framework*: Runs any test that the Wheels Team has created for the Wheels framework itself. You should run these tests whenever you update your Wheels installation or are switching platforms.
 
 *Plugins*: A *Run Tests* link will be next to *each* installed plugin you have in your wheels installation. You should run these tests whenever you install or update a plugin.
 
 ==Writing Tests==
 
+At this point you've been introduced to the concepts of testing and now it's time to put this all together. The best way of explaining is doing and that's what we're going to do here: going through steps of creating a test package for a model you might have in your application. Most of the tests that you'll write will be against the business rules that you have for a model so this exercise will help you along in your journey.
+
+===Before We Begin===
+
+Check to see if you have a folder called `tests` off the root of your application and if you don't, create it now. When you run the tests for your application by click the *Run Tests* link next to the *Application Name* in the debug area, Wheels recursively scans your application's `tests` folder and looks for any available valid tests to run, so feel free to organize the subfolders under the `tests` directory any way you like.
+
+*IMPORTANT:* a valid test is a component which extends the _wheels.test_ component. If the testing engine sees that a component doesn't extend _wheels.test_, that component is ignored. This let's you create mock" and store any "mock"components you might want to use in your tests and keep everything together.

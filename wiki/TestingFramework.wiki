@@ -3,13 +3,13 @@
 
 ==The Theory Behind Testing==
 
-At some point your code is going to break and the scary thing is it might not even be your fault. Upgrades, feature enhancements, bug fixes are all point of the development lifecycle and with deadlines and screaming managers you don't have the time to test the functionality of  your entire application with every change you make.
+At some point your code is going to break and the scary thing is it might not even be your fault. Upgrades, feature enhancements, bug fixes are all part of the development lifecycle and with deadlines and screaming managers you don't have the time to test the functionality of your entire application with every change you make.
 
 The problem is that today's fix could be tomorrow's bug. What if there was an automated way of seeing if that change you're making is going to break something? That's where writing tests for your application can be invaluable.
 
-In the past writing test against your application meant downloading, configuring and learning a completely separate framework. Often times this caused more headaches then it was worth and was the reason why most developers didn't write tests. With Wheels we've included a customized version of the [http://rocketunit.riaforge.org RocketUnit Testing Framework] to help address just this issue.
+In the past writing test against your application meant downloading, configuring and learning a completely separate framework. Often times this caused more headaches then it was worth and was the reason why most developers didn't bother writing tests. With Wheels we've included a customized version of the [http://rocketunit.riaforge.org RocketUnit Testing Framework] to help address just this issue.
 
-Now writing tests for your Wheels application is part of the development lifecycle itself and running the test is as simple as clicking a link.
+With Wheels, writing tests for your application is part of the development lifecycle itself and running the test is as simple as clicking a link.
 
 ==Touring the Testing Framework==
 
@@ -17,24 +17,23 @@ Like everything else in Wheels, the testing framework is very simple yet powerfu
 
 ===Conventions===
 
-All testing code *MUST* reside in the `tests` directory off the root of your Wheels application or within a subdirectory thereof. If you do not have a `tests` directory, simply create one. When you run the tests for your application Wheels recursively scans your application's `tests` folder and looks for any available valid tests to run, so feel free to organize the subfolders and place whatever files needed to run your tests under the `tests` directory any way you like.
+All testing code *MUST* reside in the `tests` directory off the root of your Wheels application or within a subdirectory thereof. If you do not have a `tests` directory, simply create one. When you run the tests for your application Wheels recursively scans your application's `tests` directory and looks for any available valid tests to run, so feel free to organize the subdirectories and place whatever files needed to run your tests under the `tests` directory any way you like.
 
-Any components that will contain tests *MUST* extend the *_wheels.test_* component.
+Any components that will contain tests *MUST* extend the *_wheels.test_* component:
 
 {{{
 <cfcomponent extends="wheels.test">
 }}}
 
-
 If the testing engine sees that a component *DOES NOT* extend *_wheels.test_*, that component skipped. This let's you create and store any _mock_ components you might want to use in your `tests` directory and keep everything together.
 
-Any methods that will be used as tests must begin their name with "test".
+Any methods that will be used as tests must begin their name with *_test_*:
 
 {{{
 <cffunction name="test_a_equals_b">
 }}}
 
-If a method *DOES NOT* begin with "test" it is *NOT* considered a test and is skipped. This let's you create as many helper methods in your testing components as you want.
+If a method *DOES NOT* begin with *_test_* it is *NOT* considered a test and is skipped. This let's you create as many helper methods for your testing components as you want.
 
 *<font color="red">DO NOT VAR ANY VARIABLES</font>* used in your tests. In order for the testing framework to get access to the variables within the tests that you're writing, all variables need to be within the components *variables scope*. The easy way to do this is to just not "var" variables within your tests and ColdFusion will automatically assign these variables into the variables scope of the component for you. The only gotcha is that this could cause some variables to overwrite each other and gets kinda of confusing of what's being thrown into the variables scope. Because of this, we *<font color="red">STRONGLY RECOMMEND</font>* that you follow a very simple convention that we use and use the *_loc_* variable as a container for all variables you create within your tests.
 
@@ -181,7 +180,7 @@ Down in the debug area of your Wheels application (that grey area at the bottom 
 
 *Application Name*, *Framework* and *Plugins*. Each of these links runs the following suite of tests:
 
-*Application Name*: Runs any tests that you have created for your application. By convention, any and all tests you create should be place in a _tests_ folder off the root of your application. You should run these tests before deploying your application.
+*Application Name*: Runs any tests that you have created for your application. You should run these tests before deploying your application.
 
 *Framework*: Runs any test that the Wheels Team has created for the Wheels framework itself. You should run these tests whenever you update your Wheels installation or are switching platforms.
 

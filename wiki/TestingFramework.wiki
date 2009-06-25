@@ -13,7 +13,30 @@ Now writing tests for your Wheels application is part of the development lifecyc
 
 ==Touring the Testing Framework==
 
-Like everything else in Wheels, the testing framework is very simple yet powerful. You're not going to having to remember a hundred different commands and methods since Wheels' testing framework has only three commands and two methods (you can't get any simpler than that). Let just take a moment to go over these command and present a brief description and example for each:
+Like everything else in Wheels, the testing framework is very simple yet powerful. You're not going to having to remember a hundred different commands and methods since Wheels' testing framework has only three commands and two methods (you can't get any simpler than that). Let take a tour and go over the conventions, commands and methods that make up the different parts of the Testing Framework:
+
+===Conventions===
+
+All testing code *MUST* reside in the `tests` directory off the root of your Wheels application or within a subdirectory thereof. If you do not have a `tests` directory, simply create one. When you run the tests for your application Wheels recursively scans your application's `tests` folder and looks for any available valid tests to run, so feel free to organize the subfolders and place whatever files needed to run your tests under the `tests` directory any way you like.
+
+Any components that will contain tests *MUST* extend the *_wheels.test_* component.
+
+{{{
+<cfcomponent extends="wheels.test">
+}}}
+
+
+If the testing engine sees that a component *DOES NOT* extend *_wheels.test_*, that component skipped. This let's you create and store any _mock_ components you might want to use in your `tests` directory and keep everything together.
+
+Any methods that will be used as tests must begin their name with "test".
+
+{{{
+<cffunction name="test_a_equals_b">
+}}}
+
+If a method *DOES NOT* begin with "test" it is *NOT* considered a test and is skipped. This let's you create as many helper methods in your testing components as you want.
+
+*<font color="red">DO NOT VAR ANY VARIABLES</font>* used in your tests. In order for the testing framework to get access to the variables within the tests that you're writing, all variables need to be within the components *variables scope*. The easy way to do this is to just not "var" variables within your tests and ColdFusion will automatically assign these variables into the variables scope of the component for you. The only gotcha is that this could cause some variables to overwrite each other and gets kinda of confusing of what's being thrown into the variables scope. Because of this, we *<font color="red">STRONGLY RECOMMEND</font>* that you follow a very simple convention that we use and use the *_loc_* variable as a container for all variables you create within your tests.
 
 ===Commands===
 
@@ -53,8 +76,6 @@ An example test that checks that a key exists in a structure:
   <cfset assert("structkeyexists(loc.a, loc.b)")>
 </cffunction>
 }}}
-
-By now you're probably wondering why we keep using the structure `loc` to store all the variables inside the test and *NOT VARRING IT*. Relax grasshopper, the answers will come soon enough.
 
 *raised():* Used when you want to test that an exception will be thrown. Raised() will raise and catch the exception and return to you the exception type (think cfcatch.type). Just like assert(), raise() takes a quoted expression as it's argument.
 
@@ -100,9 +121,9 @@ An example of keeping halt in a test for future reference:
 
 ===Methods===
 
-There two optional methods that Wheels's testing framework provides for you for setting up and cleaning when each of your tests is run, appropriately named setup() and teardown(). 
+There two reserved methods that Wheels's testing framework provides for you for setting up and cleaning when each of your tests is run, appropriately named setup() and teardown(). These methods are completely optional when creating your tests.
 
-*setup():* Used to initialize any variables or execute any code that needs to be run before each test.
+*setup():* Used to initialize or override any variables or execute any code that needs to be run *BEFORE EACH* test.
 
 An example of using setup() to initialize some variables that will be used throughout a group of tests:
 
@@ -125,7 +146,9 @@ An example of using setup() to initialize some variables that will be used throu
 </cfcomponent>
 }}}
 
-*teardown():* Used to cleanup any variables after each test is ran.
+*teardown():* Used to cleanup any variables or execute any code that needs to be run *AFTER EACH* test after each test is ran. This is very rarely used, but there if you need it.
+
+An example (a poor one at that) of using teardown() to clear out the values of initalized variables between tests:
 
 {{{
 <cfcomponent extends="wheels.test">
@@ -163,13 +186,3 @@ Down in the debug area of your Wheels application (that grey area at the bottom 
 *Framework*: Runs any test that the Wheels Team has created for the Wheels framework itself. You should run these tests whenever you update your Wheels installation or are switching platforms.
 
 *Plugins*: A *Run Tests* link will be next to *each* installed plugin you have in your wheels installation. You should run these tests whenever you install or update a plugin.
-
-==Writing Tests==
-
-At this point you've been introduced to the concepts of testing and now it's time to put this all together. The best way of explaining is doing and that's what we're going to do here: going through steps of creating a test package for a model you might have in your application. Most of the tests that you'll write will be against the business rules that you have for a model so this exercise will help you along in your journey.
-
-===Before We Begin===
-
-Check to see if you have a folder called `tests` off the root of your application and if you don't, create it now. When you run the tests for your application by click the *Run Tests* link next to the *Application Name* in the debug area, Wheels recursively scans your application's `tests` folder and looks for any available valid tests to run, so feel free to organize the subfolders under the `tests` directory any way you like.
-
-*IMPORTANT:* a valid test is a component which extends the _wheels.test_ component. If the testing engine sees that a component doesn't extend _wheels.test_, that component is ignored. This let's you create mock" and store any "mock"components you might want to use in your tests and keep everything together.

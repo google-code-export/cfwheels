@@ -1,6 +1,8 @@
 #summary Learn to use partial page templates.
 #labels chapter,0.9.3
 
+ROUGH DRAFT...
+
 Partials is a concept in Wheels that acts as a wrapper around good old `cfinclude`. By calling [includePartial includePartial()] or [renderPartial renderPartial()] you can include other files in a page, just like `cfinclude` would, and also use common Wheels features like layouts, caching, model objects etc.
 
 These functions also add a few new cool things to your development arsenal like the ability to pass in a query and have the partial file called on each iteration to name one.

@@ -1,19 +1,29 @@
 #summary Learn to use partial page templates.
 #labels chapter,0.9.3
 
-Partials is a concept in Wheels that takes good old `cfinclude` and makes it understand other Wheels concepts (like layouts and caching) and while doing so adds a few cool things in the process (like the ability to pass in a query and have it call the partial file on each iteration to name one).
+Partials is a concept in Wheels that acts as a wrapper around good old `cfinclude`. By calling [includePartial includePartial()] or [renderPartial renderPartial()] you can include other files in a page, just like `cfinclude` would, and also use common Wheels features like layouts, caching, model objects etc.
 
-==So, What's a Partial?==
+These functions also add a few new cool things to your development arsenal like the ability to pass in a query and have the partial file called on each iteration to name one.
 
-same part from multiple pages - useful with partials.
-also useful to just break up pages into more manageable pieces so you can focus on each part indivdually.
+==Why Use a Partial?==
+
+Websites often display the same thing on multiple pages. It could be an advertisement area that should be displayed in an entire section of a website, a shopping cart that is displayed on the page while browsing products in a shop, you get the idea. To avoid duplicating code you should place it in a file and include that file on the pages that need it.
+
+Even when there is no risk of code duplication it may still make sense to use a partial though. Breaking up a large page into smaller, more manageable, chunks will help you focus on each part individually.
+
+If you've used `cfinclude` a lot in the past (and who hasn't?!) you probably already knew all of this though, right.
+
+
+
 any args passed in will be var scoped and placed in a var with the same name as the partial
 can also access the view variables but cleaner to use local vars (no conflits, leads to bugs etc)
 
-==Storing Your Partial Files==
+==Storing Your Files==
 
 identified by prepending with an underscore in the file name (but referenced without it in the code)
 Can also share partials between controllers, normal to place them in its own folder then. Rendering follows the rule for renderPage(template)?
+
+==Passing in Data==
 
 
 ==Rendering or Including?==

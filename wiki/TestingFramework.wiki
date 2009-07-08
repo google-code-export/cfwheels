@@ -13,7 +13,7 @@ With Wheels, writing tests for your application is part of the development lifec
 
 ==Touring the Testing Framework==
 
-Like everything else in Wheels, the testing framework is very simple yet powerful. You're not going to having to remember a hundred different commands and methods since Wheels' testing framework has only three commands and two methods (you can't get any simpler than that). Let take a tour and go over the conventions, commands and methods that make up the different parts of the Testing Framework:
+Like everything else in Wheels, the testing framework is very simple yet powerful. You're not going to having to remember a hundred different commands and methods since Wheels' testing framework has only three commands and four methods (you can't get any simpler than that). Let's take a tour and go over the conventions, commands and methods that make up the different parts of the Testing Framework:
 
 ===Conventions===
 
@@ -35,11 +35,17 @@ Any methods that will be used as tests must begin their name with *_test_*:
 
 If a method *DOES NOT* begin with *_test_* it is *NOT* considered a test and is skipped. This let's you create as many helper methods for your testing components as you want.
 
-*<font color="red">DO NOT VAR ANY VARIABLES</font>* used in your tests. In order for the testing framework to get access to the variables within the tests that you're writing, all variables need to be within the components *variables scope*. The easy way to do this is to just not "var" variables within your tests and ColdFusion will automatically assign these variables into the variables scope of the component for you. The only gotcha is that this could cause some variables to overwrite each other and gets kinda of confusing of what's being thrown into the variables scope. Because of this, we *<font color="red">STRONGLY RECOMMEND</font>* that you follow a very simple convention that we use and use the *_loc_* variable as a container for all variables you create within your tests.
+*<font color="red">DO NOT VAR ANY VARIABLES</font>* used in your tests. In order for the testing framework to get access to the variables within the tests that you're writing, all variables need to be within the components *variables scope*. The easy way to do this is to just not "var" variables within your tests and ColdFusion will automatically assign these variables into the variables scope of the component for you. The only gotcha is that this could cause some variables to overwrite each other and gets kinda of confusing of what's being thrown into the variables scope.
+
+Because of this, we *<font color="red">STRONGLY RECOMMEND</font>* that you follow a very simple convention and create two container variables to keep track of thing:
+
+*global:* Place any variables that will be used within *THROUGH OUT* a group of tests in here.
+
+*loc*: Place any variables that will be used within a *SINGLE* test in here.
 
 ===Commands===
 
-*assert():* This is the main command that you be using when developing tests. To use, all you have to do is provide a quoted expression. The power of this is that *ANY* expression can be used.
+*assert():* This is the main command that you will be using when developing tests. To use, all you have to do is provide a quoted expression. The power of this is that *ANY* expression can be used.
 
 An example test that checks that two values equal each other:
 
@@ -48,7 +54,7 @@ An example test that checks that two values equal each other:
   <cfset loc = {}>
   <cfset loc.a = 1>
   <cfset loc.b = 1>
-  <cfset assert("a eq b")>
+  <cfset assert("loc.a eq loc.b")>
 </cffunction>
 }}}
 
@@ -59,7 +65,7 @@ An example test that checks that the first value is less then the second value:
   <cfset loc = {}>
   <cfset loc.a = 1>
   <cfset loc.b = 5>
-  <cfset assert("a lt b")>
+  <cfset assert("loc.a lt loc.b")>
 </cffunction>
 }}}
 
@@ -120,59 +126,56 @@ An example of keeping halt in a test for future reference:
 
 ===Methods===
 
-There two reserved methods that Wheels's testing framework provides for you for setting up and cleaning when each of your tests is run, appropriately named setup() and teardown(). These methods are completely optional when creating your tests.
+There are four reserved methods that Wheels's testing framework provides for you:
+
+*`_`setup():* This method is run *ONCE* for each test component *BEFORE ANY TESTS* have been ran. You can use this for setting up any variables that will be used through all the tests in that component.
+
+*`_`teardown():* This method is ran *ONCE* for each test component *AFTER ALL TESTS* have been ran. You can use this for cleaning up any variables that you might have set within the _setup() method.
 
 *setup():* Used to initialize or override any variables or execute any code that needs to be run *BEFORE EACH* test.
 
-An example of using setup() to initialize some variables that will be used throughout a group of tests:
+*teardown():* Used to cleanup any variables or execute any code that needs to be run *AFTER EACH* test after each test is ran.
+
+Remember that you don't have to use these methods when creating your tests, however they do help to keep thing DRY [Don't Repeat Yourself] and compact.
+
+Example:
 
 {{{
 <cfcomponent extends="wheels.test">
 
-  <cffunction name="setup">
-    <cfset a = 1>
-    <cfset b = 2>
-  </cffunction>
+	<cffunction name="_setup">
+		<cfset global = {}>
+		<cfset global.controller = createobject("component", "wheels.tests.ControllerBlank")>
+		<cfset global.f = global.controller.distanceOfTimeInWords>
+		<cfset global.args = {}>
+		<cfset global.args.fromTime = now()>
+		<cfset global.args.includeSeconds = true>
+	</cffunction>
 
-  <cffunction name="test_a_equals_b">
-    <cfset assert("a eq b")>
-  </cffunction>
+	<cffunction name="setup">
+		<cfset loc = {}>
+		<cfset loc.a = duplicate(global.args)>
+	</cffunction>
 
-  <cffunction name="test_a_is_less_than_b">
-    <cfset assert("a lt b")>
-  </cffunction>
+	<cffunction name="test_with_seconds_below_5_seconds">
+		<cfset loc.c = 5 - 1>
+		<cfset loc.a.toTime = dateadd('s', loc.c, loc.a.fromTime)>
+		<cfinvoke method="global.f" argumentcollection="#loc.a#" returnvariable="loc.e">
+		<cfset loc.r = "less than 5 seconds">
+		<cfset assert("loc.e eq loc.r")>
+	</cffunction>
 
-</cfcomponent>
-}}}
-
-*teardown():* Used to cleanup any variables or execute any code that needs to be run *AFTER EACH* test after each test is ran. This is very rarely used, but there if you need it.
-
-An example (a poor one at that) of using teardown() to clear out the values of initalized variables between tests:
-
-{{{
-<cfcomponent extends="wheels.test">
-
-  <cffunction name="setup">
-    <cfset a = 1>
-    <cfset b = 2>
-  </cffunction>
-
-  <cffunction name="test_a_equals_b">
-    <cfset assert("a eq b")>
-  </cffunction>
-
-  <cffunction name="test_a_is_less_than_b">
-    <cfset assert("a lt b")>
-  </cffunction>
-
-  <cffunction name="teardown">
-    <cfset a = "">
-    <cfset b = "">
-  </cffunction>
+	<cffunction name="test_with_seconds_below_10_seconds">
+		<cfset loc.c = 10 - 1>
+		<cfset loc.a.toTime = dateadd('s', loc.c, loc.a.fromTime)>
+		<cfset halt(false, "global.controller.distanceOfTimeInWords(argumentcollection=loc.a)")>
+		<cfinvoke method="global.f" argumentcollection="#loc.a#" returnvariable="loc.e">
+		<cfset loc.r = "less than 10 seconds">
+		<cfset assert("loc.e eq loc.r")>
+	</cffunction>
 
 </cfcomponent>
 }}}
-
 
 ==Running Tests==
 

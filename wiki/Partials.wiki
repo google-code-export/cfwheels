@@ -1,13 +1,13 @@
 #summary Learn to use partial page templates.
 #labels chapter,0.9.3
 
-Partials is a concept in Wheels that acts as a wrapper around the good old `cfinclude` tag. By calling [includePartial includePartial()] or [renderPartial renderPartial()] you can include other files in a page, just like `cfinclude` would, but at the same time make use of common Wheels features like layouts, caching, model objects etc.
+Partials is a concept in Wheels that acts as a wrapper around the good old `cfinclude` tag. By calling [includePartial includePartial()] or [renderPartial renderPartial()] you can include other files in a page, just like `cfinclude` would, but at the same time make use of common Wheels features like layouts, caching, model objects and so on.
 
 These functions also add a few new cool things to your development arsenal like the ability to pass in a query and have the partial file called on each iteration to name one.
 
 ==Why Use a Partial?==
 
-Websites often display the same thing on multiple pages. It could be an advertisement area that should be displayed in an entire section of a website, a shopping cart that is displayed while browsing products in a shop, you get the idea. To avoid duplicating code you can place it in a file (the partial in Wheels terms) and include that file using [includePartial includePartial()] on the pages that need it.
+Websites often display the same thing on multiple pages. It could be an advertisement area that should be displayed in an entire section of a website, a shopping cart that is displayed while browsing products in a shop, you get the idea. To avoid duplicating code you can place it in a file (the "partial" in Wheels terms) and include that file using [includePartial includePartial()] on the pages that need it.
 
 Even when there is no risk of code duplication it may still make sense to use a partial actually. Breaking up a large page into smaller, more manageable, chunks will help you focus on each part individually for example.
 
@@ -15,9 +15,9 @@ If you've used `cfinclude` a lot in the past (and who hasn't?!) you probably alr
 
 ==Storing Your Files==
 
-To make it clear that a file is a partial and not a full page we start the filename with an underscore character. You can place the partial anywhere in the views folder. When locating partials Wheels will use the same rules as it does for the template argument to renderPage. This means that if you save the partial in the current controller's view folder you reference it simply by its name. For example, let's say you want to have a partial for a comment in your blog controller you save the file in views/blog/_comment.cfm and reference it ([includePartial includePartial()] and [renderPartial renderPartial()]) with just 'comment'.
+To make it clear that a file is a partial and not a full page we start the filename with an underscore character. You can place the partial file anywhere in the `views` folder. When locating partials Wheels will use the same rules as it does for the `template` argument to [renderPage renderPage()]. This means that if you save the partial in the current controller's view folder you reference it simply by its name. For example, if you want to have a partial for a comment in your blog controller you will save the file in `views/blog/_comment.cfm` and reference it ([includePartial includePartial()] and [renderPartial renderPartial()]) with just `comment`.
 
-Sometimes it's useful to share partials between controllers though. Perhaps you have a banner ad that should be displayed across several controllers. One common approach then is the save them in a folder named shared at the root of the views folder. To reference partials in this folder you would then pass in `/shared/banner` instead.
+Sometimes it's useful to share partials between controllers though. Perhaps you have a banner ad that should be displayed across several controllers. One common approach then is the save them in a dedicated folder for this at the root of the `views` folder. To reference partials in this folder, in this case named `shared`, you would then pass in `/shared/banner` to [includePartial includePartial()] instead.
 
 ==Making the Call==
 

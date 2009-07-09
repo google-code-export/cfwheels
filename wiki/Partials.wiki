@@ -33,21 +33,37 @@ As you can see you don't have to specify the `.cfm` part or the underscore when 
 
 ==Passing in Data==
 
-You can pass in data by adding named arguments on the [includePartial includePartial()] call. Since we use `name` to determine what file to include you can't pass in a variable named `name` though. The same goes for the other arguments too like `layout`, `spacer` and `cache` of course. Here is an example of passing in a title to a partial for a form:
+You can pass in data by adding named arguments on the [includePartial includePartial()] call. Since we use `name` to determine what file to include you can't pass in a variable named `name` though. The same goes for the other arguments as well like `layout`, `spacer` and `cache`. Here is an example of passing in a title to a partial for a form:
 
 {{{
 <cfoutput>#includePartial(name="loginRegisterForm", title="Please log in here")#</cfoutput>
 }}}
 
-Now you can reference the title variable as `arguments.title` inside the `_loginRegisterForm.cfm` file.
+Now you can reference the title variable as `arguments.title` inside the `_loginregisterform.cfm` file.
 
-If you prefer you can still access the view variables that are set outside of the partial. The advantage with specifically passing them in instead is that they are then `var` scoped (which means less chance of strange bugs) and that it makes for more readable code (you can see the intent of the partial better when you see what is passed in to it).
+If you prefer you can still access the view variables that are set outside of the partial. The advantage with specifically passing them in instead is that they are then scoped in the `arguments` struct (which means less chance of strange bugs occuring due to variable conflicts) and that it makes for more readable code (you can see the intent of the partial better when you see what is passed in to it).
 
 ==Partials with Layouts==
-it's possible to use partials from layouts as well
+
+Just like a regular page, Wheels partials also understand the concept of layouts. To use this feature simply pass in the name of the layout file you want to wrap the partial in to the `layout` argument, like this:
+
+{{{
+<cfoutput>#includePartial(name="newsItem", layout="/boxes/blue")#</cfoutput>
+}}}
+
+This will wrap the "newsItem" partial with the code found in `views/boxes/_blue.cfm`.
+
+As you can see, one difference from page layouts is that the layout file for partials has to start with the underscore character.
+
+It's worth noting here that it's perfectly acceptable to include partials inside layout files as well. This opens up for the possibility to nest layouts in complex ways.
 
 ==Caching a Partial==
-cache in minutes same as everywhere else.
+
+Caching a partial is done the same way as caching a page. Pass in the number of minutes you want to cache the partial for to the `cache` argument.
+
+{{{
+<cfoutput>#includePartial(name="userListing", cache=15)#</cfoutput>
+}}}
 
 ==Using Partials with an Object==
 can pass in partial=object and the partial "article" (name of object) will be used and the local var article set.

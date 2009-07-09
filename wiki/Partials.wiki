@@ -105,7 +105,21 @@ If you need to display some HTML in between each iteration (maybe each iteration
 <ul>
   <li><cfoutput>#includePartial(name=customers, spacer="</li><li>")#</cfoutput></li>
 </ul>
+}}}
 
 ==Rendering or Including?==
 
-can also use the partials directly from the controller using renderpartial. Useful for ajax calls, inlcude example with blog comments.
+So far we've only talked about the [includePartial includePartial()] which is what you use from within your views to include other files. There is another similar function as well though; [renderPartial renderPartial()]. This one is used from your controller files when you want to render a partial instead of a full page. At first glance this might not make much sense to do. There is one common usage of this though - AJAX requests.
+
+Let's say that you want to submit comments on your blog using AJAX, i.e. the user will see all comments, enter their comment, submit and the comment will show up below the existing ones without a new page being loaded.
+
+Then it's useful to use a partial to display each comment (using [includePartial includePartial()] as outlined above) and use the same partial when rendering the result of the AJAX request.
+
+Here's what your controller action that receives the AJAX form submission could look like:
+
+{{{
+<cfset comment = model("comment").create(params.newComment)>
+<cfset renderPartial(comment)>
+}}}
+
+Please note that there is no support for creating the AJAX form itself within Wheels. This can easily be implemented using a JavaScript library such as JQuery or Prototype though.

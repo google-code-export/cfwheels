@@ -51,9 +51,15 @@ Just like a regular page, Wheels partials also understand the concept of layouts
 <cfoutput>#includePartial(name="newsItem", layout="/boxes/blue")#</cfoutput>
 }}}
 
-This will wrap the "newsItem" partial with the code found in `views/boxes/_blue.cfm`.
+This will wrap the partial with the code found in `views/boxes/_blue.cfm`. To output the partial content you have to call [contentForLayout contentForLayout()]. Your `_newsitem.cfm` file could end up looking something like this for example:
 
-As you can see, one difference from page layouts is that the layout file for partials has to start with the underscore character.
+{{{
+<div class="news">
+  <cfoutput>#contentForLayout()#</cfoutput>
+</div>
+}}}
+
+One difference from page layouts is that the layout file for partials has to start with the underscore character.
 
 It's worth noting here that it's perfectly acceptable to include partials inside layout files as well. This opens up for the possibility to nest layouts in complex ways.
 

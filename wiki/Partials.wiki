@@ -1,31 +1,39 @@
 #summary Learn to use partial page templates.
 #labels chapter,0.9.3
 
-ROUGH DRAFT...
-
-Partials is a concept in Wheels that acts as a wrapper around good old `cfinclude`. By calling [includePartial includePartial()] or [renderPartial renderPartial()] you can include other files in a page, just like `cfinclude` would, and also use common Wheels features like layouts, caching, model objects etc.
+Partials is a concept in Wheels that acts as a wrapper around the good old `cfinclude` tag. By calling [includePartial includePartial()] or [renderPartial renderPartial()] you can include other files in a page, just like `cfinclude` would, but at the same time make use of common Wheels features like layouts, caching, model objects etc.
 
 These functions also add a few new cool things to your development arsenal like the ability to pass in a query and have the partial file called on each iteration to name one.
 
 ==Why Use a Partial?==
 
-Websites often display the same thing on multiple pages. It could be an advertisement area that should be displayed in an entire section of a website, a shopping cart that is displayed on the page while browsing products in a shop, you get the idea. To avoid duplicating code you should place it in a file and include that file on the pages that need it.
+Websites often display the same thing on multiple pages. It could be an advertisement area that should be displayed in an entire section of a website, a shopping cart that is displayed while browsing products in a shop, you get the idea. To avoid duplicating code you can place it in a file (the partial in Wheels terms) and include that file using [includePartial includePartial()] on the pages that need it.
 
-Even when there is no risk of code duplication it may still make sense to use a partial though. Breaking up a large page into smaller, more manageable, chunks will help you focus on each part individually.
+Even when there is no risk of code duplication it may still make sense to use a partial actually. Breaking up a large page into smaller, more manageable, chunks will help you focus on each part individually for example.
 
 If you've used `cfinclude` a lot in the past (and who hasn't?!) you probably already knew all of this though, right.
 
-
-
-any args passed in will be var scoped and placed in a var with the same name as the partial
-can also access the view variables but cleaner to use local vars (no conflits, leads to bugs etc)
-
 ==Storing Your Files==
 
-identified by prepending with an underscore in the file name (but referenced without it in the code)
-Can also share partials between controllers, normal to place them in its own folder then. Rendering follows the rule for renderPage(template)?
+To make it clear that a file is a partial and not a full page we start the filename with an underscore character. You can place the partial anywhere in the views folder. When locating partials Wheels will use the same rules as it does for the template argument to renderPage. This means that if you save the partial in the current controller's view folder you reference it simply by its name. For example, let's say you want to have a partial for a comment in your blog controller you save the file in views/blog/_comment.cfm and reference it ([includePartial includePartial()] and [renderPartial renderPartial()]) with just 'comment'.
+
+Sometimes it's useful to share partials between controllers though. Perhaps you have a banner ad that should be displayed across several controllers. One common approach then is the save them in a folder named shared at the root of the views folder. To reference partials in this folder you would then pass in `/shared/banner` instead.
+
+==Making the Call==
+
+Now that we know why we should use partials and where to store them, let's make a call to [includePartial includePartial()] from a view page to have Wheels display the partial output.
+
+{{{
+<cfoutput>#includePartial("banner")#</cfoutput>
+}}}
+
+That code will look for a file named `_banner.cfm` in the current controller's view folder and include it. Let's say we're in the blog controller, then the file that will be included is `views/blog/_banner.cfm`.
+
+As you can see you don't have to specify the `.cfm` part or the underscore when referencing a partial.
 
 ==Passing in Data==
+any args passed in will be var scoped and placed in a var with the same name as the partial
+can also access the view variables but cleaner to use local vars (no conflits, leads to bugs etc)
 
 
 ==Rendering or Including?==

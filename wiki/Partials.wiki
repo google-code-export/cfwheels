@@ -97,7 +97,7 @@ In this case Wheels will iterate through the query and call the `_customer.cfm` 
 
 In addition to that you will also see that a counter variable is available. It's named `currentRow` to be consistent with the naming of the equivalent variable in the `cfquery` tag.
 
-The way partials handle objects and queries makes it possible to use the exact same code inside the partial regardless of whether we're dealing with an object or query at the time.
+The way partials handle objects and queries makes it possible to use the exact same code inside the partial regardless of whether we're dealing with an object or query record at the time.
 
 If you need to display some HTML in between each iteration (maybe each iteration should be a list item for example) then you can make use of the `spacer` argument. Anything passed in to that will be inserted between iterations. Here's an example:
 
@@ -109,9 +109,9 @@ If you need to display some HTML in between each iteration (maybe each iteration
 
 ==Rendering or Including?==
 
-So far we've only talked about the [includePartial includePartial()] which is what you use from within your views to include other files. There is another similar function as well though; [renderPartial renderPartial()]. This one is used from your controller files when you want to render a partial instead of a full page. At first glance this might not make much sense to do. There is one common usage of this though - AJAX requests.
+So far we've only talked about the [includePartial includePartial()] which is what you use from within your views to include other files. There is another similar function as well; [renderPartial renderPartial()]. This one is used from your controller files when you want to render a partial instead of a full page. At first glance this might not make much sense to do. There is one common usage of this though - AJAX requests.
 
-Let's say that you want to submit comments on your blog using AJAX, i.e. the user will see all comments, enter their comment, submit and the comment will show up below the existing ones without a new page being loaded.
+Let's say that you want to submit comments on your blog using AJAX, i.e. the user will see all comments, enter their comment, submit it and the comment will show up below the existing ones without a new page being loaded.
 
 Then it's useful to use a partial to display each comment (using [includePartial includePartial()] as outlined above) and use the same partial when rendering the result of the AJAX request.
 

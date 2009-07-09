@@ -72,13 +72,40 @@ Caching a partial is done the same way as caching a page. Pass in the number of 
 }}}
 
 ==Using Partials with an Object==
-can pass in partial=object and the partial "article" (name of object) will be used and the local var article set.
+
+Since it's quite common to use partials in conjunction with objects and queries Wheels have built-in support for this too. Have a look at the code below that deals with passing in an object to a partial:
+
+{{{
+<cfset cust = model("customer").findByKey(params.key)>
+<cfoutput>#includePartial(cust)#</cfoutput>
+}}}
+
+That code will figure out that the `cust` variable contains a `customer` model object. It will then try to include a partial named `_customer.cfm` and pass in the object's properties as arguments to the partial. There will also be a `customer` variable available in the `arguments` struct if you prefer to reference the object directly.
+
+Try that code and `cfdump` the `arguments` struct inside the partial file and you'll see what's going on. Pretty cool stuff, right?
 
 ==Using Partials with a Query==
 
-can pass in the query and it will loop through and call each partial, will also set a counter variable (possible to get name of the query?).or is it better to pass in "article" and Wheels will look for an object named article, probably not.
+Similar to passing in an object you can also pass in a query result set to [includePartial includePartial()]. Here's how that looks:
 
-Also implement spacerTemplate. should accept straight html or a file name. no vars need to be passed to it.
+{{{
+<cfset customers = model("customer").findAll()>
+<cfoutput>#includePartial(customers)#</cfoutput>
+}}}
+
+In this case Wheels will iterate through the query and call the `_customer.cfm` partial on each iteration. Similar to the example with the object above Wheels will pass in the object's properties (in this case represented by records in the query of course) to the partial.
+
+In addition to that you will also see that a counter variable is available. It's named `currentRow` to be consistent with the naming of the equivalent variable in the `cfquery` tag.
+
+The way partials handle objects and queries makes it possible to use the exact same code inside the partial regardless of whether we're dealing with an object or query at the time.
+
+If you need to display some HTML in between each iteration (maybe each iteration should be a list item for example) then you can make use of the `spacer` argument. Anything passed in to that will be inserted between iterations. Here's an example:
+
+{{{
+<ul>
+  <li><cfoutput>#includePartial(name=customers, spacer="</li><li>")#</cfoutput></li>
+</ul>
 
 ==Rendering or Including?==
+
 can also use the partials directly from the controller using renderpartial. Useful for ajax calls, inlcude example with blog comments.

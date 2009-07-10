@@ -1,39 +1,45 @@
 #summary Learn to use partial page templates.
 #labels chapter,0.9.3
 
-Partials is a concept in Wheels that acts as a wrapper around the good old `cfinclude` tag. By calling [includePartial includePartial()] or [renderPartial renderPartial()] you can include other files in a page, just like `cfinclude` would, but at the same time make use of common Wheels features like layouts, caching, model objects and so on.
+Partials in Wheels act as a wrapper around the good old `<cfinclude>` tag. By calling [includePartial includePartial()] or [renderPartial renderPartial()], you can include other view files in a page, just like `<cfinclude>` would. But at the same time, partials make use of common Wheels features like layouts, caching, model objects, and so on.
 
-These functions also add a few new cool things to your development arsenal like the ability to pass in a query and have the partial file called on each iteration to name one.
+These functions also add a few cool things to your development arsenal like the ability to pass in a query and have the partial file called on each iteration (to name one).
 
 ==Why Use a Partial?==
 
-Websites often display the same thing on multiple pages. It could be an advertisement area that should be displayed in an entire section of a website, a shopping cart that is displayed while browsing products in a shop, you get the idea. To avoid duplicating code you can place it in a file (the "partial" in Wheels terms) and include that file using [includePartial includePartial()] on the pages that need it.
+Websites often display the same thing on multiple pages. It could be an advertisement area that should be displayed in an entire section of a website or a shopping cart that is displayed while browsing products in a shop. You get the idea. To avoid duplicating code, you can place it in a file (the "partial" in Wheels terms) and include that file using [includePartial includePartial()] on the pages that need it.
 
-Even when there is no risk of code duplication it may still make sense to use a partial actually. Breaking up a large page into smaller, more manageable, chunks will help you focus on each part individually for example.
+Even when there is no risk of code duplication, it can still make sense to use a partial. Breaking up a large page into smaller, more manageable chunks will help you focus on each part individually.
 
-If you've used `cfinclude` a lot in the past (and who hasn't?!) you probably already knew all of this though, right?
+If you've used `<cfinclude>` a lot in the past (and who hasn't?!), you probably already knew all of this though, right?
 
-==Storing Your Files==
+==Storing Your Partial Files==
 
-To make it clear that a file is a partial and not a full page we start the filename with an underscore character. You can place the partial file anywhere in the `views` folder. When locating partials Wheels will use the same rules as it does for the `template` argument to [renderPage renderPage()]. This means that if you save the partial in the current controller's view folder you reference it simply by its name. For example, if you want to have a partial for a comment in your blog controller you will save the file in `views/blog/_comment.cfm` and reference it (in [includePartial includePartial()] and [renderPartial renderPartial()]) with just `comment`.
+To make it clear that a file is a partial and not a full page, we start the filename with an underscore character. You can place the partial file anywhere in the `views` folder. When locating partials, Wheels will use the same rules as it does for the `template` argument to [renderPage renderPage()]. This means that if you save the partial in the current controller's view folder, you reference it simply by its name.
 
-Sometimes it's useful to share partials between controllers though. Perhaps you have a banner ad that should be displayed across several controllers. One common approach then is the save them in a dedicated folder for this at the root of the `views` folder. To reference partials in this folder, in this case named `shared`, you would then pass in `/shared/banner` to [includePartial includePartial()] instead.
+For example, if you wanted to have a partial for a comment in your `blog` controller, you would save the file at `views/blog/_comment.cfm` and reference it (in [includePartial includePartial()] and [renderPartial renderPartial()]) with just `"comment"` as the first argument.
+
+Sometimes it's useful to share partials between controllers though. Perhaps you have a banner ad that should be displayed across several controllers. One common approach then is the save them in a dedicated folder for this at the root of the `views` folder. To reference partials in this folder, in this case named `shared`, you would then pass in `"/shared/banner"` to [includePartial includePartial()] instead.
 
 ==Making the Call==
 
-Now that we know why we should use partials and where to store them, let's make a call to [includePartial includePartial()] from a view page to have Wheels display the partial output.
+Now that we know why we should use partials and where to store them, let's make a call to [includePartial includePartial()] from a view page to have Wheels display a partial's output.
 
 {{{
 <cfoutput>#includePartial("banner")#</cfoutput>
 }}}
 
-That code will look for a file named `_banner.cfm` in the current controller's view folder and include it. Let's say we're in the blog controller, then the file that will be included is `views/blog/_banner.cfm`.
+That code will look for a file named `_banner.cfm` in the current controller's view folder and include it.
+
+Let's say we're in the `blog` controller. Then the file that will be included is `views/blog/_banner.cfm`.
 
 As you can see you don't have to specify the `.cfm` part or the underscore when referencing a partial.
 
 ==Passing in Data==
 
-You can pass in data by adding named arguments on the [includePartial includePartial()] call. Since we use `name` to determine what file to include you can't pass in a variable named `name` though. The same goes for the other arguments as well like `layout`, `spacer` and `cache`. Here is an example of passing in a title to a partial for a form:
+You can pass in data by adding named arguments on the [includePartial includePartial()] call. Because we use `name` to determine what file to include, you can't pass in a variable named `name` though. The same goes for the other arguments as well, like `layout`, `spacer`, and `cache`.
+
+Here is an example of passing in a `title` to a partial for a form:
 
 {{{
 <cfoutput>#includePartial(name="loginRegisterForm", title="Please log in here")#</cfoutput>
@@ -41,31 +47,35 @@ You can pass in data by adding named arguments on the [includePartial includePar
 
 Now you can reference the title variable as `arguments.title` inside the `_loginregisterform.cfm` file.
 
-If you prefer you can still access the view variables that are set outside of the partial. The advantage with specifically passing them in instead is that they are then scoped in the `arguments` struct (which means less chance of strange bugs occuring due to variable conflicts) and that it makes for more readable code (you can see the intent of the partial better when you see what is passed in to it).
+If you prefer, you can still access the view variables that are set outside of the partial. The advantage with specifically passing them in instead is that they are then scoped in the `arguments` struct (which means less chance of strange bugs occurring due to variable conflicts). It also makes for more readable and maintainable code. (You can see the intent of the partial better when you see what is passed in to it).
 
 ==Partials with Layouts==
 
-Just like a regular page, Wheels partials also understand the concept of layouts. To use this feature simply pass in the name of the layout file you want to wrap the partial in to the `layout` argument, like this:
+Just like a regular page, Wheels partials also understand the concept of layouts. To use this feature, simply pass in the name of the layout file you want to wrap the partial in with the `layout` argument, like this:
 
 {{{
 <cfoutput>#includePartial(name="newsItem", layout="/boxes/blue")#</cfoutput>
 }}}
 
-This will wrap the partial with the code found in `views/boxes/_blue.cfm`. To output the partial content you have to call [contentForLayout contentForLayout()]. Your `_newsitem.cfm` file could end up looking something like this for example:
+This will wrap the partial with the code found in `views/boxes/_blue.cfm`. Just like with other layouts, you use [contentForLayout contentForLayout()] to represent the partial's content.
+
+That said, your `_newsitem.cfm` file could end up looking something like this:
 
 {{{
 <div class="news">
-  <cfoutput>#contentForLayout()#</cfoutput>
+    <cfoutput>#contentForLayout()#</cfoutput>
 </div>
 }}}
 
 One difference from page layouts is that the layout file for partials has to start with the underscore character.
 
-It's worth noting here that it's perfectly acceptable to include partials inside layout files as well. This opens up for the possibility to nest layouts in complex ways.
+It's also worth noting that it's perfectly acceptable to include partials inside layout files as well. This opens up the possibility to nest layouts in complex ways.
 
 ==Caching a Partial==
 
 Caching a partial is done the same way as caching a page. Pass in the number of minutes you want to cache the partial for to the `cache` argument.
+
+Here's an example where we cache a partial for 15 minutes:
 
 {{{
 <cfoutput>#includePartial(name="userListing", cache=15)#</cfoutput>
@@ -73,7 +83,7 @@ Caching a partial is done the same way as caching a page. Pass in the number of 
 
 ==Using Partials with an Object==
 
-Since it's quite common to use partials in conjunction with objects and queries Wheels have built-in support for this too. Have a look at the code below that deals with passing in an object to a partial:
+Because it's quite common to use partials in conjunction with objects and queries, Wheels has built-in support for this too. Have a look at the code below, which passes in an object to a partial:
 
 {{{
 <cfset cust = model("customer").findByKey(params.key)>
@@ -82,44 +92,48 @@ Since it's quite common to use partials in conjunction with objects and queries 
 
 That code will figure out that the `cust` variable contains a `customer` model object. It will then try to include a partial named `_customer.cfm` and pass in the object's properties as arguments to the partial. There will also be a `customer` variable available in the `arguments` struct if you prefer to reference the object directly.
 
-Try that code and `cfdump` the `arguments` struct inside the partial file and you'll see what's going on. Pretty cool stuff, right?
+Try that code and `<cfdump>` the `arguments` struct inside the partial file, and you'll see what's going on. Pretty cool stuff, huh?
 
 ==Using Partials with a Query==
 
-Similar to passing in an object you can also pass in a query result set to [includePartial includePartial()]. Here's how that looks:
+Similar to passing in an object, you can also pass in a query result set to [includePartial includePartial()]. Here's how that looks:
 
 {{{
 <cfset customers = model("customer").findAll()>
 <cfoutput>#includePartial(customers)#</cfoutput>
 }}}
 
-In this case Wheels will iterate through the query and call the `_customer.cfm` partial on each iteration. Similar to the example with the object above Wheels will pass in the object's properties (in this case represented by records in the query of course) to the partial.
+In this case, Wheels will iterate through the query and call the `_customer.cfm` partial on each iteration. Similar to the example with the object above, Wheels will pass in the objects' properties (in this case represented by records in the query) to the partial.
 
-In addition to that you will also see that a counter variable is available. It's named `currentRow` to be consistent with the naming of the equivalent variable in the `cfquery` tag.
+In addition to that, you will also see that a counter variable is available. It's named `currentRow` to be consistent with the naming of the equivalent variable provided by the `<cfquery>` tag.
 
 The way partials handle objects and queries makes it possible to use the exact same code inside the partial regardless of whether we're dealing with an object or query record at the time.
 
-If you need to display some HTML in between each iteration (maybe each iteration should be a list item for example) then you can make use of the `spacer` argument. Anything passed in to that will be inserted between iterations. Here's an example:
+If you need to display some HTML in between each iteration (maybe each iteration should be a list item for example), then you can make use of the `spacer` argument. Anything passed in to that will be inserted between iterations. Here's an example:
 
 {{{
+<cfoutput>
+
 <ul>
-  <li><cfoutput>#includePartial(name=customers, spacer="</li><li>")#</cfoutput></li>
+    <li>#includePartial(name=customers, spacer="</li><li>")#</li>
 </ul>
+
+</cfoutput>
 }}}
 
 ==Rendering or Including?==
 
-So far we've only talked about the [includePartial includePartial()] which is what you use from within your views to include other files. There is another similar function as well; [renderPartial renderPartial()]. This one is used from your controller files when you want to render a partial instead of a full page. At first glance this might not make much sense to do. There is one common usage of this though - AJAX requests.
+So far we've only talked about [includePartial includePartial()], which is what you use from within your views to include other files. There is another similar function as well: [renderPartial renderPartial()]. This one is used from your controller files when you want to render a partial instead of a full page. At first glance, this might not make much sense to do. There is one common usage of this though--AJAX requests.
 
-Let's say that you want to submit comments on your blog using AJAX, i.e. the user will see all comments, enter their comment, submit it and the comment will show up below the existing ones without a new page being loaded.
+Let's say that you want to submit comments on your blog using AJAX. For example, the user will see all comments, enter their comment, submit it, and the comment will show up below the existing ones without a new page being loaded.
 
-Then it's useful to use a partial to display each comment (using [includePartial includePartial()] as outlined above) and use the same partial when rendering the result of the AJAX request.
+In this case, it's useful to use a partial to display each comment (using [includePartial includePartial()] as outlined above) and use the same partial when rendering the result of the AJAX request.
 
-Here's what your controller action that receives the AJAX form submission could look like:
+Here's what your controller action that receives the AJAX form submission would look like:
 
 {{{
 <cfset comment = model("comment").create(params.newComment)>
 <cfset renderPartial(comment)>
 }}}
 
-Please note that there is no support for creating the AJAX form itself within Wheels. This can easily be implemented using a JavaScript library such as JQuery or Prototype though.
+Please note that there currently is no support for creating the AJAX form directly with Wheels. This can easily be implemented using a JavaScript library such as [JQuery http://jquery.com/] or [Prototype http://www.prototypejs.org/] though.

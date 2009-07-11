@@ -19,7 +19,7 @@ To make it clear that a file is a partial and not a full page, we start the file
 
 For example, if you wanted to have a partial for a comment in your `blog` controller, you would save the file at `views/blog/_comment.cfm` and reference it (in [includePartial includePartial()] and [renderPartial renderPartial()]) with just `"comment"` as the first argument.
 
-Sometimes it's useful to share partials between controllers though. Perhaps you have a banner ad that should be displayed across several controllers. One common approach then is the save them in a dedicated folder for this at the root of the `views` folder. To reference partials in this folder, in this case named `shared`, you would then pass in `"/shared/banner"` to [includePartial includePartial()] instead.
+Sometimes it's useful to share partials between controllers though. Perhaps you have a banner ad that should be displayed across several controllers. One common approach then is to save them in a dedicated folder for this at the root of the `views` folder. To reference partials in this folder, in this case named `shared`, you would then pass in `"/shared/banner"` to [includePartial includePartial()] instead.
 
 ==Making the Call==
 

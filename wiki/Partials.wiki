@@ -33,7 +33,7 @@ That code will look for a file named `_banner.cfm` in the current controller's v
 
 Let's say we're in the `blog` controller. Then the file that will be included is `views/blog/_banner.cfm`.
 
-As you can see you don't have to specify the `.cfm` part or the underscore when referencing a partial.
+As you can see, you don't need to specify the `.cfm` part or the underscore when referencing a partial.
 
 ==Passing in Data==
 

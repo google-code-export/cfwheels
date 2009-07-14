@@ -29,7 +29,7 @@ String
 || *prependToLabel* || string || false || || See documentation for `textFieldTag ` ||
 || *appendToLabel* || string || false || || See documentation for `textFieldTag ` ||
 || *errorElement* || string || false || div || See documentation for `textFieldTag ` ||
-|| * includeBlank* || boolean, string || false || false || Whether to include a blank option in the select form control. If a string is passed, it would be used as the first element of the select form control ||
+|| * includeBlank* || boolean, string || false || false || See documentation for `select` ||
 || * multiple* || boolean || false || false || Whether to allow multiple selection of options in the select form control ||
 || * valueField* || string || false || id || The column to use for the value of each list element, used only when a query has been supplied in the `options` argument ||
 || * textField* || string || false || name || The column to use for the value of each list element that the end user will see, used only when a query has been supplied in the `options` argument ||

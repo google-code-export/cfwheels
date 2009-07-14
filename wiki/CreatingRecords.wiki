@@ -20,11 +20,11 @@ At this point, the `newAuthor` object only exists in memory. We save it to the d
 <cfset newAuthor.save()>
 }}}
 
-==Creating Based on a `struct`==
+==Creating Based on a Struct==
 
-If you want to create a new object based on parameters sent in from a form request, the [new new()] method conveniently accepts a `struct` as well. As we'll see later, when you use the Wheels form helpers, they automatically turn your form variables into a `struct` that you can pass into [new new()] and other methods.
+If you want to create a new object based on parameters sent in from a form request, the [new new()] method conveniently accepts a struct as well. As we'll see later, when you use the Wheels form helpers, they automatically turn your form variables into a struct that you can pass into [new new()] and other methods.
 
-Given that `params.newAuthor` is a `struct` containing the `firstName` and `lastName` variables, the code below does the same as the code above (without saving it though).
+Given that `params.newAuthor` is a struct containing the `firstName` and `lastName` variables, the code below does the same as the code above (without saving it though).
 
 {{{
 <cfset newAuthor = model("author").new(params.newAuthor)>

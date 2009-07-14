@@ -1,5 +1,5 @@
 #summary What you need to know and have installed before you start programming in Wheels.
-#labels chapter,0.9.1
+#labels chapter,0.9.3,published_prod
 
 We can identify 3 different types of requirements that you should be aware of:
 
@@ -29,19 +29,19 @@ Moving on...
 
 Yes, there are actually some things you should familiarize yourself with before starting to use Wheels. Don't worry though. You don't need to be an expert on any on of them. A basic understanding is good enough.
 
- * *!ColdFusion.* You should know CFML, the !ColdFusion programming language. (Surprise!)
+ * *CFML.* You should know CFML, the !ColdFusion programming language. (Surprise!)
  * *Object Oriented Programming.* You should grasp the concept of object oriented programming and how it applies to !ColdFusion.
  * *Model-View-Controller.* You should know the theory behind the Model-View-Controller development pattern.
 
-===!ColdFusion===
+===CFML===
 
-Simply the best web development language in the world! The best way to learn it, in our humble opinion, is to [http://www.adobe.com/products/coldfusion get the free developer edition from Adobe], buy Ben Forta's [http://www.forta.com/books/032151548x ColdFusion Web Application Construction Kit] series, and start coding using your programming editor of choice.
+Simply the best web development language in the world! The best way to learn it, in our humble opinion, is to [http://www.adobe.com/products/coldfusion get the free developer edition of ColdFusion from Adobe], buy Ben Forta's [http://www.forta.com/books/032151548x ColdFusion Web Application Construction Kit] series, and start coding using your programming editor of choice.
 
 ===Object Oriented Programming (OOP)===
 
-This is a programming methodology that uses constructs called _objects_ to design applications. Objects model real world entities in your application. OOP is based on several techniques including _inheritance_, _modularity_, _polymorphism_ and _encapsulation_. Most of these techniques are supported in !ColdFusion, making it a fairly functional object oriented language. At the most basic level, a `.cfc` file in !ColdFusion is a class, and you create an instance of a class by using the `CreateObject` function or the `<cfobject>` tag.
+This is a programming methodology that uses constructs called _objects_ to design applications. Objects model real world entities in your application. OOP is based on several techniques including _inheritance_, _modularity_, _polymorphism_ and _encapsulation_. Most of these techniques are supported in !ColdFusion, making it a fairly functional object oriented language. At the most basic level, a `.cfc` file in CFML is a class, and you create an instance of a class by using the `CreateObject` function or the `<cfobject>` tag.
 
-Trying to squeeze an explanation of object oriented programming and how it's used in !ColdFusion into a few sentences is impossible, and a detailed overview of it is outside the scope of this chapter. There is lots of high quality information online, so go ahead and Google it.
+Trying to squeeze an explanation of object oriented programming and how it's used in CFML into a few sentences is impossible, and a detailed overview of it is outside the scope of this chapter. There is lots of high quality information online, so go ahead and Google it.
 
 ===Model-View-Controller===
 
@@ -57,7 +57,7 @@ MVC is how Wheels structures your code for you. As you start working with Wheels
 
 Apologies to everyone still running on older versions of Adobe !ColdFusion... You're going to need to upgrade to *Adobe !ColdFusion 8*. The good news is that not only will you be able to run Wheels, you will also benefit from the tons of performance enhancements and cool new features that have been added to !ColdFusion 8. It really is worth the upgrade!
 
-If you prefer a free version of !ColdFusion, you can also run Wheels on the open source version of [http://www.getrailo.org/ Railo].
+If you prefer a free CFML engine, you can also run Wheels on the open source version of [http://www.getrailo.org/ Railo].
 
 ===Operating Systems===
 
@@ -71,6 +71,6 @@ Don't worry though. Wheels will adapt to your setup and run just fine regardless
 
 ===Database Engines===
 
-Finally, to build any kind of meaningful web application, you will likely interact with a database. Currently supported databases are *SQL Server 7 or later*, *Oracle 10g or later*, and *MySQL 5*. (Please note that MySQL 4 is not supported.)
+Finally, to build any kind of meaningful web application, you will likely interact with a database. Currently supported databases are *SQL Server 7 or later*, *Oracle 10g or later*, *PostgreSQL*, and *MySQL 5*. (Please note that MySQL 4 is not supported.)
 
 OK, hopefully this chapter didn't scare you too much. You can move on knowing that you have the basic knowledge needed, the software to run Wheels on, and a suitable project to start with.

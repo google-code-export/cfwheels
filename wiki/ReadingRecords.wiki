@@ -53,31 +53,33 @@ Besides the difference in return type, [findOne findOne()] and [findAll findAll(
 
 This maps to the `SELECT` clause of the SQL statement.
 
-Wheels is pretty smart when it comes to figuring out what to select from the database table(s). For example, if nothing is passed in to the `select` argument, Wheels will assume you want all columns returned and create a `SELECT` clause looking something like this:
+Wheels is pretty smart when it comes to figuring out what to select from the database table(s). For example, if nothing is passed in to the `select` argument, Wheels will assume that you want all columns returned and create a `SELECT` clause looking something like this:
 
 {{{
 artists.id,artists.name
 }}}
 
-As you can see it knows that the `artist` model is mapped to the `artists` table and will prepend the table name to the column names accordingly.
+As you can see, Wheels knows that the `artist` model is mapped to the `artists` table and will prepend the table name to the column names accordingly.
 
-If you have mapped columns to a different property name in your application Wheels will take this into account as well. The end result then could look like this:
+If you have mapped columns to a different property name in your application, Wheels will take this into account as well. The end result then could look like this:
 
 {{{
 artists.id,artists.fname AS firstName
 }}}
 
-If you select from more than one table (see the `include` argument below) and there are ambiguous column names Wheels will sort this out for you as well by prepending the model name to the column. Let's say you have a column called `name` in both the `artists` and `albums` tables the `SELECT` clause will be created like this:
+If you select from more than one table (see the `include` argument below) and there are ambiguous column names, Wheels will sort this out for you by prepending the model name to the column name.
+
+Let's say you have a column called `name` in both the `artists` and `albums` tables. The `SELECT` clause will be created like this:
 
 {{{
 artists.name,albums.name AS albumName
 }}}
 
-If you use the `include` argument a lot you will love this feature as it saves a lot of typing.
+If you use the `include` argument a lot, you will love this feature as it saves a lot of typing.
 
-If you don't want to return all properties you can override this behavior by passing in a list of the properties you want returned.
+If you don't want to return all properties, you can override this behavior by passing in a list of the properties you want returned.
 
-If you want to take full control over the `SELECT` clause you can do so by specifying the table names (i.e. `author.firstName`) in the `select` argument or by using alias names (i.e. `firstname AS firstName`). If Wheels comes across the use of any of these techniques it will assume you know what you're doing and pass on the `select` argument straight to the `SELECT` clause with no changes.
+If you want to take full control over the `SELECT` clause, you can do so by specifying the table names (i.e. `author.firstName`) in the `select` argument or by using alias names (i.e. `firstname AS firstName`). If Wheels comes across the use of any of these techniques, it will assume you know what you're doing and pass on the `select` argument straight to the `SELECT` clause with no changes.
 
 A tip is to turn on debugging when you're learning Wheels so you can get a good understanding of how Wheels creates the SQL statements.
 

@@ -181,7 +181,7 @@ In the view at `views/users/index.cfm`, it's as simple as looping through the qu
     <p class="success">#flash("success")#</p>
 </cfif>
 
-<p>#linkTo(text="+ Add New User", action="user")#</p>
+<p>#linkTo(text="+ Add New User", action="add")#</p>
 
 <table>
     <thead>

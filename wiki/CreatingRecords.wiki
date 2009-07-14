@@ -1,5 +1,5 @@
 #summary How to create new objects and save them to the database.
-#labels chapter,0.9.3
+#labels chapter,0.9.3,published_prod
 
 In Wheels, one way to create objects that represent records in our table is by calling the [new new()] class-level method.
 
@@ -58,16 +58,16 @@ No matter which method you prefer, Wheels will use database introspection to see
 
 ==Setting Default Values==
 
-If you're the kind of person who likes to give the database responsibility you may have told it to create default values for new records. Wouldn't it be nice if you can also set these values automatically when creating new objects? Well, you can (surprise!) and it's dead simple too. Just pass in `defaults=true` to the [new new()] method and it will return the object with all the default values set on it. In the background Wheels uses the excellent `cfdbinfo` tag on application start-up so no extra database calls are required to use this functionality.
+If you're the kind of person who likes to give the database responsibility, you may have set your tables to create default values for new records. Wouldn't it be nice if you could also set these values automatically when creating new objects? Well, you can (surprise!), and it's dead simple too. Just pass in `defaults=true` to the [new new()] method, and it will return the object with all the default values set on it. In the background, Wheels uses the excellent `<cfdbinfo>` tag on application start-up, so no extra database calls are required to use this functionality.
 
-If you find that you end up passing in `defaults=true` all the time to [new new()], then you may consider overriding this Wheels convention and simply set `defaults` to `true` globally. This is done by adding the following line to your `config.cfm` file:
+If you find that you end up passing in `defaults=true` all the time to [new new()], then you may consider overriding this Wheels convention and simply set `defaults` to `true` globally. This is done by adding the following line to your `config/setting.cfm` file:
 
 {{{
-<cfset set(functionName="new", defaults=true)
+<cfset set(functionName="new", defaults=true)>
 }}}
 
-You can also set the default values _after_ the object has been saved to the database if you prefer (i.e. after [create create()] or [save save()] has been called). In fact, Wheels does this for you out of the box. If you don't like this convention you can turn it off with the following line in `config.cfm`:
+You can also set the default values _after_ the object has been saved to the database if you prefer (i.e. after [create create()] or [save save()] has been called). In fact, Wheels does this for you out of the box. If you don't like this convention, you can turn it off with the following line in `config.cfm`:
 
 {{{
-<cfset set(functionName="save", defaults=false)
+<cfset set(functionName="save", defaults=false)>
 }}}

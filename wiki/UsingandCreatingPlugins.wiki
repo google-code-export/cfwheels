@@ -1,5 +1,5 @@
 #summary Extend Wheels functionality by using plugins or creating your own.
-#labels chapter,0.9.1
+#labels chapter,0.9.4
 
 Wheels is a fairly lightweight framework, and we like to keep it that way. We won't be adding thousands of various features to Wheels just because a couple of developers find them "cool." ;)
 
@@ -22,6 +22,8 @@ Reloading Wheels is required when installing/uninstalling. (Issue a `reload=true
 When you download plugins, you will see that they are named something like this: `Scaffold-0.1.zip`. In this case, `0.1` is the version number of the `Scaffold` plugin. If you drop both `Scaffold-0.1.zip` and `Scaffold-0.2.zip` in the `plugins` folder, Wheels will use the one with the highest version number and ignore any others.
 
 If you try to install a plugin that is not compatible with your installed version of Wheels or not compatible with a previously installed plugin (i.e., they try to add/override the same functions), Wheels will throw an error on application start.
+
+If you install a plugin that depends on another plugin you will get a warning message displayed in the debug area. This message will name the plugin that you'll need to download and install to make the originally installed plugin work correctly.
 
 ==Available Plugins==
 
@@ -66,6 +68,40 @@ Let's say that we wanted Wheels's built-in function `timeAgoInWords()` to return
 <cffunction name="timeAgoInWords" returntype="string" access="public" output="false">
     <cfreturn core.timeAgoInWords(argumentCollection=arguments) & " (approximately)">
 </cffunction>
+}}}
+
+==Plugin Attributes==
+
+There are 3 attributes you can set on your plugin to customize its behavior. The first and most important one is the `mixin` attribute.
+
+By default, the functions in your plugins will be injected into all Wheels objects (controller, model etc). This is usually not necessary and to avoid this overhead you can use the `mixin` attribute to specify exactly where the functions should be injected. If you have a function that should be available in a controller (or view) this is how it could look:
+
+{{{
+<cfcomponent output="false" mixin="controller">
+}}}
+
+The `mixin` attribute can be set either on the `cfcomponent` tag or on the individual `cffunction` tags.
+
+The following values can be used for the `mixin` attribute: `global`, `none`, `controller`, `model`, `dispatch`, `microsoftsqlserver`, `mysql`, `oracle`, `postgresql`.
+
+Another useful attribute is the `environment` attribute. Using this you can tell Wheels that a plugin should only inject its functions in certain environment modes. Here's an example of that, taken from the `Scaffold` plugin which doesn't need to inject any functions to Wheels at all.
+
+{{{
+<cfcomponent output="false" mixin="controller" environment="design,development">
+}}}
+
+Finally, there is a way to specify that your plugin needs another plugin installed in order to work. Here's an example of that:
+
+{{{
+<cfcomponent output="false" dependency="someOtherPlugin">
+}}}
+
+==Stand-Alone Plugins==
+
+If your plugin is completely stand-alone you can call it from its view page using just the name of the plugin. This works because Wheels has created a pointer to the plugin object residing in the application scope. One example of a stand-alone plugin is the Plugin Manager that comes pre-installed with Wheels. If you check out its view code you will see that it calls itself like this:
+
+{{{
+<cfset pluginManager.installPlugin(URL.plugin)>
 }}}
 
 ==Now Go Build Some Plugins!==

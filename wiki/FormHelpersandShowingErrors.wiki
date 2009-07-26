@@ -1,44 +1,45 @@
 #summary Wheels ties your application's forms together with your model layer elegantly. With Wheels form conventions, you'll find yourself spending less time writing repetitive markup to display forms and error messages.
-#labels chapter,0.9.1
+#labels chapter,0.9.3
 
-Coding is not all about backend, there is a great deal of work to perform on the frontend on any Web application. Hopefully Wheels is here to take you to greener pastures with its [ViewHelperFunctions Helper Functions]. 
+The majority of applications are not all about back-end. There is a great deal of work to perform on the front-end as well. It can be argued that most of your users will think of the interface _as_ the application.
 
-Lets get visual, code examples:
+Wheels is here to take you to greener pastures with its [ViewHelperFunctions Helper Functions]. Let's get visual with some code examples.
 
 ==Simple Example: The Old Way==
 
-Let's take a look at a simple form for editing a user profile. Normally, you would code your web form similarly to this:
+Here is a simple form for editing a user profile. Normally, you would code your web form similarly to this:
 
 {{{
 <cfoutput>
 
 <form action="/profile/save" method="post">
-    
-    <label for="firstName">First Name</label>
-    <div>        
+
+    <div>
+        <label for="firstName">First Name</label><br />
         <input id="firstName" name="firstName" value="#profile.firstName#" />
     </div>
-    
-    <label for="lastName">Last Name</label>
-    <div>       
+
+    <div>
+        <label for="lastName">Last Name</label>
         <input id="lastName" name="lastName" value="#profile.lastName#" />
     </div>
-    
-    <label for="email">Email</label>
-    <div>      
-        <input id="email" name="email" value="#profle.email#" />
-    </div>
-        
-    <label for="department">Department</label>
+
     <div>
+        <label for="department">Department</label><br />
         <select id="department" name="departmentId">
             <cfloop query="departments">
-                <option value="#departments.id#">#departments.name#</option>
+                <option
+                    value="#departments.id#"
+                    <cfif profile.departmentId eq departments.id>
+                        selected="selected"
+                    </cfif>
+                >#departments.name#</option>
             </cfloop>
         </select>
     </div>
     
     <div>
+        <input type="hidden" name="id" value="#department.id#" />
         <input type="submit" value="Save Changes" />
     </div>
 </form>
@@ -50,9 +51,9 @@ Then you would write a script for the form that validates the data submitted, ha
 
 We know that you are quite familiar with the drudgery of typing this sort of code over and over again. Let's not even mention the pain associated with debugging it or adding new fields and business logic!
 
-==Making Life Easier: The New Way==
+==Making Life Easier: The Wheels Way==
 
-The good news is that Wheels simplifies this quite a bit for you. At first, it looks a little different using these conventions, but you'll quickly see how it all ties together and saves you some serious time.
+The good news is that Wheels simplifies this quite a bit for you. At first, it looks a little different using these conventions. But you'll quickly see how it all ties together and saves you some serious time.
 
 ===Rewriting the Form with Wheels Conventions===
 
@@ -63,39 +64,64 @@ Let's rewrite and then explain.
 
 #startFormTag(action="save")#
 
-    #textField(label="First Name", objectName="profile", property="firstName", prepend="<div>", append="</div>")#
-    #textField(label="Last Name", objectName="profile", property="lastName", prepend="<div>", append="</div>")#
-    #selectTag(label="Department", objectName="department", prepend="<div>", append="</div>")#
-    #submitTag(prepend="<div>", append="</div>")#
+    #textField(label="First Name", objectName="profile", property="firstName", prependToLabel="<div>", appendToLabel="<br />", append="</div>", wrapLabel=false)#
+    #textField(label="Last Name", objectName="profile", property="lastName", prependToLabel="<div>", appendToLabel="<br />", append="</div>", wrapLabel=false)#
+    #selectTag(label="Department", objectName="department", prependToLabel="<div>", appendToLabel="<br />", append="</div>", wrapLabel=false)#
+    <div>
+        #hiddenField(objectName="department", property="id")#
+        #submitTag()#
+    </div>
 
 #endFormTag()#
 
 </cfoutput>
 }}}
 
-I know what you are thinking, 6 lines of code can't replace all that work right? they do, the HTML output will be exactly the same as the previous example. By using Wheels conventions you are saving yourself a lot of key strokes and a great deal of time. In fact, by setting up global defaults (as explained in the [ConfigurationandDefaults Configuration and Defaults] chapter) in your application for `prepend` and `append` you can make the code ever shorter.
+I know what you are thinking. 9 lines of code can't replace all that work, right? In fact, they do. The HTML output will be exactly the same as the previous example. By using Wheels conventions, you are saving yourself a lot of key strokes and a great deal of time.
 
-Lets examine the code a bit further to understand what happens under the hood of Wheels.
-
-Just like HTML, you need to open a form tag, insert some form controls and end the previous opened form tag. All of this is done via Wheels special [ViewHelperFunctions View Helper Functions], each of these functions will generate the corresponding  HTML markup in pure perfection.
-
-Still not impressed? Lets jump to something a bit more complicated, giving feedback to your users on input validation.
-
-==Form feedback==
-
-If you really want to secure a form you have to do it server side, sure you can add javascript here and there to validate your Web form. Unfortunately disabling javascript is only a couple of clicks away on any respected Web browser out there. 
-
-Don't worry, securing the integrity of your Web application in Wheels is very easy, and assuming you have read by now the chapter on [ObjectValidation Object Validation] you can rest assure that your code is a lot more secure now. But what about letting your users know if there are any errors in the data they submitted via your forms?. Fear not, there are [ViewHelperFunctions Helper Functions] just for that as well.
-
-Lets take the previous form example and add some visual indication to the user about what he did wrong and where, by simply adding the following code on your form page. 
+In fact, by setting up global defaults (as explained in the [ConfigurationandDefaults Configuration and Defaults] chapter) in your application for `prependToLabel`, `appendToLabel`, `append`, and `wrapLabel`, you can make the code ever simpler:
 
 {{{
 <cfoutput>
-  #errorMessagesFor("profile")#
+
+#startFormTag(action="save")#
+
+    #textField(label="First Name", objectName="profile", property="firstName")#
+    #textField(label="Last Name", objectName="profile", property="lastName")#
+    #selectTag(label="Department", objectName="department")#
+    <div>
+        #hiddenField(objectName="department", property="id")#
+        #submitTag()#
+    </div>
+
+#endFormTag()#
+
 </cfoutput>
 }}}
 
-How about that? With just that line of code (and the desired validations on your Object Model) Wheels will: 
+Let's examine the code a bit further to understand what happens under the hood of Wheels.
+
+Just like HTML, you need to open a form tag, insert some form controls and end the previous opened form tag. All of this is done via Wheels's special [ViewHelperFunctions View Helper Functions]. Each of these functions will generate the corresponding HTML markup.
+
+Still not impressed? Lets jump to something a bit more complicated: giving feedback to your users with input validation.
+
+==Form Feedback==
+
+If you really want to secure a form, you need to do it server side. Sure, you can add JavaScript here and there to validate your web form. Unfortunately, disabling JavaScript--and thus your JavaScript-powered form validation--is only a couple of clicks away on most any web browser. 
+
+Securing the integrity of your web forms in Wheels is very easy. Assuming that you have read the chapter on [ObjectValidation Object Validation], you can rest assured that your code is a lot more secure now.
+
+But what about letting your users know if there are any errors in the data they submitted via your forms? Fear not, there are [ViewHelperFunctions Helper Functions] just for that as well.
+
+Let's take the previous form example and add some visual indication to the user about what he did wrong and where, by simply adding the following code on your form page. 
+
+{{{
+<cfoutput>
+#errorMessagesFor("profile")#
+</cfoutput>
+}}}
+
+How about that? With just that line of code (and the desired validations on your object model), Wheels will: 
 
   * Generate an HTML unordered list with a HTML class name of `error-messages`. 
   * Display all the error messages on your `profile` Model.

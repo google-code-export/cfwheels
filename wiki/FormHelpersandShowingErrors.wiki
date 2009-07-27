@@ -1,5 +1,5 @@
 #summary Wheels ties your application's forms together with your model layer elegantly. With Wheels form conventions, you'll find yourself spending less time writing repetitive markup to display forms and error messages.
-#labels chapter,0.9.3
+#labels 0.9.3
 
 The majority of applications are not all about back-end. There is a great deal of work to perform on the front-end as well. It can be argued that most of your users will think of the interface _as_ the application.
 
@@ -15,17 +15,17 @@ Here is a simple form for editing a user profile. Normally, you would code your 
 <form action="/profile/save" method="post">
 
     <div>
-        <label for="firstName">First Name</label><br />
+        <label for="firstName">First Name</label>
         <input id="firstName" name="firstName" value="#profile.firstName#" />
     </div>
 
     <div>
-        <label for="lastName">Last Name</label><br />
+        <label for="lastName">Last Name</label>
         <input id="lastName" name="lastName" value="#profile.lastName#" />
     </div>
 
     <div>
-        <label for="department">Department</label><br />
+        <label for="department">Department</label>
         <select id="department" name="departmentId">
             <cfloop query="departments">
                 <option
@@ -64,9 +64,9 @@ Let's rewrite and then explain.
 
 #startFormTag(action="save")#
 
-    #textField(label="First Name", objectName="profile", property="firstName", prependToLabel="<div>", appendToLabel="<br />", append="</div>", wrapLabel=false)#
-    #textField(label="Last Name", objectName="profile", property="lastName", prependToLabel="<div>", appendToLabel="<br />", append="</div>", wrapLabel=false)#
-    #select(label="Department", objectName="department", prependToLabel="<div>", appendToLabel="<br />", append="</div>", wrapLabel=false)#
+    #textField(label="First Name", objectName="profile", property="firstName", prependToLabel="<div>", append="</div>", wrapLabel=false)#
+    #textField(label="Last Name", objectName="profile", property="lastName", prependToLabel="<div>", append="</div>", wrapLabel=false)#
+    #select(label="Department", objectName="department", prependToLabel="<div>", append="</div>", wrapLabel=false)#
     <div>
         #hiddenField(objectName="department", property="id")#
         #submitTag()#
@@ -79,7 +79,18 @@ Let's rewrite and then explain.
 
 I know what you are thinking. 9 lines of code can't replace all that work, right? In fact, they do. The HTML output will be exactly the same as the previous example. By using Wheels conventions, you are saving yourself a lot of key strokes and a great deal of time.
 
-In fact, by setting up global defaults (as explained in the [ConfigurationandDefaults Configuration and Defaults] chapter) in your application for `prependToLabel`, `appendToLabel`, `append`, and `wrapLabel`, you can make the code ever simpler across your whole application:
+===Factoring out Common Settings with Global Defaults===
+
+By setting up global defaults (as explained in the [ConfigurationandDefaults Configuration and Defaults] chapter) for the `prependToLabel`, `append`, and `wrapLabel` arguments, you can make the form code ever simpler across your whole application.
+
+Here are the settings that you would apply in `config/settings.cfm`:
+
+{{{
+<cfset set(functionName="textField", prependToLabel="<div>", append="</div>", wrapLabel=false)>
+<cfset set(functionName="select",prependToLabel="<div>", append="</div>", wrapLabel=false)>
+}}}
+
+And here's how our example code can be simplified as a result:
 
 {{{
 <cfoutput>
@@ -99,23 +110,46 @@ In fact, by setting up global defaults (as explained in the [ConfigurationandDef
 </cfoutput>
 }}}
 
-Let's examine the code a bit further to understand what happens under the hood of Wheels.
+All that needs to be provided at this point is for the controller to provide a model object instance named `profile` that contains `firstName`, `lastName`, and `departmentId` properties needed for this example. Note that the instance variable should be named `profile`, though the model itself doesn't necessarily need to be named `profile`.
 
-Just like HTML, you need to open a form tag, insert some form controls, and end the previous opened form tag. All of this is done via Wheels's [ViewHelperFunctions View Helper Functions]. Each of these functions will generate the corresponding HTML markup.
-
-Still not impressed? Lets jump to something a bit more complicated: giving feedback to your users with input validation.
+If you pass the form an empty instance named `profile` (for example, created by [new new()], the form will display blank values for all the fields. If you pass it an object created by a finder like `[findOne findOne()]` or `[findByKey findByKey()]`, then the form will display the values provided through the object. This allows for us to potentially use the same view file for both create and update scenarios in our applicatino.
 
 ==Form Feedback==
 
 If you really want to secure a form, you need to do it server side. Sure, you can add JavaScript here and there to validate your web form. Unfortunately, disabling JavaScript (and thus your JavaScript-powered form validation) is only a couple of clicks away on most any web browser. 
 
-Securing the integrity of your web forms in Wheels is very easy. Assuming that you have read the chapter on [ObjectValidation Object Validation], you can rest assured that your code is a lot more secure now.
+Securing the integrity of your web forms in Wheels on the server side is very easy. Assuming that you have read the chapter on [ObjectValidation Object Validation], you can rest assured that your code is a lot more secure now.
 
-===Creating a List of Validation Errors===
+===Displaying a List of Model Validation Errors===
 
-But what about letting your users know if there are any errors in the data they submitted via your forms? Fear not, there are [ViewHelperFunctions Helper Functions] just for that as well.
+Wheels provides you with a tool set of [ViewHelperFunctions Helper Functions] just for displaying error messages as well.
 
-Let's take the previous form example and add some visual indication to the user about what he did wrong and where, by simply adding the following code on your form page. 
+In the controller, let's say that this just happened. Your model includes validations that require the presence of both `firstName` and `lastName`. The user didn't enter either. So in the controller's `save` action, it loads the model object, sets the values that the user submitted, sees that there was a validation error after calling [save save()], and displays the form view again.
+
+The `save` action may look something like this:
+
+{{{
+<cffunction name="save">
+
+    <cfif isPost() and StructKeyExists(params, "profile")>
+        <!--- In this example, we're loading a new object with the form data --->
+        <cfset profile = model("userProfile").new(params.profile)>
+        <cfset profile.save()>
+        
+        <!--- If there were errors with the form submission, show the form again with errors --->
+        <cfif profile.hasErrors()>
+            <cfset renderPage(template="profileForm")>
+        <!--- If everything validated, then send user to success message --->
+        <cfelse>
+            <cfset flashInsert(success="The user profile for #profile.firstName# #profile.lastName# was created successfully.")>
+            <cfset redirectTo(controller=params.controller)>
+        </cfif>
+    </cfif>
+
+</cffunction>
+}}}
+
+Let's take the previous form example and add some visual indication to the user about what he did wrong and where, by simply adding the following code on your form page.
 
 {{{
 <cfoutput>
@@ -137,17 +171,19 @@ Let's take the previous form example and add some visual indication to the user 
 </cfoutput>
 }}}
 
-How about that? With just that line of code (and the desired validations on your object model), Wheels will do the following: 
+How about that? With just that line of code (and the required validations on your object model), Wheels will do the following: 
 
-  * Generate an HTML unordered list with a HTML class name of `error-messages`. 
-  * Display all the error messages on your `profile` object.
-  * Wrap each of the failed fields in your form with a surrounding `<div class="field-with-errors">` HTML tag for you to enrich with your ninja CSS skills.
+ * Generate an HTML unordered list with a HTML class name of `error-messages`. 
+ * Display all the error messages on your `profile` object.
+ * Wrap each of the erroneous fields in your form with a surrounding `<div class="field-with-errors">` HTML tag for you to enrich with your ninja CSS skills.
+
+There is no longer the need to manually code error logic in your form markup.
 
 ===Showing Individual Fields' Error Messages===
 
-Let's say that you don't want a list at all, or you need the error messages to appear just below the failed fields (or anywhere else for that matter)? Wheels has that covered too. All that it takes is a simple line of code for each form field you want some feedback displayed back to the user. 
+Let's say that would rather display the error messages just below the failed fields (or anywhere else, for that matter). Wheels has that covered too. All that it takes is a simple line of code for each form field that could end up displaying feedback to the user. 
 
-Lets get practical and create some error messages for the `firstName` and `lastName` fields:.
+Lets get practical and create some error messages for the `firstName` and `lastName` fields:
 
 {{{
 <cfoutput>
@@ -172,4 +208,6 @@ Lets get practical and create some error messages for the `firstName` and `lastN
 </cfoutput>
 }}}
 
-Notice the call to the [errorMessageOn errorMessageOn] function below the `firstName` and `lastName` fields? that's all it takes to display the corresponding error messages of each form control anywhere you wish on your form. And the error message won't even display if there isn't one.
+Notice the call to the [errorMessageOn errorMessageOn] function below the `firstName` and `lastName` fields. That's all it takes to display the corresponding error messages of each form control anywhere you wish on your form.
+
+And each error message won't even display if there isn't one. That way you can yet again use the same form code for error scenarios as well.

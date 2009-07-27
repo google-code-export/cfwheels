@@ -20,7 +20,7 @@ Here is a simple form for editing a user profile. Normally, you would code your 
     </div>
 
     <div>
-        <label for="lastName">Last Name</label>
+        <label for="lastName">Last Name</label><br />
         <input id="lastName" name="lastName" value="#profile.lastName#" />
     </div>
 
@@ -66,7 +66,7 @@ Let's rewrite and then explain.
 
     #textField(label="First Name", objectName="profile", property="firstName", prependToLabel="<div>", appendToLabel="<br />", append="</div>", wrapLabel=false)#
     #textField(label="Last Name", objectName="profile", property="lastName", prependToLabel="<div>", appendToLabel="<br />", append="</div>", wrapLabel=false)#
-    #selectTag(label="Department", objectName="department", prependToLabel="<div>", appendToLabel="<br />", append="</div>", wrapLabel=false)#
+    #select(label="Department", objectName="department", prependToLabel="<div>", appendToLabel="<br />", append="</div>", wrapLabel=false)#
     <div>
         #hiddenField(objectName="department", property="id")#
         #submitTag()#
@@ -79,7 +79,7 @@ Let's rewrite and then explain.
 
 I know what you are thinking. 9 lines of code can't replace all that work, right? In fact, they do. The HTML output will be exactly the same as the previous example. By using Wheels conventions, you are saving yourself a lot of key strokes and a great deal of time.
 
-In fact, by setting up global defaults (as explained in the [ConfigurationandDefaults Configuration and Defaults] chapter) in your application for `prependToLabel`, `appendToLabel`, `append`, and `wrapLabel`, you can make the code ever simpler:
+In fact, by setting up global defaults (as explained in the [ConfigurationandDefaults Configuration and Defaults] chapter) in your application for `prependToLabel`, `appendToLabel`, `append`, and `wrapLabel`, you can make the code ever simpler across your whole application:
 
 {{{
 <cfoutput>
@@ -88,7 +88,7 @@ In fact, by setting up global defaults (as explained in the [ConfigurationandDef
 
     #textField(label="First Name", objectName="profile", property="firstName")#
     #textField(label="Last Name", objectName="profile", property="lastName")#
-    #selectTag(label="Department", objectName="department")#
+    #select(label="Department", objectName="department")#
     <div>
         #hiddenField(objectName="department", property="id")#
         #submitTag()#
@@ -101,15 +101,17 @@ In fact, by setting up global defaults (as explained in the [ConfigurationandDef
 
 Let's examine the code a bit further to understand what happens under the hood of Wheels.
 
-Just like HTML, you need to open a form tag, insert some form controls and end the previous opened form tag. All of this is done via Wheels's special [ViewHelperFunctions View Helper Functions]. Each of these functions will generate the corresponding HTML markup.
+Just like HTML, you need to open a form tag, insert some form controls, and end the previous opened form tag. All of this is done via Wheels's [ViewHelperFunctions View Helper Functions]. Each of these functions will generate the corresponding HTML markup.
 
 Still not impressed? Lets jump to something a bit more complicated: giving feedback to your users with input validation.
 
 ==Form Feedback==
 
-If you really want to secure a form, you need to do it server side. Sure, you can add JavaScript here and there to validate your web form. Unfortunately, disabling JavaScript--and thus your JavaScript-powered form validation--is only a couple of clicks away on most any web browser. 
+If you really want to secure a form, you need to do it server side. Sure, you can add JavaScript here and there to validate your web form. Unfortunately, disabling JavaScript (and thus your JavaScript-powered form validation) is only a couple of clicks away on most any web browser. 
 
 Securing the integrity of your web forms in Wheels is very easy. Assuming that you have read the chapter on [ObjectValidation Object Validation], you can rest assured that your code is a lot more secure now.
+
+===Creating a List of Validation Errors===
 
 But what about letting your users know if there are any errors in the data they submitted via your forms? Fear not, there are [ViewHelperFunctions Helper Functions] just for that as well.
 
@@ -117,37 +119,57 @@ Let's take the previous form example and add some visual indication to the user 
 
 {{{
 <cfoutput>
+
 #errorMessagesFor("profile")#
-</cfoutput>
-}}}
-
-How about that? With just that line of code (and the desired validations on your object model), Wheels will: 
-
-  * Generate an HTML unordered list with a HTML class name of `error-messages`. 
-  * Display all the error messages on your `profile` Model.
-  * Wrap each of the  failed fields with a surrounding `<div class="field-with-errors">` HTML tag for you to enrich with your ninja CSS skills.
-
-But, lets say you don't want a list at all, or you need the error messages to appear just below (or anywhere else for that matter) the failed fields? Wheels can still help you, all that it takes is a simple line of code for each form field you want some feedback displayed back to the user. 
-
-Lets get practical and create some error messages for the `firstName` and `lastName` fields in the Wheels form example provided just a few paragraphs ago.
-
-{{{
-<cfoutput>
 
 #startFormTag(action="save")#
 
-    #textField(label="First Name", objectName="profile", property="firstName", prepend="<div>", append="</div>")#
-    #errorMessageOn(objectName="profile", property="firstName")#
-    
-    #textField(label="Last Name", objectName="profile", property="lastName", prepend="<div>", append="</div>")#
-    #errorMessageOn(objectName="profile", property="lastName")#
-    
-    #selectTag(label="Department", objectName="department", prepend="<div>", append="</div>")#
-    #submitTag(prepend="<div>", append="</div>")#
+    #textField(label="First Name", objectName="profile", property="firstName")#
+    #textField(label="Last Name", objectName="profile", property="lastName")#
+    #select(label="Department", objectName="department")#
+    <div>
+        #hiddenField(objectName="department", property="id")#
+        #submitTag()#
+    </div>
 
 #endFormTag()#
 
 </cfoutput>
 }}}
 
-Noticed the [errorMessageOn errorMessageOn] function added below the `firstName` and `lastName` fields? that's all it takes to display the corresponding error messages of each form control anywhere you wish on your form.
+How about that? With just that line of code (and the desired validations on your object model), Wheels will do the following: 
+
+  * Generate an HTML unordered list with a HTML class name of `error-messages`. 
+  * Display all the error messages on your `profile` object.
+  * Wrap each of the failed fields in your form with a surrounding `<div class="field-with-errors">` HTML tag for you to enrich with your ninja CSS skills.
+
+===Showing Individual Fields' Error Messages===
+
+Let's say that you don't want a list at all, or you need the error messages to appear just below the failed fields (or anywhere else for that matter)? Wheels has that covered too. All that it takes is a simple line of code for each form field you want some feedback displayed back to the user. 
+
+Lets get practical and create some error messages for the `firstName` and `lastName` fields:.
+
+{{{
+<cfoutput>
+
+#startFormTag(action="save")#
+
+    #textField(label="First Name", objectName="profile", property="firstName")#
+    #errorMessageOn(objectName="profile", property="firstName")#
+
+    #textField(label="Last Name", objectName="profile", property="lastName")#
+    #errorMessageOn(objectName="profile", property="lastName")#
+
+    #selectTag(label="Department", objectName="department")#
+
+    <div>
+        #hiddenField(objectName="department", property="id")#
+        #submitTag()#
+    </div>
+
+#endFormTag()#
+
+</cfoutput>
+}}}
+
+Notice the call to the [errorMessageOn errorMessageOn] function below the `firstName` and `lastName` fields? that's all it takes to display the corresponding error messages of each form control anywhere you wish on your form. And the error message won't even display if there isn't one.

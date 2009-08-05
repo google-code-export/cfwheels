@@ -40,7 +40,7 @@
  * [Associations Associations]
  * [ObjectValidation Object Validation]
  * [ObjectCallbacks Object Callbacks]
- * [AdvancedProperties Advanced Properties]
+ * [CalculatedProperties Calculated Properties]
  * [DirtyRecords Dirty Records]
  * [SoftDelete Soft Delete]
  * [AutomaticTimeStamps Automatic Time Stamps]

@@ -1,5 +1,5 @@
 #summary Wheels ties your application's forms together with your model layer elegantly. With Wheels form conventions, you'll find yourself spending less time writing repetitive markup to display forms and error messages.
-#labels 0.9.3
+#labels 0.9.3,draft,chapter
 
 The majority of applications are not all about back-end. There is a great deal of work to perform on the front-end as well. It can be argued that most of your users will think of the interface _as_ the application.
 
@@ -51,7 +51,7 @@ Then you would write a script for the form that validates the data submitted, ha
 
 We know that you are quite familiar with the drudgery of typing this sort of code over and over again. Let's not even mention the pain associated with debugging it or adding new fields and business logic!
 
-==Making Life Easier: The Wheels Way==
+==Making Life Easier: Wheels Form Helpers==
 
 The good news is that Wheels simplifies this quite a bit for you. At first, it looks a little different using these conventions. But you'll quickly see how it all ties together and saves you some serious time.
 
@@ -211,3 +211,49 @@ Lets get practical and create some error messages for the `firstName` and `lastN
 Notice the call to the [errorMessageOn errorMessageOn] function below the `firstName` and `lastName` fields. That's all it takes to display the corresponding error messages of each form control anywhere you wish on your form.
 
 And each error message won't even display if there isn't one. That way you can yet again use the same form code for error scenarios as well.
+
+==Types of Form Helpers==
+
+There is a Wheels form helper for basically every type of form element available in HTML. And they all have the ability to be bound to Wheels model instances to make displaying values and errors easier. Here is a brief description of each.
+
+===Text and Password Fields===
+
+Text and password fields work similarly to each other. They allow you to show labels and bind to model object instances to determine whether or not a value should be pre-populated.
+
+{{{
+#textField(label="Username", objectName="user", property="username")#
+#passwordField(label="Password", objectName="user", property="password")#
+}}}
+
+May yield the equivalent to this HTML (if we assume the global defaults defined above in the section named _Factoring out Common Settings with Global Defaults_):
+
+{{{
+<div>
+    <label for="user-username">Username</label>
+    <input id="user-username" type="text" name="user[username]" value="cfguy" />
+</div>
+<div>
+    <label for="user-password">Password</label>
+    <input id="user-password" type="password" name="user[password]" value="" />
+</div>
+}}}
+
+===Hidden Fields===
+
+Hidden fields are 
+
+==Passing Extra Arguments for HTML Attributes==
+
+Much like Wheels's [linkTo linkTo()] function, any extra arguments that you pass to form helpers will be passed to the corresponding HTML tag as attributes.
+
+For example, if we wanted to define a `class` and `enctype` on our starting form tag, we just pass those as extra arguments to [startFormTag startFormTag()]:
+
+{{{
+#startFormTag(action="save", class="login-form", enctype="multipart/form-data")#
+}}}
+
+Which would produce this HTML:
+
+{{{
+<form action="/user/save" class="login-form" enctype="multipart/form-data">
+}}}

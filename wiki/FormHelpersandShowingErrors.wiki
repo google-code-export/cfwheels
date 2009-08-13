@@ -199,7 +199,7 @@ Lets get practical and create some error messages for the `firstName` and `lastN
     #selectTag(label="Department", objectName="department")#
 
     <div>
-        #hiddenField(objectName="department", property="id")#
+        #hiddenField(objectName="profile", property="departmentId", options=departments)#
         #submitTag()#
     </div>
 
@@ -240,7 +240,31 @@ May yield the equivalent to this HTML (if we assume the global defaults defined 
 
 ===Hidden Fields===
 
-Hidden fields are 
+Hidden fields are powered by the [hiddenField hiddenField()] form helper, and it also works similarly to how [textField textField()] and [passwordField passwordField()] work.
+
+{{{
+#hiddenField(objectName="user", property="id")#
+}}}
+
+Could yield this type of markup:
+
+{{{
+<input type="hidden" name="user[id]" value="425" />
+}}}
+
+Obviously, the big difference is that hidden fields do not have labels.
+
+===Select Fields===
+
+As hinted in our first example of form helpers, the [select select()] function builds a `<select>` list with options. What's really cool about this helper is that it can populate the `<option>`s with values from a query.
+
+Take a look at this line:
+
+{{{
+#select(label="Department", objectName="user", property="departmentId", options=departments)#
+}}}
+
+Assume that the `departments` variable passed to the `options` argument contains a query of departments that should be selectable in the drop-down.
 
 ==Passing Extra Arguments for HTML Attributes==
 

@@ -66,7 +66,7 @@ Let's rewrite and then explain.
 
     #textField(label="First Name", objectName="profile", property="firstName", prependToLabel="<div>", append="</div>", wrapLabel=false)#
     #textField(label="Last Name", objectName="profile", property="lastName", prependToLabel="<div>", append="</div>", wrapLabel=false)#
-    #select(label="Department", objectName="department", prependToLabel="<div>", append="</div>", wrapLabel=false)#
+    #select(label="Department", objectName="profile", property="departmentId", options=departments, prependToLabel="<div>", append="</div>", wrapLabel=false)#
     <div>
         #hiddenField(objectName="department", property="id")#
         #submitTag()#
@@ -101,7 +101,7 @@ And here's how our example code can be simplified as a result:
     #textField(label="Last Name", objectName="profile", property="lastName")#
     #select(label="Department", objectName="department")#
     <div>
-        #hiddenField(objectName="department", property="id")#
+        #hiddenField(objectName="profile", property="departmentId", option=departments)#
         #submitTag()#
     </div>
 
@@ -110,7 +110,7 @@ And here's how our example code can be simplified as a result:
 </cfoutput>
 }}}
 
-All that needs to be provided at this point is for the controller to provide a model object instance named `profile` that contains `firstName`, `lastName`, and `departmentId` properties needed for this example. Note that the instance variable should be named `profile`, though the model itself doesn't necessarily need to be named `profile`.
+All that needs to be provided at this point is for the controller to provide a model object instance named `profile` that contains `firstName`, `lastName`, and `departmentId` properties and a query object named `departments` that contains identifier and text values. Note that the instance variable should be named `profile`, though the model itself doesn't necessarily need to be named `profile`.
 
 If you pass the form an empty instance named `profile` (for example, created by [new new()], the form will display blank values for all the fields. If you pass it an object created by a finder like `[findOne findOne()]` or `[findByKey findByKey()]`, then the form will display the values provided through the object. This allows for us to potentially use the same view file for both create and update scenarios in our applicatino.
 

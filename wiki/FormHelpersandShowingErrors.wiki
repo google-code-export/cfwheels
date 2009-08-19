@@ -101,7 +101,7 @@ And here's how our example code can be simplified as a result:
     #textField(label="Last Name", objectName="profile", property="lastName")#
     #select(label="Department", objectName="department")#
     <div>
-        #hiddenField(objectName="profile", property="departmentId", option=departments)#
+        #hiddenField(objectName="profile", property="departmentId", options=departments)#
         #submitTag()#
     </div>
 
@@ -110,13 +110,13 @@ And here's how our example code can be simplified as a result:
 </cfoutput>
 }}}
 
-All that needs to be provided at this point is for the controller to provide a model object instance named `profile` that contains `firstName`, `lastName`, and `departmentId` properties and a query object named `departments` that contains identifier and text values. Note that the instance variable should be named `profile`, though the model itself doesn't necessarily need to be named `profile`.
+All that the controller needs to provide at this point is a model object instance named `profile` that contains `firstName`, `lastName`, and `departmentId` properties and a query object named `departments` that contains identifier and text values. Note that the instance variable is named `profile`, though the model itself doesn't necessarily need to be named `profile`.
 
-If you pass the form an empty instance named `profile` (for example, created by [new new()], the form will display blank values for all the fields. If you pass it an object created by a finder like `[findOne findOne()]` or `[findByKey findByKey()]`, then the form will display the values provided through the object. This allows for us to potentially use the same view file for both create and update scenarios in our applicatino.
+If you pass the form an empty instance named `profile` (for example, created by [new new()], the form will display blank values for all the fields. If you pass it an object created by a finder like `[findOne findOne()]` or `[findByKey findByKey()]`, then the form will display the values provided through the object. This allows for us to potentially use the same view file for both create and update scenarios in our application.
 
 ==Form Feedback==
 
-If you really want to secure a form, you need to do it server side. Sure, you can add JavaScript here and there to validate your web form. Unfortunately, disabling JavaScript (and thus your JavaScript-powered form validation) is only a couple of clicks away on most any web browser. 
+If you really want to secure a form, you need to do it server side. Sure, you can add !JavaScript here and there to validate your web form. Unfortunately, disabling !JavaScript (and thus your !JavaScript-powered form validation) is simple in web browsers, and (God forbid) malicious bots tend not to listen to !JavaScript.
 
 Securing the integrity of your web forms in Wheels on the server side is very easy. Assuming that you have read the chapter on [ObjectValidation Object Validation], you can rest assured that your code is a lot more secure now.
 
@@ -149,6 +149,8 @@ The `save` action may look something like this:
 </cffunction>
 }}}
 
+Notice that the `profileForm` template is called if the `profile` object's [hasErrors hasErrors()] method returns `true`.
+
 Let's take the previous form example and add some visual indication to the user about what he did wrong and where, by simply adding the following code on your form page.
 
 {{{
@@ -174,7 +176,7 @@ Let's take the previous form example and add some visual indication to the user 
 How about that? With just that line of code (and the required validations on your object model), Wheels will do the following: 
 
  * Generate an HTML unordered list with a HTML class name of `error-messages`. 
- * Display all the error messages on your `profile` object.
+ * Display all the error messages on your `profile` object as list items in that unordered list.
  * Wrap each of the erroneous fields in your form with a surrounding `<div class="field-with-errors">` HTML tag for you to enrich with your ninja CSS skills.
 
 There is no longer the need to manually code error logic in your form markup.
@@ -208,13 +210,13 @@ Lets get practical and create some error messages for the `firstName` and `lastN
 </cfoutput>
 }}}
 
-Notice the call to the [errorMessageOn errorMessageOn] function below the `firstName` and `lastName` fields. That's all it takes to display the corresponding error messages of each form control anywhere you wish on your form.
+Notice the call to the [errorMessageOn errorMessageOn] function below the `firstName` and `lastName` fields. That's all it takes to display the corresponding error messages of each form control on your form.
 
-And each error message won't even display if there isn't one. That way you can yet again use the same form code for error scenarios as well.
+And the error message(s) won't even display if there isn't one. That way you can yet again use the same form code for error and non-error scenarios alike.
 
 ==Types of Form Helpers==
 
-There is a Wheels form helper for basically every type of form element available in HTML. And they all have the ability to be bound to Wheels model instances to make displaying values and errors easier. Here is a brief description of each.
+There is a Wheels form helper for basically every type of form element available in HTML. And they all have the ability to be bound to Wheels model instances to make displaying values and errors easier. Here is a brief description of each helper.
 
 ===Text and Password Fields===
 
@@ -265,6 +267,38 @@ Take a look at this line:
 }}}
 
 Assume that the `departments` variable passed to the `options` argument contains a query of departments that should be selectable in the drop-down.
+
+===Radio Buttons===
+
+Radio buttons also take `objectName` and `property` values, and they accept an argument called `tagValue` that determines whether or not the button should be checked on load.
+
+Here is an example using a query object called `eyeColor` to power the possible values:
+
+{{{
+<fieldset>
+    <legend>Eye Color</legend>
+    <cfloop query="eyeColor">
+        #radioButton(label=eyeColor.color, objectName="profile", property="eyeColorId", tagValue=eyeColor.id)#<br />
+    </cfloop>
+</fieldset>
+}}}
+
+The rendered HTML would appear similar to this:
+
+{{{
+<fieldset>
+    <legend>Eye Color</legend>
+    <label>Blue <input type="checkbox" id="profile-eyeColorId" name="profile[eyeColorId]" value="1" /></label><br />
+    <label>Brown <input type="checkbox" id="profile-eyeColorId" name="profile[eyeColorId]" value="2" /></label><br />
+    <label>Hazel <input type="checkbox" id="profile-eyeColorId" name="profile[eyeColorId]" value="3" /></label><br />
+</fieldset>
+}}}
+
+===Check Boxes===
+
+Check boxes work similarly to radio buttons, except it takes parameters called `checkedValue` and `uncheckedValue` to determine whether or not the check box should be checked on load.
+
+
 
 ==Passing Extra Arguments for HTML Attributes==
 

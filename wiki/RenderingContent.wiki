@@ -41,7 +41,7 @@ Normally when you call any of the rendering functions the result is stored insid
 
 ==Caching the Response==
 
-Two of the functions listed above are capable of caching the content for you; [renderPage renderPage()] and [renderPartial renderPartial()]. Just pass in `cache=true` (to use the default cache time set in `config/settings.cfm`) or `cache=x` where `x` is the number of minutes you want to cache the content for. Keep in mind that this caching respects the global setting set for it in your configuration files so normally no pages will be cached when in `design` or `development` mode.
+Two of the functions listed above are capable of caching the content for you; [renderPage renderPage()] and [renderPartial renderPartial()]. Just pass in `cache=true` (to use the default cache time set in `config/settings.cfm`) or `cache=x` where `x` is the number of minutes you want to cache the content for. Keep in mind that this caching respects the global setting set for it in your configuration files so normally no pages will be cached when in Design or Development mode.
 
 We cover caching in greater detail in the [Caching Caching] chapter.
 

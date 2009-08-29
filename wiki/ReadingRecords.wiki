@@ -1,9 +1,9 @@
 #summary Returning records from your database tables as objects or queries.
-#labels chapter,0.9.3,published_prod
+#labels chapter,0.9.4,published_prod
 
 Reading records from your database typically involves using one of the 3 finder methods available in Wheels: [findByKey findByKey()], [findOne findOne()], and [findAll findAll()].
 
-The first 2 of these, ([findByKey findByKey()] and [findOne findOne()]), returns an object to you, while the last one ([findAll findAll()]) returns the result from a `cfquery` tag.
+By default the first 2 of these, ([findByKey findByKey()] and [findOne findOne()]), return an object to you, while the last one ([findAll findAll()]) returns the result from a `cfquery` tag. This is a convention in Wheels that we recommend that you follow as much as possible. If you want to override it though, you can do so by using the `returnAs` argument.
 
 ==Fetching a Row by Primary Key Value==
 
@@ -47,7 +47,7 @@ You can use [findAll findAll()] when you are asking to get one or more records f
 
 ==Arguments for `findOne()` and `findAll()`==
 
-Besides the difference in return type, [findOne findOne()] and [findAll findAll()] accept the same arguments. Let's have a closer look at these arguments.
+Besides the difference in the default return type, [findOne findOne()] and [findAll findAll()] accept the same arguments. Let's have a closer look at these arguments.
 
 ==`select` Argument==
 
@@ -91,7 +91,7 @@ There are some limitations to what you can use in the `where` argument, but the 
 
 ==`order` Argument==
 
-This maps to the `ORDER` clause of the SQL statement. If you don't specify an order at all, none will be used (makes sense, eh?). So in those cases, the database engine will decide in what order to return the records.
+This maps to the `ORDER` clause of the SQL statement. If you don't specify an order at all, none will be used (makes sense, eh?). So in those cases, the database engine will decide in what order to return the records. There is one exception to this, if you paginate the records (by passing in the `page` argument) without specifying the order Wheels will order the results by the primary key column. This is because pagination relies on having unique records to order by.
 
 ==`include` Argument==
 
@@ -105,7 +105,7 @@ If, for example, you have specified that one `author` has many `articles`, then 
 
 ==`maxRows` Argument==
 
-This limits the number of records to return. Please note that if you call [findAll findAll()] with `maxRows=1`, you will still get a `cfquery` result back and not an object. (Use [findOne findOne()] if you want for an object to be returned.)
+This limits the number of records to return. Please note that if you call [findAll findAll()] with `maxRows=1`, you will still get a `cfquery` result back and not an object. (We recommend using [findOne findOne()] in this case if you want for an object to be returned.)
 
 ==`page` and `perPage` Arguments==
 
@@ -119,4 +119,4 @@ So if you wanted records 11-20, for example, you write this code:
 
 ==`cache` Argument==
 
-Number of minutes to cache the query for.
+This is the number of minutes to cache the query for. This will eventually (after being converted in a `CreateTimeSpan` function) be passed on to the `cachedWithin` attribute of the `cfquery` tag.

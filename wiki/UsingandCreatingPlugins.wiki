@@ -27,7 +27,7 @@ If you install a plugin that depends on another plugin you will get a warning me
 
 ==Available Plugins==
 
-To view all official plugins that are available for Wheels you can use the `PluginManager`. It is a plugin itself and is the only one that comes pre-installed with Wheels. Look for the link in the debug area of your application to locate the `PluginManager`
+To view all official plugins that are available for Wheels you can use the `PluginManager`. It is a plugin itself and can be downloaded from the Google Code site.
 
 ==Creating Your Own Plugins==
 
@@ -98,7 +98,7 @@ Finally, there is a way to specify that your plugin needs another plugin install
 
 ==Stand-Alone Plugins==
 
-If your plugin is completely stand-alone you can call it from its view page using just the name of the plugin. This works because Wheels has created a pointer to the plugin object residing in the application scope. One example of a stand-alone plugin is the Plugin Manager that comes pre-installed with Wheels. If you check out its view code you will see that it calls itself like this:
+If your plugin is completely stand-alone you can call it from its view page using just the name of the plugin. This works because Wheels has created a pointer to the plugin object residing in the application scope. One example of a stand-alone plugin is the Plugin Manager. If you check out its view code you will see that it calls itself like this:
 
 {{{
 <cfset pluginManager.installPlugin(URL.plugin)>

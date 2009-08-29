@@ -1,5 +1,5 @@
 #summary Make your model calls more readable by using dynamic finders.
-#labels chapter,0.9.1,published_prod
+#labels chapter,0.9.4,published_prod
 
 With the recent introduction of `onMissingMethod` in !ColdFusion 8 (Thanks, Adobe!), we have been able to port over the concept of _dynamic finders_ from Rails to Wheels.
 
@@ -47,6 +47,6 @@ The below code, for example, is perfectly valid:
 
 When passing in multiple arguments like above, it is a good idea to start naming them instead of relying on the order of the arguments. When doing so, you need to name the argument `value` or `values` (preferably using `values` when calling an "And" type dynamic finder).
 
-==Avoid the Word "and" in Database Column Names==
+==Avoid the Word "And" in Database Column Names==
 
 Keep in mind that this dynamic method calling will break down completely if you ever name a column `firstAndLastName` or something similar because Wheels will then split the method name incorrectly. So, avoid using "And" in the column name if you plan on taking advantage of dynamically-named finder methods.

@@ -67,7 +67,6 @@
  * [DirectoryStructure Directory Structure]
  * [SwitchingEnvironments Switching Environments]
  * [UsingandCreatingPlugins Using and Creating Plugins]
- * [SendingErrorEmails Sending Error Emails]
  * [CFMLandMVCBestPractices CFML and MVC Best Practices]
  * [TestingFramework Creating and Running Tests]
 

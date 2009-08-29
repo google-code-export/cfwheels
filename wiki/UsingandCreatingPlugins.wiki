@@ -27,7 +27,7 @@ If you install a plugin that depends on another plugin you will get a warning me
 
 ==Available Plugins==
 
-To view all official plugins that are available for Wheels you can use the `PluginManager`. It is a plugin itself and can be downloaded from the Google Code site.
+To view all official plugins that are available for Wheels you can use the `PluginManager`. It is a plugin itself and can be downloaded from the [http://code.google.com/p/cfwheels/ Google Code site].
 
 ==Creating Your Own Plugins==
 

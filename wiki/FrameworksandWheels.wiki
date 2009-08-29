@@ -1,5 +1,5 @@
 #summary Learn the goals of ColdFusion on Wheels as well as web development frameworks in general. Then learn about Wheels's goals and some key concepts.
-#labels chapter,0.9.1
+#labels chapter,0.9.4
 
 This chapter will introduce you to frameworks in general and later specifically to !ColdFusion on Wheels. We'll help you decide if you even need a framework at all and what common problems a framework tries to solve. If we're able to convince you that using a framework is the right thing for you, then we'll present our goals with creating Wheels and show you some key Wheels concepts.
 
@@ -9,7 +9,7 @@ So let's get started.
 
 Short answer, no. If you don't mind doing the same thing over and over again and are getting paid by the hour to do so, then by all means keep doing that. ;)
 
-Slightly longer answer, no. If you're working on a highly customized project that does not fall within what 9 out of 10 web sites/applications normally do then you likely need custom code and a framework will not help much.
+Slightly longer answer, no. If you're working on a highly customized project that does not fall within what 9 out of 10 web sites/applications normally do then you likely need a high percentage of custom code and a framework will not help much.
 
 However, if you're like most of us and have noticed that for every new project you start on--or even every new feature you add to an existing project--you waste a lot of time re-creating the wheel, then you should read on because Wheels may just be the solution for you!
 
@@ -41,7 +41,7 @@ As we've said before, Wheels is heavily based on Ruby on Rails, but it's not a d
 We strive for simplicity on a lot of different levels in Wheels. We'll gladly trade code beauty in the framework's internal code for simplicity for the developers who will use it. This goal to keep things simple is evident in a lot of different areas in Wheels. Here are some of the most notable ones:
 
  * The concept of object oriented programming is very simple and data-centric in Wheels, rather than 100% "pure" at all times.
- * You'll always get a query result set back when dealing with multiple records in Wheels, simply because that is the way we're all used to outputting data.
+ * By default you'll always get a query result set back when dealing with multiple records in Wheels, simply because that is the way we're all used to outputting data.
  * Wheels encourages best practices, but it will never give you an error if you go against any of them.
  * With Wheels, you won't program yourself into a corner. If worse comes to worst, you can always drop right out of the framework and go back to old school code for a while if necessary.
  * Good old CFML code is used for everything, so there is no need to mess with XML for example.
@@ -68,7 +68,7 @@ If you find yourself constantly fighting the conventions, then that is a hint th
 
 Beautiful (for lack of a better word) code is code that you can scan through and immediately see what it's meant to do. It's code that is never repeated anywhere else. And, most of all, it's code that you'll enjoy writing _and_ will enjoy coming back to 6 months from now.
 
-Sometimes the Wheels structure itself encourages beautiful code (separating business logic from request handling, for example). Sometimes it's just something that comes naturally after reading documentation, viewing other Wheels applications, and talking to other Wheels developers. 
+Sometimes the Wheels structure itself encourages beautiful code (separating business logic from request handling, for example). Sometimes it's just something that comes naturally after reading documentation, viewing other Wheels applications, and talking to other Wheels developers.
 
 ===Model-View-Controller (MVC)===
 

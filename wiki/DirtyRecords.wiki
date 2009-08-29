@@ -1,5 +1,5 @@
 #summary How to track changes to objects in your application.
-#labels chapter,0.9.2,published_prod
+#labels chapter,0.9.4,published_prod
 
 Wheels provides some very useful methods for tracking changes to objects. You might think, _Why do I need that?  Won't I just know that I changed the object myself?_
 

@@ -3,7 +3,7 @@
 
 Reading records from your database typically involves using one of the 3 finder methods available in Wheels: [findByKey findByKey()], [findOne findOne()], and [findAll findAll()].
 
-By default the first 2 of these, ([findByKey findByKey()] and [findOne findOne()]), return an object to you, while the last one ([findAll findAll()]) returns the result from a `cfquery` tag. This is a convention in Wheels that we recommend that you follow as much as possible. If you want to override it though, you can do so by using the `returnAs` argument.
+The first 2 of these, ([findByKey findByKey()] and [findOne findOne()]), return an object to you, while the last one ([findAll findAll()]) returns the result from a `cfquery` tag.
 
 ==Fetching a Row by Primary Key Value==
 
@@ -120,3 +120,15 @@ So if you wanted records 11-20, for example, you write this code:
 ==`cache` Argument==
 
 This is the number of minutes to cache the query for. This will eventually (after being converted in a `CreateTimeSpan` function) be passed on to the `cachedWithin` attribute of the `cfquery` tag.
+
+==`returnAs` Argument==
+
+In the beginning of this chapter we said that you either get a query or an object back. But, this isn't always true... you can actually specify the return type so that you get either an object, a query or an array of objects back. To do this you use the `returnAs` argument. If you want an array of objects back from a [findAll findAll()] call for example you can do this:
+
+{{{
+<cfset users = model("user").findAll(returnAs="objects")>
+}}}
+
+On [findOne findOne()] and [findByKey findByKey()] you can set this argument to either `object` or `query`. On the [findAll findAll()] method you can set it to `objects` (note the plural) or `query`.
+
+We recommend sticking to the conventions as much as possible though so be careful when using the `returnAs` argument. You don't want to create a lot of arrays of objects and slow down your application unless you absolutely need to.

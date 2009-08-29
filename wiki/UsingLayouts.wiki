@@ -1,5 +1,5 @@
 #summary Use the concept of layouts to wrap your content.
-#labels chapter,0.9.1
+#labels chapter,0.9.4
 
 Wheels allows you to create layouts so that you don't need to `<cfinclude>` header and footer code on every single view template. We'll show you how to setup default layouts, controller-specific layouts, and layouts for your emails.
 
@@ -150,13 +150,13 @@ If you want Wheels to locate the file in a different folder you can start the `l
 
 ===Using No Layout===
 
-If you don't want for a given template to be wrapped by a layout at all, you may want to consider creating the page as a _partial_. See the chapter about [PagesandPartials Pages and Partials] for more information.
+If you don't want for a given template to be wrapped by a layout at all, you may want to consider creating the page as a _partial_. See the chapter about [Partials Partials] for more information.
 
 Another alternative is to use the [renderPage renderPage()] function and set the `layout` argument to `false`. 
 
 You can of course also just create a layout that only contains the call to the [contentForLayout contentForLayout()] function in it and referencing it as described above in _Using a Different Layout_. This may end up a little ugly though if you start getting a lot of small identical files like this but the option is there for you at least.
 
-Lastly, if your view needs to return XML code or other data for JavaScript calls, then you should reference the [renderNothing renderNothing()], [renderText renderText()], and [renderPageToString renderPageToString()] functions to see which would be best used by your action.
+Lastly, if your view needs to return XML code or other data for JavaScript calls, then you should reference the [renderNothing renderNothing()] and [renderText renderText()] functions to see which would be best used by your action.
 
 ==Email Layouts==
 

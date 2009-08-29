@@ -1,5 +1,5 @@
 #summary Complete documentation for Wheels 0.9.
-#labels chapter,0.9.3
+#labels chapter,0.9.4
 
 <font size="1" color="red"><b>NOTE: This wiki contains "bleeding edge" documentation, which may reflect a future version of Wheels. Entries in the wiki may also be incomplete and unedited. Please visit <a href="http://cfwheels.org/docs">cfwheels.org/docs</a> for the "official" documentation.</b></font>
 
@@ -65,7 +65,6 @@
 
  * [ConfigurationandDefaults Configuration and Defaults]
  * [DirectoryStructure Directory Structure]
- * [Conventions Conventions]
  * [SwitchingEnvironments Switching Environments]
  * [UsingandCreatingPlugins Using and Creating Plugins]
  * [SendingErrorEmails Sending Error Emails]

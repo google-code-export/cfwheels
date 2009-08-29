@@ -37,7 +37,7 @@ This is done with the [renderText renderText()] function. It just returns the te
 
 ==Rendering to a Variable==
 
-Normally when you call any of the rendering functions the result is stored inside an internal Wheels variable which is then outputted to the browser at the end of the request. Sometimes you want to do some additional processing on the rendering result before outputting it and this is where the `returnAs` argument comes in handy. It's available on both [renderPage renderPage()] and [renderPartial renderPartial()]. Setting `returnAs` to `string` will return the result to you instead of placing it in the internal Wheels variable.
+Normally when you call any of the rendering functions the result is stored inside an internal Wheels variable which is then outputted to the browser at the end of the request. Sometimes you want to do some additional processing on the rendering result before outputting it though. This is where the `returnAs` argument comes in handy. It's available on both [renderPage renderPage()] and [renderPartial renderPartial()]. Setting `returnAs` to `string` will return the result to you instead of placing it in the internal Wheels variable.
 
 ==Caching the Response==
 

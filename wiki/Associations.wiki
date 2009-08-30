@@ -297,6 +297,18 @@ We can `include` the related tables from the `subscription` bridge entity to get
 <cfset data = model("subscription").findAll(include="customer,publication")>
 }}}
 
+===Creating a Shortcut for a Many-to-Many Relationship===
+
+With the `shortcut` argument to [hasMany hasMany()] you can have Wheels create one additional dynamic method that lets you bypass the join model when referencing. For our example above you can alter the hasmm call to look like this instead:
+
+{{{
+<cfset hasMany("subscriptions")>
+}}}
+
+
+For really simple many-to-many relationships it's often preferred
+
+
 ==Are You Still with Us?==
 
 As you just read, Wheels offers a ton of functionality to make your life easier in working with relational databases. Be sure to give some of these techniques a try in your next Wheels application, and you'll be amazed at how little code that you'll need to write to interact with your database.

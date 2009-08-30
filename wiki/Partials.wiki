@@ -1,9 +1,9 @@
 #summary Simplify your views by breaking them down into partial page templates.
-#labels chapter,0.9.3,published_prod
+#labels chapter,0.9.4,published_prod
 
 Partials in Wheels act as a wrapper around the good old `<cfinclude>` tag. By calling [includePartial includePartial()] or [renderPartial renderPartial()], you can include other view files in a page, just like `<cfinclude>` would. But at the same time, partials make use of common Wheels features like layouts, caching, model objects, and so on.
 
-These functions also add a few cool things to your development arsenal like the ability to pass in a query and have the partial file called on each iteration (to name one).
+These functions also add a few cool things to your development arsenal like the ability to pass in a query or array of objects and have the partial file called on each iteration (to name one).
 
 ==Why Use a Partial?==
 
@@ -37,12 +37,12 @@ As you can see, you don't need to specify the `.cfm` part or the underscore when
 
 ==Passing in Data==
 
-You can pass in data by adding named arguments on the [includePartial includePartial()] call. Because we use `name` to determine what file to include, you can't pass in a variable named `name` though. The same goes for the other arguments as well, like `layout`, `spacer`, and `cache`.
+You can pass in data by adding named arguments on the [includePartial includePartial()] call. Because we use the `partial` argument to determine what file to include, you can't pass in a variable named `partial` though. The same goes for the other arguments as well, like `layout`, `spacer`, and `cache`.
 
 Here is an example of passing in a `title` to a partial for a form:
 
 {{{
-<cfoutput>#includePartial(name="loginRegisterForm", title="Please log in here")#</cfoutput>
+<cfoutput>#includePartial(partial="loginRegisterForm", title="Please log in here")#</cfoutput>
 }}}
 
 Now you can reference the title variable as `arguments.title` inside the `_loginregisterform.cfm` file.
@@ -54,7 +54,7 @@ If you prefer, you can still access the view variables that are set outside of t
 Just like a regular page, Wheels partials also understand the concept of layouts. To use this feature, simply pass in the name of the layout file you want to wrap the partial in with the `layout` argument, like this:
 
 {{{
-<cfoutput>#includePartial(name="newsItem", layout="/boxes/blue")#</cfoutput>
+<cfoutput>#includePartial(partial="newsItem", layout="/boxes/blue")#</cfoutput>
 }}}
 
 This will wrap the partial with the code found in `views/boxes/_blue.cfm`. Just like with other layouts, you use [contentForLayout contentForLayout()] to represent the partial's content.
@@ -78,7 +78,7 @@ Caching a partial is done the same way as caching a page. Pass in the number of 
 Here's an example where we cache a partial for 15 minutes:
 
 {{{
-<cfoutput>#includePartial(name="userListing", cache=15)#</cfoutput>
+<cfoutput>#includePartial(partial="userListing", cache=15)#</cfoutput>
 }}}
 
 ==Using Partials with an Object==
@@ -94,6 +94,31 @@ That code will figure out that the `cust` variable contains a `customer` model o
 
 Try that code and `<cfdump>` the `arguments` struct inside the partial file, and you'll see what's going on. Pretty cool stuff, huh?
 
+==Partials and Grouping==
+
+There is a feature of CFML that is very handy and that is the ability to output a query with the group attribute. Here's an example of how this can be done with a query that contains artists and albums (with the artist potentially being duplicated since they can have more than one album):
+
+{{{
+<cfoutput query="artistsAndAlbums" group="artistid">
+  artist info is displayed just once for each artist here
+  <cfoutput>
+    each album is looped here
+  </cfoutput>
+</cfoutput>
+}}}
+
+Of course we have ported this great functionality to calling partials with queries as well. Here's how you can achieve it:
+
+{{{
+#includePartial(partial=artistsAndAlbums, group="artistid")#
+}}}
+
+When inside the partial file you'll have an additional sub query made available to you named `group` which contains the albums for the current artist in the loop.
+
+==Using Partials with an Array of Objects==
+
+As we've hinted previously in this chapter it's also possible to pass in an array of objects to a partial. It works very similar to passing in a query in that the partial is called on each iteration and a `current` variable is made available.
+
 ==Using Partials with a Query==
 
 Similar to passing in an object, you can also pass in a query result set to [includePartial includePartial()]. Here's how that looks:
@@ -105,7 +130,7 @@ Similar to passing in an object, you can also pass in a query result set to [inc
 
 In this case, Wheels will iterate through the query and call the `_customer.cfm` partial on each iteration. Similar to the example with the object above, Wheels will pass in the objects' properties (in this case represented by records in the query) to the partial.
 
-In addition to that, you will also see that a counter variable is available. It's named `currentRow` to be consistent with the naming of the equivalent variable provided by the `<cfquery>` tag.
+In addition to that, you will also see that a counter variable is available. It's named `current` and is available when passing in queries or arrays of objects to a partial.
 
 The way partials handle objects and queries makes it possible to use the exact same code inside the partial regardless of whether we're dealing with an object or query record at the time.
 
@@ -115,7 +140,7 @@ If you need to display some HTML in between each iteration (maybe each iteration
 <cfoutput>
 
 <ul>
-    <li>#includePartial(name=customers, spacer="</li><li>")#</li>
+    <li>#includePartial(partial=customers, spacer="</li><li>")#</li>
 </ul>
 
 </cfoutput>

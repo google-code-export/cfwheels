@@ -305,15 +305,15 @@ With the `shortcut` argument to [hasMany hasMany()] you can have Wheels create a
 <cfset hasMany(name="subscriptions", shortcut="publications")>
 }}}
 
-Now you can get at a customer's publications directly by using code like this:
+Now you can get a customer's publications directly by using code like this:
 {{{
 <cfset cust = model("customer").findByKey(params.key)>
 <cfset pubs = cust.publications()>
 }}}
 
-This functionality relies on having set up all the appropriate [hasMany hasMany()] and [belongsTo belongsTo()] associations on all 3 models (like we have in our example in this chapter).
+This functionality relies on having set up all the appropriate [hasMany hasMany()] and [belongsTo belongsTo()] associations in all 3 models (like we have in our example in this chapter).
 
-It also relies on the association names being consistent but you can specify this with the `through` argument if necessary. The through argument accepts a list of 2 association names. The first one being the name of the [belongsTo belongsTo()] association and the second one being the [hasMany hasMany()] association going back the other way. Sounds complicated? That's another reason to stick to the conventions whenever possible, it keeps things simple.
+It also relies on the association names being consistent but if you have customized your association names you can specify exactly which associations the shortcut method should use with the `through` argument. The `through` argument accepts a list of 2 association names. The first one being the name of the [belongsTo belongsTo()] association (set in the subscription model in this case) and the second one being the [hasMany hasMany()] association going back the other way (set in the publication model). Sounds complicated? That's another reason to stick to the conventions whenever possible, it keeps things simple.
 
 ==Are You Still with Us?==
 

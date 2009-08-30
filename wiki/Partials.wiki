@@ -94,31 +94,6 @@ That code will figure out that the `cust` variable contains a `customer` model o
 
 Try that code and `<cfdump>` the `arguments` struct inside the partial file, and you'll see what's going on. Pretty cool stuff, huh?
 
-==Partials and Grouping==
-
-There is a feature of CFML that is very handy and that is the ability to output a query with the group attribute. Here's an example of how this can be done with a query that contains artists and albums (with the artist potentially being duplicated since they can have more than one album):
-
-{{{
-<cfoutput query="artistsAndAlbums" group="artistid">
-  artist info is displayed just once for each artist here
-  <cfoutput>
-    each album is looped here
-  </cfoutput>
-</cfoutput>
-}}}
-
-Of course we have ported this great functionality to calling partials with queries as well. Here's how you can achieve it:
-
-{{{
-#includePartial(partial=artistsAndAlbums, group="artistid")#
-}}}
-
-When inside the partial file you'll have an additional sub query made available to you named `group` which contains the albums for the current artist in the loop.
-
-==Using Partials with an Array of Objects==
-
-As we've hinted previously in this chapter it's also possible to pass in an array of objects to a partial. It works very similar to passing in a query in that the partial is called on each iteration and a `current` variable is made available.
-
 ==Using Partials with a Query==
 
 Similar to passing in an object, you can also pass in a query result set to [includePartial includePartial()]. Here's how that looks:
@@ -145,6 +120,31 @@ If you need to display some HTML in between each iteration (maybe each iteration
 
 </cfoutput>
 }}}
+
+==Partials and Grouping==
+
+There is a feature of CFML that is very handy and that is the ability to output a query with the group attribute. Here's an example of how this can be done with a query that contains artists and albums (with the artist potentially being duplicated since they can have more than one album):
+
+{{{
+<cfoutput query="artistsAndAlbums" group="artistid">
+  artist info is displayed just once for each artist here
+  <cfoutput>
+    each album is looped here
+  </cfoutput>
+</cfoutput>
+}}}
+
+Of course we have ported this great functionality to calling partials with queries as well. Here's how you can achieve it:
+
+{{{
+#includePartial(partial=artistsAndAlbums, group="artistid")#
+}}}
+
+When inside the partial file you'll have an additional sub query made available to you named `group` which contains the albums for the current artist in the loop.
+
+==Using Partials with an Array of Objects==
+
+As we've hinted previously in this chapter it's also possible to pass in an array of objects to a partial. It works very similar to passing in a query in that the partial is called on each iteration and a `current` variable is made available.
 
 ==Rendering or Including?==
 

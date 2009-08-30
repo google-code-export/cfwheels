@@ -1,5 +1,5 @@
 #summary Through some simple configuration, Wheels allows you to unlock some powerful functionality to use your database tables' relationships in your code.
-#labels chapter,0.9.1,published_prod
+#labels chapter,0.9.4,published_prod
 
 _Associations_ in Wheels allow you to define the relationships between your database tables. After configuring these relationships, doing pesky table joins becomes a trivial task. And like all other ORM functions in Wheels, this is done without writing a single line of SQL.
 
@@ -299,15 +299,21 @@ We can `include` the related tables from the `subscription` bridge entity to get
 
 ===Creating a Shortcut for a Many-to-Many Relationship===
 
-With the `shortcut` argument to [hasMany hasMany()] you can have Wheels create one additional dynamic method that lets you bypass the join model when referencing. For our example above you can alter the hasmm call to look like this instead:
+With the `shortcut` argument to [hasMany hasMany()] you can have Wheels create a dynamic method that lets you bypass the join model and instead reference the model on the other end of the many-to-many relationship directly. For our example above you can alter the [hasMany hasMany()] call on the customer model to look like this instead:
 
 {{{
-<cfset hasMany("subscriptions")>
+<cfset hasMany(name="subscriptions", shortcut="publications")>
 }}}
 
+Now you can get at a customer's publications directly by using code like this:
+{{{
+<cfset cust = model("customer").findByKey(params.key)>
+<cfset pubs = cust.publications()>
+}}}
 
-For really simple many-to-many relationships it's often preferred
+This functionality relies on having set up all the appropriate [hasMany hasMany()] and [belongsTo belongsTo()] associations on all 3 models (like we have in our example in this chapter).
 
+It also relies on the association names being consistent but you can specify this with the `through` argument if necessary. The through argument accepts a list of 2 association names. The first one being the name of the [belongsTo belongsTo()] association and the second one being the [hasMany hasMany()] association going back the other way. Sounds complicated? That's another reason to stick to the conventions whenever possible, it keeps things simple.
 
 ==Are You Still with Us?==
 

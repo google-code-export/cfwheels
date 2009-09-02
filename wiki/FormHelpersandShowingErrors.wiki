@@ -218,14 +218,14 @@ And the error message(s) won't even display if there isn't one. That way you can
 
 There is a Wheels form helper for basically every type of form element available in HTML. And they all have the ability to be bound to Wheels model instances to make displaying values and errors easier. Here is a brief description of each helper.
 
-===Text, Password, and TextArea Fields===
+===Text, Password, and !TextArea Fields===
 
 Text and password fields work similarly to each other. They allow you to show labels and bind to model object instances to determine whether or not a value should be pre-populated.
 
 {{{
 #textField(label="Username", objectName="user", property="username")#
 #passwordField(label="Password", objectName="user", property="password")#
-#textArea(label="Bio", objectName="user", property="biography")#
+#textArea(label="Bio", objectName="user", property="biography", rows="5", cols="40")#
 }}}
 
 May yield the equivalent to this HTML (if we assume the global defaults defined above in the section named _Factoring out Common Settings with Global Defaults_):
@@ -241,9 +241,11 @@ May yield the equivalent to this HTML (if we assume the global defaults defined 
 </div>
 <div>
     <label for="user-biography">Bio</label>
-    <textarea id="user-biography" name="user[biography]>CF Guy really is a great guy. He's much nicer than .NET guy.</textarea>
+    <textarea id="user-biography" name="user[biography] rows="5" cols="40">CF Guy really is a great guy. He's much nicer than .NET guy.</textarea>
 </div>
 }}}
+
+(Note that we added `rows` and `cols` arguments so that we could meet XHTML compliance. They are optional arguments that only get passed through to the HTML tag if you provide them.)
 
 ===Hidden Fields===
 

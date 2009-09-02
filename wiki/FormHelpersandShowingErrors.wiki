@@ -313,6 +313,8 @@ Note that binding check boxes to model objects is best suited for properties in 
 #checkBox(label="Sign me up for the email newsletter.", objectName="customer", property="newsletterSubscription", labelPlacement="after")#
 }}}
 
+Because the concept of check boxes don't tie to well to models (you can select several for the same "property"), we recommend using [checkBoxTag checkBoxTag()] instead if you want to use check boxes for more values than just true/false. See the _Helpers That Aren't Bound to Model Objects_ section below.
+
 ===File Fields===
 
 The [fileField fieldField()] helper builds a file field form control based on the supplied `objectName` and `property`.

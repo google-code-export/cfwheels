@@ -218,13 +218,14 @@ And the error message(s) won't even display if there isn't one. That way you can
 
 There is a Wheels form helper for basically every type of form element available in HTML. And they all have the ability to be bound to Wheels model instances to make displaying values and errors easier. Here is a brief description of each helper.
 
-===Text and Password Fields===
+===Text, Password, and TextArea Fields===
 
 Text and password fields work similarly to each other. They allow you to show labels and bind to model object instances to determine whether or not a value should be pre-populated.
 
 {{{
 #textField(label="Username", objectName="user", property="username")#
 #passwordField(label="Password", objectName="user", property="password")#
+#textArea(label="Bio", objectName="user", property="biography")#
 }}}
 
 May yield the equivalent to this HTML (if we assume the global defaults defined above in the section named _Factoring out Common Settings with Global Defaults_):
@@ -238,23 +239,27 @@ May yield the equivalent to this HTML (if we assume the global defaults defined 
     <label for="user-password">Password</label>
     <input id="user-password" type="password" name="user[password]" value="" />
 </div>
+<div>
+    <label for="user-biography">Bio</label>
+    <textarea id="user-biography" name="user[biography]>CF Guy really is a great guy. He's much nicer than .NET guy.</textarea>
+</div>
 }}}
 
 ===Hidden Fields===
 
-Hidden fields are powered by the [hiddenField hiddenField()] form helper, and it also works similarly to how [textField textField()] and [passwordField passwordField()] work.
+Hidden fields are powered by the [hiddenField hiddenField()] form helper, and it also works similarly to [textField textField()] and [passwordField passwordField()].
 
 {{{
 #hiddenField(objectName="user", property="id")#
 }}}
 
-Could yield this type of markup:
+Would yield this type of markup:
 
 {{{
 <input type="hidden" name="user[id]" value="425" />
 }}}
 
-Obviously, the big difference is that hidden fields do not have labels.
+The big difference is that hidden fields do not have labels.
 
 ===Select Fields===
 
@@ -303,7 +308,15 @@ Check boxes work similarly to radio buttons, except [checkBox checkBox()] takes 
 Note that binding check boxes to model objects is best suited for properties in your object that have a yes/no or true/false type value.
 
 {{{
-#checkBox(label="I would like to subscribe to the email newsletter.", objectName="customer", property="newsletterSubscription", labelPlacement="after")#
+#checkBox(label="Sign me up for the email newsletter.", objectName="customer", property="newsletterSubscription", labelPlacement="after")#
+}}}
+
+===File Fields===
+
+The [fileField fieldField()] helper builds a file field form control based on the supplied `objectName` and `property`.
+
+{{{
+#fileField(label="Photo", objectName="profile", property="photo")#
 }}}
 
 ==Helpers That Aren't Bound to Model Objects==
@@ -333,3 +346,22 @@ Which would produce this HTML:
 {{{
 <form action="/user/save" class="login-form" enctype="multipart/form-data">
 }}}
+
+==Special Form Helpers==
+
+Wheels provides a few extra form helpers that make it easier for you to generate accessible fields for dates and/or times. These also bind to properties that are of type `DATE`, `TIMESTAMP`, `DATETIME`, etc.
+
+We won't go over these in detail, but here is a list of the date and time fields available:
+
+ * [dateSelect dateSelect()]
+ * [dateSelectTags dateSelectTags()]
+ * [timeSelect timeSelect()]
+ * [timeSelectTags timeSelectTags()]
+ * [dateTimeSelect dateTimeSelect()]
+ * [dateTimeSelectTags dateTimeSelectTags()]
+ * [yearSelectTag yearSelectTag()]
+ * [monthSelectTag monthSelectTag()]
+ * [daySelectTag daySelectTag()]
+ * [hourSelectTag hourSelectTag()]
+ * [minuteSelectTag minuteSelectTag()]
+ * [secondSelectTag secondSelectTag()]

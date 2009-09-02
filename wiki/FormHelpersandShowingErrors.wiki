@@ -64,9 +64,9 @@ Let's rewrite and then explain.
 
 #startFormTag(action="save")#
 
-    #textField(label="First Name", objectName="profile", property="firstName", prependToLabel="<div>", append="</div>", wrapLabel=false)#
-    #textField(label="Last Name", objectName="profile", property="lastName", prependToLabel="<div>", append="</div>", wrapLabel=false)#
-    #select(label="Department", objectName="profile", property="departmentId", options=departments, prependToLabel="<div>", append="</div>", wrapLabel=false)#
+    #textField(label="First Name", objectName="profile", property="firstName", prependToLabel="<div>", append="</div>", labelPlacement="before")#
+    #textField(label="Last Name", objectName="profile", property="lastName", prependToLabel="<div>", append="</div>", labelPlacement="before")#
+    #select(label="Department", objectName="profile", property="departmentId", options=departments, prependToLabel="<div>", append="</div>", labelPlacement="before")#
     <div>
         #hiddenField(objectName="department", property="id")#
         #submitTag()#
@@ -86,8 +86,8 @@ By setting up global defaults (as explained in the [ConfigurationandDefaults Con
 Here are the settings that you would apply in `config/settings.cfm`:
 
 {{{
-<cfset set(functionName="textField", prependToLabel="<div>", append="</div>", wrapLabel=false)>
-<cfset set(functionName="select",prependToLabel="<div>", append="</div>", wrapLabel=false)>
+<cfset set(functionName="textField", prependToLabel="<div>", append="</div>", labelPlacement="before")>
+<cfset set(functionName="select",prependToLabel="<div>", append="</div>", labelPlacement="before")>
 }}}
 
 And here's how our example code can be simplified as a result:

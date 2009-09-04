@@ -9,6 +9,8 @@
 
 Validates that the value of the specified property also has an identical confirmation value (common when having a user type in their email address, choosing a password etc). The confirmation value only exists temporarily and never gets saved to the database.
 
+By convention the confirmation property has to be named `[property]`Confirmation. Using the password example, to confirm our password we would create a property called passwordConfirmation.
+
 *Return Type*:
 
 Void

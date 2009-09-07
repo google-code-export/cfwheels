@@ -65,7 +65,7 @@ Wheels makes heavy use of CFML's `onMissingMethod` event, which wasn't available
 
 ===Operating Systems===
 
-Your setup with Wheels can then can be installed on Windows, Macintosh, UNIX, or Linux - they all work just fine.
+Your setup with Wheels can then can be installed on *Windows*, *Mac OS X*, *UNIX*, or *Linux* - they all work just fine.
 
 ===Web Servers===
 

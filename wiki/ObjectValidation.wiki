@@ -114,7 +114,7 @@ As an example, here's a custom validation method that doesn't allow the user to 
 
     <cfif loc.hourNow gte 3 and loc.hourNow lt 4>
         <cfset loc.timeZone = CreateObject("java", "java.util.TimeZone").getDefault()>
-        <cfset addErrorToBase(message="We're sorry, but we don't allow new registrations between the hours of 3:00 and 4:00 pm #loc.timeZone#.")>
+        <cfset addErrorToBase(message="We're sorry, but we don't allow new registrations between the hours of 3:00 and 4:00 am #loc.timeZone#.")>
     </cfif>
 </cffunction>
 }}}

@@ -1,5 +1,5 @@
 #summary Learn how to write code that runs every time a given object is created, updated, or deleted.
-#labels chapter,0.9.4
+#labels chapter,0.9.4,published_dev
 
 Callbacks in Wheels allow you to have code executed before and/or after certain operations on an object. This requires some further explanation, so let's go straight to an example of a real-world application: the e-commerce checkout.
 
@@ -70,47 +70,61 @@ The following 17 functions can be used to register callbacks.
  * [beforeDelete beforeDelete()]
  * [afterDelete afterDelete()]
 
-As you can see above, there are places (5, to be exact) where one callback or the other will be executed but not both. The very first possible callback that can take place in an object's life cycle is either [afterNew afterNew()] or [afterFind afterFind()]. The [afterNew afterNew()] callback methods are triggered when you create the object yourself for the very first time using the [new new()] method for example. [afterFind afterFind()] is triggered when the object is created as a result of fetching a record from the database, using [findByKey findByKey()] for example (there is some special behavior for this callback type that we'll explain in detail later on in this chapter). The remaining 4 places where the callback chain goes through one of two possible callbacks is decided by whether the object is being saved to the database for the first time or not. The "create" type callbacks will be executed for new objects and the "update" type callbacks for existing objects.
+===Callback Life Cycle===
 
-==Special Case #1: `findAll()` and the `afterFind` callback==
+As you can see above, there are places (5, to be exact) where one callback or the other will be executed, but not both.
 
-When you read about the [afterFind afterFind()] callback above you may have thought that it must surely only work for [findOne findOne()] / [findByKey findByKey()] calls and not on [findAll findAll()] since those calls return query result sets (by default anyway) and not objects.
+ # The very first possible callback that can take place in an object's life cycle is either [afterNew afterNew()] or [afterFind afterFind()].
+ # The [afterNew afterNew()] callback methods are triggered when you create the object yourself for the very first time, using the [new new()] method, for example.
+ # [afterFind afterFind()] is triggered when the object is created as a result of fetching a record from the database, using [findByKey findByKey()], for example. (There is some special behavior for this callback type that we'll explain in detail later on in this chapter).
+ # The remaining callbacks run depending on whether or not we're running a "create," "update," or "delete."
 
-Well, believe it or not, callbacks are actually triggered even on [findAll findAll()]! You do have to write your callback code slightly differently though since there will be no `this` scope in the object (you're essentially working with a class level object at this point). Instead of modifying properties in the `this` scope like you normally would the properties are passed in to you via the `arguments` struct to the callback method.
+==Special Case #1: `findAll()` and the `afterFind` Callback==
 
-Sounds complicated?
+When you read about the [afterFind afterFind()] callback above, you may have thought that it must surely only work for [findOne findOne()]/[findByKey findByKey()] calls but not for [findAll findAll()] because those calls return query result sets by default, not objects.
 
-Let's show some code to display how you can handle setting a `fullName` property on a hypothetical "Artist" model:
+Believe it or not, callbacks are even triggered on [findAll findAll()]! You do need to write your callback code differently to cater to [findAll findAll()] because there will be no `this` scope in the query object. Instead of modifying properties in the `this` scope like normal, the properties are passed in to the callback method via the `arguments` struct.
+
+Sounds complicated? This example should clear it up a little. Let's show some code to display how you can handle setting a `fullName` property on a hypothetical "artist" model:
 
 {{{
-<cffunction name="init">
-  <cfset afterFind("addFullName")>
-</cffunction>
+<cfcomponent extends="Model" output="false">
 
-<cffunction name="addFullName">
-  <cfif StructIsEmpty(arguments)>
-    <cfset this.fullName = setFullName(this.firstName, this.lastName)>
-  <cfelse>
-    <cfset arguments.fullName = setFullName(arguments.firstName, arguments.lastName)>
-    <cfreturn arguments>
-  </cfif>
-</cffunction>
+    <cffunction name="init">
+        <cfset afterFind("addFullName")>
+    </cffunction>
 
-<cffunction name="setFullName">
-  <cfargument name="fn" type="string">
-  <cfargument name="ln" type="string">
-  <cfset var fullName = "">
-  <cfset fullName = arguments.ln>
-  <cfif Len(arguments.fn)>
-    <cfset fullName = arguments.fn & " " & fullName>
-  </cfif>
-  <cfreturn fullName>
-</cffunction>
+    <cffunction name="addFullName">
+        <cfif StructIsEmpty(arguments)>
+            <cfset this.fullName = setFullName(this.firstName, this.lastName)>
+        <cfelse>
+            <cfset arguments.fullName = setFullName(arguments.firstName, arguments.lastName)>
+            <cfreturn arguments>
+        </cfif>
+    </cffunction>
+
+    <cffunction name="setFullName">
+        <cfargument name="fn" type="string">
+        <cfargument name="ln" type="string">
+
+        <cfset var fullName = "">
+        <cfset fullName = arguments.ln>
+        <cfif Len(arguments.fn)>
+            <cfset fullName = arguments.fn & " " & fullName>
+        </cfif>
+       <cfreturn fullName>
+    </cffunction>
+
+</cfcomponent>
 }}}
 	
-In our example model used in the example above an artist's name can consist of both a first name and a last name like in "John Mayer" or just the last name like in "Metallica". The `setFullName` method handles the concatenation of the names but the interesting stuff is in the `addFullName` method. This is where we check if the `arguments` struct is empty. If it is, then we know we're dealing with an object and can proceed to work with the `this` scope. Otherwise we do the changes directly on the `arguments` struct and pass it back (always remember to pass it back otherwise Wheels won't be able to tell that you actually wanted any changes done to the query).
+In our example model, an artist's name can consist of both a first name and a last name like in "John Mayer" or just the last name like in "Springstein."
 
-==Special Case #2: The `updateAll()` and `deleteAll()` methods==
+The `setFullName` method handles the concatenation of the names, but the interesting stuff is in the `addFullName` method. This is where we check if the `arguments` struct is empty. If it is, then we know we're dealing with an object and can proceed to work with the `this` scope. Otherwise, we do the changes directly on the `arguments` struct and return it back.
+
+(Always remember to return the `arguments` struct, otherwise Wheels won't be able to tell that you actually wanted to make any changes to the query.)
+
+==Special Case #2: The `updateAll()` and `deleteAll()` Methods==
 
 Please note that if you use the [updateAll updateAll()] or the [deleteAll deleteAll()] methods in Wheels, they will not instantiate objects by default, and thus any callbacks will be skipped. This is good for performance reasons because if you update 1,000 records at once, you probably don't want to run the callbacks on each object. Especially not if they involve database calls.
 

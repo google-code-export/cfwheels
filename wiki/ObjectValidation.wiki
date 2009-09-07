@@ -117,14 +117,14 @@ For more information on how this code behaves when there is an error, refer to t
 For your reference, here are the default error message formats for the different validation functions:
 
 || *Function* || *Format* ||
-|| `validatesConfirmationOf` || [property] should match confirmation ||
-|| `validatesExclusionOf` || [property] is reserved ||
-|| `validatesFormatOf` || [property] is invalid ||
-|| `validatesInclusionOf` || [property] is not included in the list ||
-|| `validatesLengthOf` || [property] is the wrong length ||
-|| `validatesNumericalityOf` || [property] is not a number ||
-|| `validatesPresenceOf` || [property] can't be empty ||
-|| `validatesUniquenessOf` || [property] has already been taken ||
+|| `validatesConfirmationOf` || [[property]] should match confirmation ||
+|| `validatesExclusionOf` || [[property]] is reserved ||
+|| `validatesFormatOf` || [[property]] is invalid ||
+|| `validatesInclusionOf` || [[property]] is not included in the list ||
+|| `validatesLengthOf` || [[property]] is the wrong length ||
+|| `validatesNumericalityOf` || [[property]] is not a number ||
+|| `validatesPresenceOf` || [[property]] can't be empty ||
+|| `validatesUniquenessOf` || [[property]] has already been taken ||
 
 ===Custom Error Messages===
 
@@ -138,7 +138,7 @@ Using basic global defaults for the validation functions, you can set error mess
 
 <cfset set(functionName="validatesPresenceOf", message="Please provide a value for [property]")>
 
-As you can see, you can inject the property's name by adding `[property]` to the message string. Wheels will automatically separate words based on your camelCasing of the variable names.
+As you can see, you can inject the property's name by adding `[[property]]` to the message string. Wheels will automatically separate words based on your camelCasing of the variable names.
 
 ===Setting an Error Message for a Specific Model Property===
 

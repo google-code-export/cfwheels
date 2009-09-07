@@ -101,9 +101,9 @@ Note that `IsValid()` is a function build into your CFML engine.
 
 This is a simple rule, but you can surmise that this functionality can be used to do more complex validations as well. It's a great way to isolate complex validation rules into separate methods of your model.
 
-===Adding Errors to the Model as a Whole===
+===Adding Errors to the Model Object as a Whole===
 
-We've mainly focused on adding error messages at a property level, which admittedly is what you'll be doing 80% of the time. But we can also add messages at the model level with the `addErrorToBase()` function.
+We've mainly focused on adding error messages at a property level, which admittedly is what you'll be doing 80% of the time. But we can also add messages at the object level with the `addErrorToBase()` function.
 
 As an example, here's a custom validation method that doesn't allow the user to sign up for an account between the hours of 3:00 and 4:00 am in the server's time zone:
 
@@ -118,6 +118,8 @@ As an example, here's a custom validation method that doesn't allow the user to 
     </cfif>
 </cffunction>
 }}}
+
+Sure, we could add logic to the view to also not show the registration form, but this validation in the model would make sure that data couldn't be posted via a script between those hours as well. Better safe than sorry if you're running a public-facing application!
 
 ===The Controller===
 

@@ -21,7 +21,13 @@ http://localhost/index.cfm?controller=shop&action=products
 
 This happens when your web server does not support the `cgi.path_info` variable. 
 
-Regardless of your specific setup, Wheels will try to figure out how to handle the URLs. If Wheels fails to do this properly (i.e. you _know_ that your web server supports `cgi.path_info`, but Wheels insists on creating the URLs with the query string format), you can override it by setting `URLRewriting` in `config/settings.cfm` to either `On`, `Partial` or `Off`. You do this by using the [set set()] function like this, `set(URLRewriting="Partial")`. "Partial URL Rewriting" is what we call that first URL up there with the `/index.cfm/` format.
+Regardless of your specific setup, Wheels will try to figure out how to handle the URLs. If Wheels fails to do this properly (i.e. you _know_ that your web server supports `cgi.path_info`, but Wheels insists on creating the URLs with the query string format), you can override it by setting `URLRewriting` in `config/settings.cfm` to either `On`, `Partial` or `Off`. The line of code should look something like this:
+
+{{{
+<cfset set(URLRewriting="Partial")>
+}}}
+
+"Partial URL Rewriting" is what we call that first URL up there with the `/index.cfm/` format.
 
 In the example URLs used above, `shop` is the name of the controller to call, and `products` is the name of the action to call on that controller.
 
@@ -119,11 +125,11 @@ This also highlights the fact that Wheels is a very easy framework to get starte
 
 ==The `params` Struct==
 
-Besides making sure the correct code is executed, Wheels also does something else to simplify request handling for you. It combines the `URL` and `form` scopes into one. This is something that most !ColdFusion frameworks do as well. In Wheels, it is done in the `params` struct.
+Besides making sure the correct code is executed, Wheels also does something else to simplify request handling for you. It combines the `url` and `form` scopes into one. This is something that most !ColdFusion frameworks do as well. In Wheels, it is done in the `params` struct.
 
 The `params` struct is available to you in the controller and view files but not in the model files. (It's considered a best practice to not mix your request handling with your business logic.) Besides the form and URL scope variables, the `params` struct also contains the current controller and action name for easy reference.
 
-If the same variable exists in both the URL and the form scope, the one in the form scope will take precedence.
+If the same variable exists in both the `url` and `form` scopes, the value in the `form` scope will take precedence.
 
 To make this concept easier to grasp, imagine a login form on your website that submits to `http://localhost/account/login?sendTo=dashboard` with the variables `username` and `password` present in the form. Your `params` struct would look like this:
 

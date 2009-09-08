@@ -1,5 +1,5 @@
 #summary Use the standard CFML application events through the framework.
-#labels chapter,0.9.4
+#labels chapter,0.9.4,published_dev
 
 Because the `Application.cfc` file in the root of your Wheels site just includes the `wheels/functions.cfm` file, which in turn includes a lot of framework specific code, you may wonder what the best way is to use CFML's `onApplicationStart`, `onRequestStart` and similar functions...
 
@@ -21,7 +21,9 @@ The `onmaintenance.cfm` file is included when Wheels is set to `maintenance` mod
 
 ===On Error===
 
-You can place a generic error message in the `onerror.cfm` file to be displayed to the users whenever your site throws an error. When this page is shown a HTTP status code of 500 (Internal Server Error) will also be sent. If you need to access the error information here (for logging purposes for example) it is available in the `exception` variable in the `arguments` struct.
+You can place a generic error message in the `onerror.cfm` file to be displayed to the users whenever your site throws an error. When this page is shown a HTTP status code of 500 (Internal Server Error) will also be sent.
+
+If you need to access the error information here (for logging purposes, for example) it is available at `arguments.exception`.
 
 ===On Missing Template===
 

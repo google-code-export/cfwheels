@@ -1,5 +1,5 @@
 #summary Finding your way around a Wheels application.
-#labels chapter,0.9.4
+#labels chapter,0.9.4,published_dev
 
 After downloading and unzipping Wheels, here's the directory structure that you will see (plus signs indicate folders):
 
@@ -9,6 +9,7 @@ After downloading and unzipping Wheels, here's the directory structure that you 
  * + files
  * + images
  * + javascripts
+ * + lib
  * + miscellaneous
  * + models
  * + plugins
@@ -30,7 +31,9 @@ Your application code will end up in four of the folders, namely `controllers`, 
 
 Static media files should be placed in the `files`, `images`, `javascripts` and `stylesheets` folders.
 
-Place stand-alone (non framework) code in the `miscellaneous` folder and plugins in the `plugins` folder.
+Place stand-alone (non framework) CFC libraries in the `lib` folder. CFCs that need to be accessed remotely via <cfajaxproxy> and Flash AMF binding should be placed in the `miscellaneous` folder.
+
+Place Wheels plugins in the `plugins` folder.
 
 And the last directory? That's the framework itself. It exists in the `wheels` directory. Please go in there and have a look around. If you find anything you can improve or new features that you want to add, let us know!
 
@@ -76,9 +79,15 @@ This is a good place to put your JavaScript files.
 
 This is a good place to put your CSS files.
 
+===`lib`===
+
+Store CFC libraries in this folder for use with <cfobject> and `CreateObject()`. This is the best place to store "utility" libraries that you'd like to deploy across multiple Wheels applications. And it's a great place to store CFCs that you download from [http://www.riaforge.org/ RIAForge], [http://www.cflib.org/ CFLib], and other CFML developers.
+
 ===`miscellaneous `===
 
 Use this folder for code that you need to run completely outside of the framework. (There is an empty `Application.cfc` file in here, which will prevent Wheels from taking part in the execution.)
+
+This is most useful if you're using Flash to connect directly to a CFC via AMF binding or if you're using <cfajaxproxy> in your views to bind directly to a CFC as well.
 
 ===`plugins`===
 

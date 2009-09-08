@@ -31,7 +31,7 @@ Your application code will end up in four of the folders, namely `controllers`, 
 
 Static media files should be placed in the `files`, `images`, `javascripts` and `stylesheets` folders.
 
-Place stand-alone (non framework) CFC libraries in the `lib` folder. CFCs that need to be accessed remotely via <cfajaxproxy> and Flash AMF binding should be placed in the `miscellaneous` folder.
+Place stand-alone (non framework) CFC libraries in the `lib` folder. CFCs that need to be accessed remotely via `<cfajaxproxy>` and Flash AMF binding should be placed in the `miscellaneous` folder.
 
 Place Wheels plugins in the `plugins` folder.
 
@@ -81,13 +81,13 @@ This is a good place to put your CSS files.
 
 ===`lib`===
 
-Store CFC libraries in this folder for use with <cfobject> and `CreateObject()`. This is the best place to store "utility" libraries that you'd like to deploy across multiple Wheels applications. And it's a great place to store CFCs that you download from [http://www.riaforge.org/ RIAForge], [http://www.cflib.org/ CFLib], and other CFML developers.
+Store CFC libraries in this folder for use with `<cfobject>` and `CreateObject()`. This is the best place to store "utility" libraries that you'd like to deploy across multiple Wheels applications. And it's a great place to store CFCs that you download from [http://www.riaforge.org/ RIAForge], [http://www.cflib.org/ CFLib], and other CFML developers.
 
 ===`miscellaneous `===
 
 Use this folder for code that you need to run completely outside of the framework. (There is an empty `Application.cfc` file in here, which will prevent Wheels from taking part in the execution.)
 
-This is most useful if you're using Flash to connect directly to a CFC via AMF binding or if you're using <cfajaxproxy> in your views to bind directly to a CFC as well.
+This is most useful if you're using Flash to connect directly to a CFC via AMF binding or if you're using `<cfajaxproxy>` in your views to bind directly to a CFC as well.
 
 ===`plugins`===
 

@@ -1,5 +1,5 @@
 #summary Showing content to the user.
-#labels chapter,0.9.4,published_prod
+#labels chapter,0.9.4,published_dev
 
 A big part of a controller's task is to respond to the user. In Wheels you can respond to the user in three different ways:
 
@@ -37,7 +37,9 @@ This is done with the [renderText renderText()] function. It just returns the te
 
 ==Rendering to a Variable==
 
-Normally when you call any of the rendering functions the result is stored inside an internal Wheels variable which is then outputted to the browser at the end of the request. Sometimes you want to do some additional processing on the rendering result before outputting it though. This is where the `returnAs` argument comes in handy. It's available on both [renderPage renderPage()] and [renderPartial renderPartial()]. Setting `returnAs` to `string` will return the result to you instead of placing it in the internal Wheels variable.
+Normally when you call any of the rendering functions, the result is stored inside an internal Wheels variable. This value is then output to the browser at the end of the request.
+
+Sometimes you may want to do some additional processing on the rendering result before outputting it though. This is where the `returnAs` argument comes in handy. It's available on both [renderPage renderPage()] and [renderPartial renderPartial()]. Setting `returnAs` to `string` will return the result to you instead of placing it in the internal Wheels variable.
 
 ==Caching the Response==
 

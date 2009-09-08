@@ -81,9 +81,9 @@ Wheels will look through each custom route in order to see if there is a match. 
 Let's pretend that our `config/routes.cfm` file looks like this:
 
 {{{
-<cfset addRoute(name="newsAdmin", pattern="admin/news/[action]"), controller="NewsAdmin">
-<cfset addRoute(name="searchAdmin", pattern="admin/search/[action]", controller="SearchAdmin")>
-<cfset addRoute(name="adminRoot", pattern="admin/[action]", controller="Admin")>
+<cfset addRoute(name="newsAdmin", pattern="admin/news/[action]"), controller="newsAdmin">
+<cfset addRoute(name="searchAdmin", pattern="admin/search/[action]", controller="searchAdmin")>
+<cfset addRoute(name="adminRoot", pattern="admin/[action]", controller="admin")>
 }}}
 
 Wheels would make sure that the URL didn't begin with `admin/news` or `admin/search` before calling the third route listed, `adminRoot`.

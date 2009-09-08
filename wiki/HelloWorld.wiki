@@ -118,7 +118,7 @@ Find the `views` directory in the root of your Wheels installation. There will b
 Now inside the `say` directory, create a file called `hello.cfm`. In the `hello.cfm` file, add the following line of code:
 
 {{{
-<h1>Hello!<h1/>
+<h1>Hello World!<h1/>
 }}}
 
 Save your `hello.cfm` file, and let's call our `say/hello` action once again. You have your first working Wheels page if your browser looks like _Figure 3_ below.
@@ -158,7 +158,7 @@ Why not just set up this value directly in the view? If you think about it, mayb
 Next, we will modify our `say/hello.cfm` view file so that it looks like the code block below. When we do this, the value will be displayed in the browser.
 
 {{{
-<h1>Hello!</h1>
+<h1>Hello World!</h1>
 <p>Current time: <cfoutput>#time#</cfoutput></p>
 }}}
 
@@ -194,7 +194,7 @@ Now go to the `views/say` directory and create a `goodbye.cfm` page.
 Add the following code to the `goodbye.cfm` page and save it.
 
 {{{
-<h1>Goodbye!</h1>
+<h1>Goodbye World!</h1>
 }}}
 
 If we did everything right, we should be able to call the new say/goodbye action using the following URL:
@@ -218,7 +218,7 @@ Now let's link our two actions together. We will do this by adding a link to the
 Open the `say/hello.cfm` view file. We are going to add a line of code to the end of this file so our `say/hello.cfm` view file looks like the code block below:
 
 {{{
-<h1>Hello!</h1>
+<h1>Hello World!</h1>
 <p>Current time: <cfoutput>#time#</cfoutput></p>
 <p>Time to say <cfoutput>#linkTo(text="goodbye", action="goodbye")#?</cfoutput></p>
 }}}
@@ -240,7 +240,7 @@ Let's complete our little app and add a corresponding link to the bottom of our 
 Open your `say/goodbye.cfm` view page and modify it so it looks like the code block below.
 
 {{{
-<h1>Goodbye!</h1>
+<h1>Goodbye World!</h1>
 <p>Time to say <cfoutput>#linkTo(text="hello", action="hello")#?</cfoutput></p>
 }}}
 

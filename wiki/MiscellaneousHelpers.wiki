@@ -29,7 +29,7 @@ Let's say that you have a comment section in your application, which shows the t
 
 That works, but it's pretty tedious. And if you think about it, the date will be formatted in a way that is not that meaningful to the end user.
 
-Instead of `4/27/2009 10:10 pm`, it may be better to display `a few minutes ago` or `2 hours ago`. This can be accomplished with a Wheels date helper called [timeAgoInWords timeAgoInWords()].
+Instead of `4/27/2009 10:10 pm`, it may be more helpful to display `a few minutes ago` or `2 hours ago`. This can be accomplished with a Wheels date helper called [timeAgoInWords timeAgoInWords()].
 
 {{{
 <cfoutput query="comments">

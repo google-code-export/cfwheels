@@ -99,7 +99,7 @@ And here's how our example code can be simplified as a result:
 
     #textField(label="First Name", objectName="profile", property="firstName")#
     #textField(label="Last Name", objectName="profile", property="lastName")#
-    #select(label="Department", objectName="department")#
+    #select(label="Department", objectName="department", property="departmentId", options=departments)#
     <div>
         #hiddenField(objectName="profile", property="departmentId", options=departments)#
         #submitTag()#
@@ -162,7 +162,7 @@ Let's take the previous form example and add some visual indication to the user 
 
     #textField(label="First Name", objectName="profile", property="firstName")#
     #textField(label="Last Name", objectName="profile", property="lastName")#
-    #select(label="Department", objectName="department")#
+    #select(label="Department", objectName="department", property="departmentId", options=departments)#
     <div>
         #hiddenField(objectName="department", property="id")#
         #submitTag()#
@@ -198,7 +198,8 @@ Lets get practical and create some error messages for the `firstName` and `lastN
     #textField(label="Last Name", objectName="profile", property="lastName")#
     #errorMessageOn(objectName="profile", property="lastName")#
 
-    #selectTag(label="Department", objectName="department")#
+    #selectTag(label="Department", objectName="department", property="departmentId
+, options=departments)#
 
     <div>
         #hiddenField(objectName="profile", property="departmentId", options=departments)#
@@ -275,6 +276,16 @@ Take a look at this line:
 
 Assume that the `departments` variable passed to the `options` argument contains a query of departments that should be selectable in the drop-down.
 
+Wheels will examine your query passed to `options` and intelligently pick out columns to populate for the `<option>`s' values and text. If you need to populate your `<option>`s with different query columns, then simply use the `textField` and `valueField` arguments.
+
+You can also include a blank option by passing `true` or the desired text to the `includeBlank` argument.
+
+Here's a full usage with this new knowledge:
+
+{{{
+#select(label="Department", objectName="user", property="departmentId", options=departments, valueField="id", textField="departmentName", includeBlank="Select a Department")#
+}}}
+
 ===Radio Buttons===
 
 Radio buttons via [radioButton radioButton()] also take `objectName` and `property` values, and they accept an argument called `tagValue` that determines whether or not the button should be checked on load as well as what value should be passed based on what the user selects.
@@ -323,6 +334,12 @@ The [fileField fieldField()] helper builds a file field form control based on th
 #fileField(label="Photo", objectName="profile", property="photo")#
 }}}
 
+In order for your form to pass the correct `enctype`, you can pass `multipart=true` to [startFormTag startFormTag()]:
+
+{{{
+#startFormTag(action="save", multipart=true")#
+}}}
+
 ==Helpers That Aren't Bound to Model Objects==
 
 Sometimes you'll want to output a form element that isn't bound to a model object.
@@ -339,16 +356,16 @@ There are "tag" versions of all of the form helpers that we've listed in this ch
 
 Much like Wheels's [linkTo linkTo()] function, any extra arguments that you pass to form helpers will be passed to the corresponding HTML tag as attributes.
 
-For example, if we wanted to define a `class` and `enctype` on our starting form tag, we just pass those as extra arguments to [startFormTag startFormTag()]:
+For example, if we wanted to define a `class` on our starting form tag, we just pass that as an extra argument to [startFormTag startFormTag()]:
 
 {{{
-#startFormTag(action="save", class="login-form", enctype="multipart/form-data")#
+#startFormTag(action="save", class="login-form")#
 }}}
 
 Which would produce this HTML:
 
 {{{
-<form action="/user/save" class="login-form" enctype="multipart/form-data">
+<form action="/user/save" class="login-form">
 }}}
 
 ==Special Form Helpers==

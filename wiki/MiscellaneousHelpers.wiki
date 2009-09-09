@@ -49,12 +49,12 @@ Working with media is also a walk in the park with Wheels. Let's jump into 2 qui
 
 ===Style Sheets===
 
-First, to include CSS files in your layout, you can use the [stylesheetLinkTag stylesheetLinkTag()] function:
+First, to include CSS files in your layout, you can use the [styleSheetLinkTag styleSheetLinkTag()] function:
 
 {{{
 <!--- layout.cfm --->
 <cfoutput>
-    #stylesheetLinkTag("main")#
+    #styleSheetLinkTag("main")#
 </cfoutput>
 }}}
 
@@ -63,8 +63,8 @@ This will generate the `<link>` tag for you with everything needed to include th
 If you need to include more than one style sheet and change the media type to "print" for another, there are arguments for that as well:
 
 {{{
-#stylesheetLinkTag(sources="main,blog")#
-#stylesheetLinkTag(source="printer", media="print")#
+#styleSheetLinkTag(sources="main,blog")#
+#styleSheetLinkTag(source="printer", media="print")#
 }}}
 
 ===!JavaScript Files===

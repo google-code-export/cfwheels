@@ -1,90 +1,117 @@
-#summary Wheels goes a long way to help you develop your applications faster and better, but there are still some helper functions that just won't fit into a certain category. Therefore, here are the miscellaneous helper functions.
-#labels chapter,0.9.4
+#summary Wheels includes a plethora of view helpers to help you transform data into a format more easily consumed by your applications' users.
+#labels chapter,0.9.4,draft
 
-These functions, can help you out in those tricky little tasks that need to be performed in the front-end of your web applications. Although they are called miscellaneous, they are in fact categorized into four categories:
+Wheels's included view helper functions can help you out in those tricky little tasks that need to be performed in the front-end of your web applications. Although they are called miscellaneous, they are in fact categorized into 3 categories:
 
  * Date Helpers
- * Non Model Form Helpers
  * Media Helpers
  * Text Helpers
 
-Let's learn more about these categories:
+We also have a separate chapter about Wheels form helpers in [FormHelpersandShowingErrors Form Helpers and Showing Errors] and creating your own helpers in [CreatingYourOwnViewHelpers Creating Your Own View Helpers].
 
 ==Date Helpers==
 
-I don't know about you, but date handling have always been a tedious task for me, thankfully Wheels does a pretty good job at simplifying this not so fun task and makes it a lot simpler for you.
+Wheels does a good job at simplifying the not so fun task of date and time transformations.
 
-Let's say that you have a comment section in your application, which shows the title, comment and time of its publication. In the old days your code would look something like this:
-
-{{{
-<cfoutput query="comments">
-  <div class="comment-header">#title# - #DateFormat(createdAt)#</div>
-  <div class="comment">#comment#</div>
-</cfoutput>
-}}}
-
-That works, but it's not that appealing. The date will be formated in a way that is not that meaningful to the end user. Instead of `4/27/2009` it would be better to display `a few minutes ago` or `2 hours ago`, something of that nature. This can be accomplished with Wheels with a little help of, you guessed it, a date helper function.
+Let's say that you have a comment section in your application, which shows the title, comment, and date/time of its publication. In the old days, your code would have looked something like this:
 
 {{{
 <cfoutput query="comments">
-  <div class="comment-header">#title# - #timeAgoInWords(createdAt)#</div>
-  <div class="comment">#comment#</div>
+    <div class="comment">
+        <h2>#comments.title#</h2>
+        <p class="timestamp">
+            #DateFormat(comments.createdAt, "mmmm, d, yyyy")#
+            #LCase(TimeFormat(comments.createdAt, "h:mm tt"))#</p>
+        <p>#comments.comment#</p>
+    </div>
 </cfoutput>
 }}}
 
-With that minimal change, you have a prettier presentation for your end-users, and most important of all, it didn't require you to do anything fancy in your code.
+That works, but it's pretty tedious. And if you think about it, the date will be formatted in a way that is not that meaningful to the end user.
 
-==Non Model Form Helpers==
-
-You have heard of the regular [FormHelpersandShowingErrors Form Helpers] by now, and how they are useful for data entry in your application. But you haven't met the whole gang yet, for each model form helper there is a non model form helper to back you up while you are coding those tedious form views.
-These form helpers are useful in those tasks where model form helpers come short. To illustrate this, let's jump right into some examples:
+Instead of `4/27/2009 10:10 pm`, it may be better to display `a few minutes ago` or `2 hours ago`. This can be accomplished with a Wheels date helper called [timeAgoInWords timeAgoInWords()].
 
 {{{
-<cfoutput>
-  #startFormTag(action="sendFeedback")#
-    #textFieldTag(label="First Name:", name="profile")#
-    #textFieldTag(label="Last Name:", name="profile")#
-    #textAreaTag(label="Comment:", name="department")#
-    #submitTag()#
-  #endFormTag()#
+<cfoutput query="comments">
+    <div class="comment">
+        <h2>#comments.title#</h2>
+        <p class="timestamp">(#timeAgoInWords(comments.createdAt)#)</p>
+        <p>#comments.comment#</p>
+    </div>
 </cfoutput>
 }}}
 
-The previous example is a basic feedback form in a hypothetical controller. It's most likely that this form won't have a model (database table) associated with it, so non model helpers are a great approach to accomplish this.  
+With that minimal change, you have a prettier presentation for your end users. And most important of all, it didn't require you to do anything fancy in your code.
 
 ==Media Helpers==
 
-Working with media is also a walk in the park with Wheels. Let's jump into two quick examples:
+Working with media is also a walk in the park with Wheels. Let's jump into 2 quick examples.
+
+===Style Sheets===
+
+First, to include CSS files in your layout, you can use the [stylesheetLinkTag stylesheetLinkTag()] function:
 
 {{{
 <!--- layout.cfm --->
 <cfoutput>
-  #stylesheetLinkTag("main")#
+    #stylesheetLinkTag("main")#
 </cfoutput>
 }}}
 
-Do you see what we did there? No more struggling to remember what that line of HTML was that includes CSS files into your page. A single function in Wheels will look into the `stylesheets` folder and include the CSS file for you.
+This will generate the `<link>` tag for you with everything needed to include the file at `stylesheets/main.css`.
 
-But how about the other folders? Well you can do this with the `images` and `javascripts` folders as well. Let's look at some more code to see an example of how to include an image in your application.
+If you need to include more than one style sheet and change the media type to "print" for another, there are arguments for that as well:
+
+{{{
+#stylesheetLinkTag(sources="main,blog")#
+#stylesheetLinkTag(source="printer", media="print")#
+}}}
+
+===!JavaScript Files===
+
+Including !JavaScript files is just as simple with the [javaScriptIncludeTag javaScriptIncludeTag()] helper.
+
+{{{
+#javaScriptIncludeTag("jquery")#
+}}}
+
+===Displaying Images===
+
+Wheels's [imageTag imageTag()] helper also provides some simple, yet powerful functionality:
 
 {{{
 <cfoutput>
-  #imageTag(source="logo.png")#
+    #imageTag("logo.png")#
 </cfoutput>
 }}}
 
-How about that? Not only is this less typing, but by calling this function Wheels will set the `width`, `height` and `alt` attributes automatically for you and cache this information for later use in your application.
+
+With this simple call, Wheels will generate the `<img>` tag for `images/logo.png` and also set the `width`, `height` and `alt` attributes automatically for you (based on image dimensions and the image file name). Wheels will also cache this information for later use in your application.
+
+If you need to override the `alt` attribute for better accessibility, you can still do that too:
+
+{{{
+#imageTag(source="logo.png", alt="ColdFusion on Wheels")#
+}}}
 
 ==Text Helpers==
 
-By now we have covered a little bit of ground, but we are still missing one of the categories. Let's not forget about text helpers. To illustrate what the text helpers can help you with, let's see a piece of code that includes two of the text helpers in a simple search results page.
+To illustrate what the text helpers can help you with, let's see a piece of code that includes 2 of the text helpers in a simple search results page.
 
 {{{
+<!--- Query of search results --->
+<cfparam name="searchResults" type="query">
+<!--- Search query provided by user --->
+<cfparam name="params.q" type="string">
+
 <cfoutput>
-  #highlight(text="You searched for: Wheels", phrases="Wheels")# returned #searchResults.recordCount# #pluralize(word="record", count=searchResults.recordCount)#.
+    <p>
+        #highlight(text="Your search for <strong>#params.q#</strong>", phrases=params.q)# 
+        returned #searchResults.RecordCount#
+        #pluralize(word="result", count=searchResults.RecordCount)#.</p>
 </cfoutput>
 }}}
 
-That code will highlight all occurances of "Wheels" and will pluralize the word "record" to "records" if the result set is greater than 1. How about them apples? no `if` statements, no extra lines, no nothing.
+That code will highlight all occurrences of `params.q` and will pluralize the word "result" to "results" if the number of records in `searchResults` is greater than 1. How about them apples? No `<cfif>` statements, no extra lines, no nothing.
 
-The functions we have shown in this chapter is only the tip of the iceberg when it comes to helper functions. There's plenty more so don't forget to check out the [ViewHelperFunctions function API].
+The functions we have shown in this chapter are only the tip of the iceberg when it comes to helper functions. There's plenty more so don't forget to check out the [ViewHelperFunctions View Helper Functions] API.

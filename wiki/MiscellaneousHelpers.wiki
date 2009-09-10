@@ -7,7 +7,7 @@ Wheels's included view helper functions can help you out in those tricky little 
  * Media Helpers
  * Text Helpers
 
-We also have a separate chapter about Wheels form helpers in [FormHelpersandShowingErrors Form Helpers and Showing Errors] and creating your own helpers in [CreatingYourOwnViewHelpers Creating Your Own View Helpers].
+We also have separate chapters about Wheels form helpers in [FormHelpersandShowingErrors Form Helpers and Showing Errors] and creating your own helpers in [CreatingYourOwnViewHelpers Creating Your Own View Helpers].
 
 ==Date Helpers==
 
@@ -29,7 +29,7 @@ Let's say that you have a comment section in your application, which shows the t
 
 That works, but it's pretty tedious. And if you think about it, the date will be formatted in a way that is not that meaningful to the end user.
 
-Instead of `April 27, 2009 10:10 pm`, it may be more helpful to display `a few minutes ago` or `2 hours ago`. This can be accomplished with a Wheels date helper called [timeAgoInWords timeAgoInWords()].
+Instead of "April 27, 2009 10:10 pm," it may be more helpful to display "a few minutes ago" or "2 hours ago." This can be accomplished with a Wheels date helper called [timeAgoInWords timeAgoInWords()].
 
 {{{
 <cfoutput query="comments">
@@ -45,7 +45,7 @@ With that minimal change, you have a prettier presentation for your end users. A
 
 ==Media Helpers==
 
-Working with media is also a walk in the park with Wheels. Let's jump into 2 quick examples.
+Working with media is also a walk in the park with Wheels. Let's jump into a few quick examples.
 
 ===Style Sheets===
 
@@ -114,4 +114,4 @@ To illustrate what the text helpers can help you with, let's see a piece of code
 
 That code will highlight all occurrences of `params.q` and will pluralize the word "result" to "results" if the number of records in `searchResults` is greater than 1. How about them apples? No `<cfif>` statements, no extra lines, no nothing.
 
-The functions we have shown in this chapter are only the tip of the iceberg when it comes to helper functions. There's plenty more so don't forget to check out the [ViewHelperFunctions View Helper Functions] API.
+The functions we have shown in this chapter are only the tip of the iceberg when it comes to helper functions. There's plenty more, so don't forget to check out the [ViewHelperFunctions View Helper Functions] API.

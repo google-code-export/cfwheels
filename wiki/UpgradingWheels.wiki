@@ -53,6 +53,9 @@ The easiest way to upgrade is to setup an empty website, deploy a fresh copy of 
 
 ===Controller Code===
 
+ * *0.9.4:* If you want the Plugin Manager to work you need to add the following line at the bottom of the `plugins` function in the `controllers/Wheels.cfc` file:
+`<cfset variables[params.name] = application.wheels.plugins[params.name]>`
+
  * Multiple-word controllers and actions are now word-delimited by hyphens in the URL. For example, if your controller is called `SiteAdmin` and the action is called `editLayout`, the URL to access that action would be `http://www.domain.com/site-admin/edit-layout`.
 
 ===URL/Routing===

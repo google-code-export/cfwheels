@@ -161,4 +161,4 @@ Here's what your controller action that receives the AJAX form submission would 
 <cfset renderPartial(comment)>
 }}}
 
-Please note that there currently is no support for creating the AJAX form directly with Wheels. This can easily be implemented using a !JavaScript library such as [http://jquery.com/ JQuery] or [http://www.prototypejs.org/ Prototype] though.
+Please note that there currently is no support for creating the AJAX form directly with Wheels. This can easily be implemented using a !JavaScript library such as [http://jquery.com/ jQuery] or [http://www.prototypejs.org/ Prototype] though.

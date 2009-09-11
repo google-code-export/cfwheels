@@ -81,7 +81,7 @@ I know what you are thinking. 9 lines of code can't replace all that work, right
 
 ===Factoring out Common Settings with Global Defaults===
 
-By setting up global defaults (as explained in the [ConfigurationandDefaults Configuration and Defaults] chapter) for the `prependToLabel`, `append`, and `wrapLabel` arguments, you can make the form code ever simpler across your whole application.
+By setting up global defaults (as explained in the [ConfigurationandDefaults Configuration and Defaults] chapter) for the `prependToLabel`, `append`, and `labelPlacement` arguments, you can make the form code ever simpler across your whole application.
 
 Here are the settings that you would apply in `config/settings.cfm`:
 
@@ -185,7 +185,7 @@ There is no longer the need to manually code error logic in your form markup.
 
 Let's say that would rather display the error messages just below the failed fields (or anywhere else, for that matter). Wheels has that covered too. All that it takes is a simple line of code for each form field that could end up displaying feedback to the user. 
 
-Lets get practical and create some error messages for the `firstName` and `lastName` fields:
+Let's get practical and create some error messages for the `firstName` and `lastName` fields:
 
 {{{
 <cfoutput>
@@ -242,7 +242,7 @@ May yield the equivalent to this HTML (if we assume the global defaults defined 
 </div>
 <div>
     <label for="user-biography">Bio</label>
-    <textarea id="user-biography" name="user[biography] rows="5" cols="40">CF Guy really is a great guy. He's much nicer than .NET guy.</textarea>
+    <textarea id="user-biography" name="user[biography]" rows="5" cols="40">CF Guy really is a great guy. He's much nicer than .NET guy.</textarea>
 </div>
 }}}
 
@@ -372,7 +372,7 @@ Which would produce this HTML:
 
 Wheels provides a few extra form helpers that make it easier for you to generate accessible fields for dates and/or times. These also bind to properties that are of type `DATE`, `TIMESTAMP`, `DATETIME`, etc.
 
-We won't go over these in detail, but here is a list of the date and time fields available:
+We won't go over these in detail, but here is a list of the date and time form helpers available:
 
  * [dateSelect dateSelect()]
  * [dateSelectTags dateSelectTags()]

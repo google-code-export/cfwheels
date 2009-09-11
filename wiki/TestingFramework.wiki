@@ -1,5 +1,5 @@
 #summary An overview and examples of using the testing framework included in Wheels.
-#labels chapter,0.9.3,draft
+#labels chapter,0.9.4,draft
 
 ==The Theory Behind Testing==
 
@@ -98,7 +98,7 @@ An example of raising the Wheels.TableNotFound error when you specify an invalid
 
 *halt():* Think of this as doing 'cfdump/cfabort` only having some control over it. Often times when testing you want to check the results of an expression so that you can write proper tests against it. The old way of doing this is creating a test.cfm template, writing the code you want to check in it, saving it and then finally running it. Tell me that doesn't slow you down. By using halt() you get that same benefit only you don't have to go through all that extra stuff.
 
-Halt() also takes a quoted expression as a second argument, but it's the first argument that we need to take a moment to talk about. The first argument in halt() is a boolean (true/false) value that tells halt() whether it should stop or halt (see where it gets it name from) the testing process and dump the contents of the quoted expression to the screen. By setting this first argument to `true`, halt() will do just that, but what if you set this first argument to `false`? In that case halt() will not only *NOT* display the results of the quoted expression to the screen and continue on with the testing process, it will also not even bother trying to evaluate the quoted expression. Because of that, it's safe it keep halts() with the first argument set to `false` inside your tests for later reference since there's no performance hit.
+Halt() also takes a quoted expression as a second argument, but it's the first argument that we need to take a moment to talk about. The first argument in halt() is a boolean (true/false) value that tells halt() whether it should stop or halt (see where it gets it name from) the testing process and dump the contents of the quoted expression to the screen. By setting this first argument to `true`, halt() will do just that, but what if you set this first argument to `false`? In that case halt() will not only *NOT* display the results of the quoted expression to the screen and continue on with the testing process, it will also not even bother trying to evaluate the quoted expression. Because of that, it's safe it keep as many halt() calls with the first argument set to `false` inside your tests for later reference since there's no performance hit.
 
 An example of halting the testing process and dumping an expression to the screen:
 
@@ -134,9 +134,9 @@ There are four reserved methods that Wheels's testing framework provides for you
 
 *setup():* Used to initialize or override any variables or execute any code that needs to be run *BEFORE EACH* test.
 
-*teardown():* Used to cleanup any variables or execute any code that needs to be run *AFTER EACH* test after each test is ran.
+*teardown():* Used to cleanup any variables or execute any code that needs to be ran *AFTER EACH* test.
 
-Remember that you don't have to use these methods when creating your tests, however they do help to keep thing DRY [Don't Repeat Yourself] and compact.
+Remember that you don't have to use these methods when creating your tests, however they do help to keep thing DRY (Don't Repeat Yourself) and compact.
 
 Example:
 

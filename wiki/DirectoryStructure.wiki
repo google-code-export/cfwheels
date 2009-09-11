@@ -9,7 +9,6 @@ After downloading and unzipping Wheels, here's the directory structure that you 
  * + files
  * + images
  * + javascripts
- * + lib
  * + miscellaneous
  * + models
  * + plugins
@@ -31,7 +30,7 @@ Your application code will end up in four of the folders, namely `controllers`, 
 
 Static media files should be placed in the `files`, `images`, `javascripts` and `stylesheets` folders.
 
-Place stand-alone (non framework) CFC libraries in the `lib` folder. CFCs that need to be accessed remotely via `<cfajaxproxy>` and Flash AMF binding should be placed in the `miscellaneous` folder.
+Place anything that need to be executed outside of the framework in the `miscellaneous` folder. The framework does not get involved when executing `.cfm` files in this folder (the empty `Application.cfc` takes care of that). Also, no URL rewriting will be performed in this folder so it's a good fit for placing CFCs that need to be accessed remotely via `<cfajaxproxy>` and Flash AMF binding for example.
 
 Place Wheels plugins in the `plugins` folder.
 
@@ -78,10 +77,6 @@ This is a good place to put your JavaScript files.
 ===`stylesheets`===
 
 This is a good place to put your CSS files.
-
-===`lib`===
-
-Store CFC libraries in this folder for use with `<cfobject>` and `CreateObject()`. This is the best place to store "utility" libraries that you'd like to deploy across multiple Wheels applications. And it's a great place to store CFCs that you download from [http://www.riaforge.org/ RIAForge], [http://www.cflib.org/ CFLib], and other CFML developers.
 
 ===`miscellaneous `===
 

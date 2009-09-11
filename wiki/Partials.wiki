@@ -1,5 +1,5 @@
 #summary Simplify your views by breaking them down into partial page templates.
-#labels chapter,0.9.4,published_prod
+#labels chapter,0.9.4,published_dev
 
 Partials in Wheels act as a wrapper around the good old `<cfinclude>` tag. By calling [includePartial includePartial()] or [renderPartial renderPartial()], you can include other view files in a page, just like `<cfinclude>` would. But at the same time, partials make use of common Wheels features like layouts, caching, model objects, and so on.
 
@@ -123,28 +123,28 @@ If you need to display some HTML in between each iteration (maybe each iteration
 
 ==Partials and Grouping==
 
-There is a feature of CFML that is very handy and that is the ability to output a query with the group attribute. Here's an example of how this can be done with a query that contains artists and albums (with the artist potentially being duplicated since they can have more than one album):
+There is a feature of CFML that is very handy: the ability to output a query with the group attribute. Here's an example of how this can be done with a query that contains artists and albums (with the artist potentially being duplicated since they can have more than one album):
 
 {{{
 <cfoutput query="artistsAndAlbums" group="artistid">
-  artist info is displayed just once for each artist here
-  <cfoutput>
-    each album is looped here
-  </cfoutput>
+    <!--- Artist info is displayed just once for each artist here --->
+    <cfoutput>
+        <!--- Each album is looped here --->
+    </cfoutput>
 </cfoutput>
 }}}
 
-Of course we have ported this great functionality to calling partials with queries as well. Here's how you can achieve it:
+We have ported this great functionality into calling partials with queries as well. Here's how you can achieve it:
 
 {{{
-#includePartial(partial=artistsAndAlbums, group="artistid")#
+#includePartial(partial=artistsAndAlbums, group="artistId")#
 }}}
 
-When inside the partial file you'll have an additional sub query made available to you named `group` which contains the albums for the current artist in the loop.
+When inside the partial file, you'll have an additional subquery made available to you named `group`, which contains the albums for the current artist in the loop.
 
 ==Using Partials with an Array of Objects==
 
-As we've hinted previously in this chapter it's also possible to pass in an array of objects to a partial. It works very similar to passing in a query in that the partial is called on each iteration and a `current` variable is made available.
+As we've hinted previously in this chapter, it's also possible to pass in an array of objects to a partial. It works very similar to passing in a query in that the partial is called on each iteration.
 
 ==Rendering or Including?==
 

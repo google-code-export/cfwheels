@@ -1,5 +1,5 @@
 #summary Returning records from your database tables as objects or queries.
-#labels chapter,0.9.4,published_prod
+#labels chapter,0.9.4,published_dev
 
 Reading records from your database typically involves using one of the 3 finder methods available in Wheels: [findByKey findByKey()], [findOne findOne()], and [findAll findAll()].
 
@@ -49,7 +49,7 @@ You can use [findAll findAll()] when you are asking to get one or more records f
 
 Besides the difference in the default return type, [findOne findOne()] and [findAll findAll()] accept the same arguments. Let's have a closer look at these arguments.
 
-==`select` Argument==
+===`select` Argument===
 
 This maps to the `SELECT` clause of the SQL statement.
 
@@ -83,17 +83,19 @@ If you want to take full control over the `SELECT` clause, you can do so by spec
 
 A tip is to turn on debugging when you're learning Wheels so you can get a good understanding of how Wheels creates the SQL statements.
 
-==`where` Argument==
+===`where` Argument===
 
 This maps to the `WHERE` clause of the SQL statement. Wheels will also convert all your input to `cfqueryparam` tags for you automatically.
 
 There are some limitations to what you can use in the `where` argument, but the following SQL will work: `=`, `<>`, `<`, `<=`, `>`, `>=`, `LIKE`, `AND`, and `OR`. (Note that it's a requirement to write SQL keywords in upper case.) In addition to this, you can use parentheses to group conditional SQL statements together.
 
-==`order` Argument==
+===`order` Argument===
 
-This maps to the `ORDER` clause of the SQL statement. If you don't specify an order at all, none will be used (makes sense, eh?). So in those cases, the database engine will decide in what order to return the records. There is one exception to this, if you paginate the records (by passing in the `page` argument) without specifying the order Wheels will order the results by the primary key column. This is because pagination relies on having unique records to order by.
+This maps to the `ORDER` clause of the SQL statement. If you don't specify an order at all, none will be used (makes sense, eh?). So in those cases, the database engine will decide in what order to return the records.
 
-==`include` Argument==
+There is one exception to this. If you paginate the records (by passing in the `page` argument) without specifying the order, Wheels will order the results by the primary key column. This is because pagination relies on having unique records to order by.
+
+===`include` Argument===
 
 This is a powerful feature that you can use if you have set up associations in your models.
 
@@ -103,11 +105,11 @@ If, for example, you have specified that one `author` has many `articles`, then 
 <cfset bobsArticles = model("author").findAll(where="firstName='Bob'", include="articles")>
 }}}
 
-==`maxRows` Argument==
+===`maxRows` Argument===
 
 This limits the number of records to return. Please note that if you call [findAll findAll()] with `maxRows=1`, you will still get a `cfquery` result back and not an object. (We recommend using [findOne findOne()] in this case if you want for an object to be returned.)
 
-==`page` and `perPage` Arguments==
+===`page` and `perPage` Arguments===
 
 Set these if you want to get paginated data back.
 
@@ -117,18 +119,20 @@ So if you wanted records 11-20, for example, you write this code:
 <cfset bobsArticles = model("author").findAll(where="firstName='Bob'", include="articles", page=2, perPage=10)>
 }}}
 
-==`cache` Argument==
+===`cache` Argument===
 
-This is the number of minutes to cache the query for. This will eventually (after being converted in a `CreateTimeSpan` function) be passed on to the `cachedWithin` attribute of the `cfquery` tag.
+This is the number of minutes to cache the query for. This is eventually passed on to the `cachedwithin` attribute of the `cfquery` tag.
 
-==`returnAs` Argument==
+===`returnAs` Argument===
 
-In the beginning of this chapter we said that you either get a query or an object back. But, this isn't always true... you can actually specify the return type so that you get either an object, a query or an array of objects back. To do this you use the `returnAs` argument. If you want an array of objects back from a [findAll findAll()] call for example you can do this:
+In the beginning of this chapter, we said that you either get a query or an object back depending on the method that you call. But you can actually specify the return type so that you get either an object, a query, or an array of objects back.
+
+To do this, you use the `returnAs` argument. If you want an array of objects back from a [findAll findAll()] call, for example, you can do this:
 
 {{{
 <cfset users = model("user").findAll(returnAs="objects")>
 }}}
 
-On [findOne findOne()] and [findByKey findByKey()] you can set this argument to either `object` or `query`. On the [findAll findAll()] method you can set it to `objects` (note the plural) or `query`.
+On [findOne findOne()] and [findByKey findByKey()], you can set this argument to either `object` or `query`. On the [findAll findAll()] method, you can set it to `objects` (note the plural) or `query`.
 
-We recommend sticking to the conventions as much as possible though so be careful when using the `returnAs` argument. You don't want to create a lot of arrays of objects and slow down your application unless you absolutely need to.
+We recommend sticking to this convention as much as possible because of the CFML engines' slow `CreateObject()` function. Be careful when setting `returnAs` to `objects`. You won't want to create a lot of objects in your array and slow down your application unless you absolutely need to.

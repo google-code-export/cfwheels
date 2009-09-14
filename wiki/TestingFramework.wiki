@@ -37,11 +37,13 @@ If a method *DOES NOT* begin with *_test_* it is *NOT* considered a test and is 
 
 *<font color="red">DO NOT VAR ANY VARIABLES</font>* used in your tests. In order for the testing framework to get access to the variables within the tests that you're writing, all variables need to be within the components *variables scope*. The easy way to do this is to just not "var" variables within your tests and ColdFusion will automatically assign these variables into the variables scope of the component for you. The only gotcha is that this could cause some variables to overwrite each other and gets kinda of confusing of what's being thrown into the variables scope.
 
-Because of this, we *<font color="red">STRONGLY RECOMMEND</font>* that you follow a very simple convention and create two container variables to keep track of thing:
+Because of this, we've taken the liberty to create for you two scopes that you can use to store variables when writing your tests:
 
 *global:* Place any variables that will be used within *THROUGH OUT* a group of tests in here.
 
-*loc*: Place any variables that will be used within a *SINGLE* test in here.
+*loc*: Place any variables that will be used within a *SINGLE* test in here. This scope is recreated for each test to make sure that variables created during tests don't overwrite each other.
+
+*<font color="red">NOTE:</font>* Any variables that you have declared within your global scope will be automatically duplicated and available to you within your loc scope. We do this so that you only need to worry about accessing the loc scope when writing your tests.
 
 ===Commands===
 
@@ -51,7 +53,6 @@ An example test that checks that two values equal each other:
 
 {{{
 <cffunction name="test_a_equals_b">
-  <cfset loc = {}>
   <cfset loc.a = 1>
   <cfset loc.b = 1>
   <cfset assert("loc.a eq loc.b")>
@@ -62,7 +63,6 @@ An example test that checks that the first value is less then the second value:
 
 {{{
 <cffunction name="test_a_is_less_than_b">
-  <cfset loc = {}>
   <cfset loc.a = 1>
   <cfset loc.b = 5>
   <cfset assert("loc.a lt loc.b")>
@@ -75,7 +75,6 @@ An example test that checks that a key exists in a structure:
 
 {{{
 <cffunction name="test_key_exists_in_structure">
-  <cfset loc = {}>
   <cfset loc.a = {a=1, b=2, c=3}>
   <cfset loc.b = "d">
   <cfset assert("structkeyexists(loc.a, loc.b)")>
@@ -88,7 +87,6 @@ An example of raising the Wheels.TableNotFound error when you specify an invalid
 
 {{{
 <cffunction name="test_table_not_found">
-  <cfset loc = {}>
   <cfset loc.controller = createobject("component", "wheels.tests.ControllerBlank")>
   <cfset loc.e = raised("loc.controller.model('InvalidModel')")>
   <cfset loc.r = "Wheels.TableNotFound">
@@ -104,7 +102,6 @@ An example of halting the testing process and dumping an expression to the scree
 
 {{{
 <cffunction name="test_key_exists_in_structure">
-  <cfset loc = {}>
   <cfset loc.a = {a=1, b=2, c=3}>
   <cfset loc.b = "d">
   <cfset halt(true, "loc.a")>
@@ -116,7 +113,6 @@ An example of keeping halt in a test for future reference:
 
 {{{
 <cffunction name="test_key_exists_in_structure">
-  <cfset loc = {}>
   <cfset loc.a = {a=1, b=2, c=3}>
   <cfset loc.b = "d">
   <cfset halt(false, "loc.a")>

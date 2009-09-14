@@ -11,7 +11,7 @@ Consider the example of `fullName`. If your database table has fields for `first
 
 ===Traditional Object-Oriented Calculations===
 
-In most object-oriented languages, you would add a method to your class called `getFullName()`, which would return the concatenation of `this.firstName & this.lastName`. The `getFullName()` method could potentially provide arguments to list the last name first and other types of calculations or transformations as well.
+In most object-oriented languages, you would add a method to your class called `getFullName()`, which would return the concatenation of `this.firstName & " " & this.lastName`. The `getFullName()` method could potentially provide arguments to list the last name first and other types of calculations or transformations as well.
 
 Wheels still allows for you to do this sort of dynamic calculation with the `returnAs="objects"` argument in methods like [findAll findAll()], but we advise against it when fetching large data sets because of the slowness of `CreateObject()` across CFML engines.
 
@@ -50,7 +50,7 @@ Calculated properties don't end at just generating extra properties. You can now
 
  * Creating additional properties with the `select` argument
  * Additional `where` clause calculations
- * Record sorting with `order` and `group`
+ * Record sorting with `order`
  * Pagination
  * And so on...
 

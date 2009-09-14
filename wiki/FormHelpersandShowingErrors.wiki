@@ -274,7 +274,7 @@ Take a look at this line:
 #select(label="Department", objectName="user", property="departmentId", options=departments)#
 }}}
 
-Assume that the `departments` variable passed to the `options` argument contains a query, struct, or array of departments that should be selectable in the drop-down.
+Assume that the `departments` variable passed to the `options` argument contains a query, struct, or array of department data that should be selectable in the drop-down.
 
 Each data type has its advantages and disadvantages:
 

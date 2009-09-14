@@ -26,15 +26,17 @@ As an alternative, you can set up a calculated property that dynamically perform
 ISNULL(users.lastname, '')))")>
 }}}
 
-This uses database-level logic to calculate the extra `fullName` property, which will become available in both full model objects and query objects returned by the various finder methods.
+As you can probably deduce, we're creating a SQL statement that will be run in the `SELECT` clause to generate the `fullName`.
+
+With this line in place, `fullName` will become available in both full model objects and query objects returned by the various finder methods like [findAll findAll()] and [findOne findOne()].
 
 ==Example #2: Age==
 
-Naturally, if you store the user's birth date in the database, you can use that to dynamically calculate their age. Your app always knows how old the user is without needing to explicitly store his or her age.
+Naturally, if you store the user's birth date in the database, your application can use that data to dynamically calculate the user's age. Your app always knows how many years old the user is without needing to explicitly store his or her age.
 
 ===Creating the Calculated Property for Age===
 
-In order to calculate an extra property called `age` based on the `birthDate` column, our calculated property may look something like this:
+In order to calculate an extra property called `age` based on the `birthDate` column, our calculated property in `init()` may look something like this:
 
 {{{
 <cfset property(name="age", sql="(CAST(CONVERT(CHAR(8), GETDATE(), 112) AS INT) - CAST(CONVERT(CHAR(8), users.date_of_birth, 112) AS INT)) / 10000")>

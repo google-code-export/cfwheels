@@ -57,18 +57,34 @@ Wheels provides quite a few useful model validation functions. These functions r
  * [validateOnCreate validateOnCreate()]
  * [validateOnUpdate validateOnUpdate()]
 
-===Use `when` to Limit the Scope of Validation===
+===Use `when`, `if`, or `unless` to Limit the Scope of Validation===
 
-If you want to limit the scope of the validation, use any of the functions' `when` argument. This argument accepts 3 different values:
+If you want to limit the scope of the validation, you have 3 arguments at your disposal: `when`, `if`, and `unless.
+
+====`when` Argument====
+
+The `when` argument accepts 3 possible values.
 
  # `onSave` (the default)
  # `onCreate`
  # `onUpdate`
 
-To limit our email validation to just create, we would change that line to this:
+To limit our email validation to run only on create, we would change that line to this:
 
 {{{
 <cfset validatesUniquenessOf(property="email", when="onCreate")>
+}}}
+
+====`if` and `unless` Arguments====
+
+`if` and `unless` provide even more flexibility when the `when` argument isn't specific enough for your validation's needs.
+
+Each argument accepts a string containing an expression to evaluate. `if` specifies when the validation should be run. `unless` specifies when the validation should not be run.
+
+As an example, let's say that the model should only verify a CAPTCHA if the user is logged out, but not when they enter their name as "Ben Forta":
+
+{{{
+<cfset validate(method="validateCaptcha", if="not isLoggedIn()", unless="this.name is 'Ben Forta'")>
 }}}
 
 ===Custom Validations===

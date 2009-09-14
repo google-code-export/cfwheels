@@ -57,5 +57,5 @@ Calculated properties don't end at just generating extra properties. You can now
 For example, let's say that we only want to use `age` to return users who are in their 20s. We can use the new `age` property as if it existed in the database table. For extra measure, let's also sort the results from oldest to youngest.
 
 {{{
-<cfset users = model("user").findAll(where="age >= 20 AND age < 30", order="age DESC")>.
+<cfset users = model("user").findAll(where="age >= 20 AND age < 30", order="age DESC")>
 }}}

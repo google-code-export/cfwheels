@@ -11,7 +11,7 @@ In order to establish the full cycle of validation, 3 elements need to be in pla
 
 *Note:* Saving, creating, and updating model objects can also be done from the model file itself (or even in the view file if you want to veer completely off into the wild). But to keep things simple, all examples in this chapter will revolve around code in the controller files.
 
-===The Model===
+==The Model==
 
 Validations are always defined in the `init()` method of your model. This keeps everything nice and tidy because another developer can check `init()` to get a quick idea on how your model behaves.
 
@@ -137,7 +137,7 @@ As an example, here's a custom validation method that doesn't allow the user to 
 
 Sure, we could add logic to the view to also not show the registration form, but this validation in the model would make sure that data couldn't be posted via a script between those hours as well. Better safe than sorry if you're running a public-facing application!
 
-===The Controller===
+==The Controller==
 
 The controller continues with the simplicity of validation setup, and at the most basic level requires only 5 lines of code to persist the form data or return to the original form page to display the list of errors.
 
@@ -166,7 +166,7 @@ Now, to persist the object to the database, the model's [save save()] call can b
 
 The important step here is to recognize that the `<cfelse>` renders the original form input page using the [renderPage renderPage()] function. When this happens, the view will use the `newUser` object defined in our `save()` method. If a [redirectTo redirectTo()] were used instead, the validation information loaded in our `save()` method would be lost.
 
-===The View===
+==The View==
 
 Wheels factors out much of the error display code that you'll ever need. As you can see by this quick example, it appears to mainly be a normal form. But when there are errors in the provided model, Wheels will apply styles to the erroneous fields.
 
@@ -210,9 +210,9 @@ For your reference, here are the default error message formats for the different
 
 Wheels models provide a set of sensible defaults for validation errors. But sometimes you may want to show something different than the default.
 
-There are 2 ways to accomplish this: through global defaults in your config files or on a per-field basis.
+There are 2 ways to accomplish this: through global defaults in your config files or on a per-property basis.
 
-===Setting Global Defaults for Error Messages===
+====Setting Global Defaults for Error Messages====
 
 Using basic global defaults for the validation functions, you can set error messages in your config file at `config/settings.cfm`.
 
@@ -220,7 +220,7 @@ Using basic global defaults for the validation functions, you can set error mess
 
 As you can see, you can inject the property's name by adding `[[property]]` to the message string. Wheels will automatically separate words based on your camelCasing of the variable names.
 
-===Setting an Error Message for a Specific Model Property===
+====Setting an Error Message for a Specific Model Property====
 
 Another way of adding a custom error message is by going into an individual property in the model and adding an argument named `message`.
 

@@ -1,5 +1,5 @@
 #summary Wheels ties your application's forms together with your model layer elegantly. With Wheels form conventions, you'll find yourself spending less time writing repetitive markup to display forms and error messages.
-#labels 0.9.4,published_dev,chapter
+#labels 0.9.4,draft,chapter
 
 The majority of applications are not all about back-end. There is a great deal of work to perform on the front-end as well. It can be argued that most of your users will think of the interface _as_ the application.
 
@@ -266,7 +266,7 @@ The big difference is that hidden fields do not have labels.
 
 ===Select Fields===
 
-As hinted in our first example of form helpers, the [select select()] function builds a `<select>` list with options. What's really cool about this helper is that it can populate the `<option>`s with values from a query.
+As hinted in our first example of form helpers, the [select select()] function builds a `<select>` list with options. What's really cool about this helper is that it can populate the `<option>`s with values from a query, struct, or array.
 
 Take a look at this line:
 
@@ -274,11 +274,45 @@ Take a look at this line:
 #select(label="Department", objectName="user", property="departmentId", options=departments)#
 }}}
 
-Assume that the `departments` variable passed to the `options` argument contains a query of departments that should be selectable in the drop-down.
+Assume that the `departments` variable passed to the `options` argument contains a query, struct, or array of departments that should be selectable in the drop-down.
 
-Wheels will examine your query passed to `options` and intelligently pick out columns to populate for the `<option>`s' values and text. If you need to populate your `<option>`s with different query columns, then simply use the `textField` and `valueField` arguments.
+Each data type has its advantages and disadvantages:
 
-You can also include a blank option by passing `true` or the desired text to the `includeBlank` argument.
+ * *Queries* allow you to order your results, but you can only use one column. But this can be overcome using [CalculatedProperties Calculated Properties].
+ * *Structs* allow you to build out static or dynamic values using whatever data that you please, but there is no guarantee that your CFML engine will honor the order in which you add the elements.
+ * *Arrays* also allow you to build out static or dynamic values, and there is a guarantee that your CFML engine will honor the order. But arrays are a tad more verbose to work with.
+
+Wheels will examine the data passed to `options` and intelligently pick out elements to populate for the `<option>`s' values and text.
+
+ * *Query:* Wheels will try to pick out the primary key for `value` and the first text-based column for the display text.
+ * *Struct:* Wheels will use the keys as the `value` and the values as the display text.
+ * *Array:* Wheels will react depending on how many dimensions there are. If it's only a single dimension, it will populate both the `value` and display text with the elements. When it's a 2D array, Wheels will use each item's first element as the `value` and each element's second element as the display text. For anything larger than 2 dimensions, Wheels only uses the first 2 sub-elements and ignores the rest.
+
+Here's an example of how you might use each option:
+
+{{{
+<!--- Query generated in your controller --->
+<cfset departments = findAll(orderBy="name")>
+
+<!--- Hard-coded struct set up in events/onapplicationstart.cfm --->
+<cfset application.departments["1"] = "Sales">
+<cfset application.departments["2"] = "Marketing">
+<cfset application.departments["3"] = "Information Technology">
+<cfset application.departments["4"] = "Human Resources">
+
+<!--- Array built from query call in model --->
+<cfset departments = this.findAll(orderBy="lastName,hq")>
+<cfset departmentsArray = []>
+<cfloop query="departments">
+    <cfset newDept = [department.id, departments.name & " - " & departments.hq]>
+    <cfset ArrayAppend(departmentsArray, newDept)>
+</cfloop>
+<cfreturn departments>
+}}}
+
+When sending a query, if you need to populate your `<option>`s' values and display text with specific columns, you should pass the names of the columns to use as the `textField` and `valueField` arguments.
+
+You can also include a blank option by passing `true` or the desired display text to the `includeBlank` argument.
 
 Here's a full usage with this new knowledge:
 

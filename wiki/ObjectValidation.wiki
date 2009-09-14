@@ -5,9 +5,9 @@
 
 In order to establish the full cycle of validation, 3 elements need to be in place:
 
- # A *model* file containing business logic for the database table. Example: `models/User.cfc`
- # A *controller* file for creating, saving or updating a model instance. Example: `controllers/Users.cfc`
- # A *view* file for displaying the original data inputs and an error list. Example: `views/users/index.cfm`
+ # *Model* file containing business logic for the database table. Example: `models/User.cfc`
+ # *Controller* file for creating, saving or updating a model instance. Example: `controllers/Users.cfc`
+ # *View* file for displaying the original data inputs and an error list. Example: `views/users/index.cfm`
 
 *Note:* Saving, creating, and updating model objects can also be done from the model file itself (or even in the view file if you want to veer completely off into the wild). But to keep things simple, all examples in this chapter will revolve around code in the controller files.
 

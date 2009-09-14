@@ -1,5 +1,5 @@
 #summary Wheels ties your application's forms together with your model layer elegantly. With Wheels form conventions, you'll find yourself spending less time writing repetitive markup to display forms and error messages.
-#labels 0.9.4,draft,chapter
+#labels 0.9.4,published_dev,chapter
 
 The majority of applications are not all about back-end. There is a great deal of work to perform on the front-end as well. It can be argued that most of your users will think of the interface _as_ the application.
 
@@ -284,7 +284,7 @@ Each data type has its advantages and disadvantages:
 
 Wheels will examine the data passed to `options` and intelligently pick out elements to populate for the `<option>`s' values and text.
 
- * *Query:* Wheels will try to pick out the first numeric column for `value` and the first non-numeric column for the display text.
+ * *Query:* Wheels will try to pick out the first numeric column for `value` and the first non-numeric column for the display text. The order of the columns is determined how you have them defined in your database.
  * *Struct:* Wheels will use the keys as the `value` and the values as the display text.
  * *Array:* Wheels will react depending on how many dimensions there are. If it's only a single dimension, it will populate both the `value` and display text with the elements. When it's a 2D array, Wheels will use each item's first element as the `value` and each element's second element as the display text. For anything larger than 2 dimensions, Wheels only uses the first 2 sub-elements and ignores the rest.
 

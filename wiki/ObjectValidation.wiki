@@ -1,5 +1,5 @@
 #summary Wheels utilizes validation setup within the model to enforce appropriate data constraints and persistence. Validation may be performed for saves, creates, and updates.
-#labels chapter,0.9.4,draft
+#labels chapter,0.9.4,published_dev
 
 ==Basic Setup==
 
@@ -59,7 +59,7 @@ Wheels provides quite a few useful model validation functions. These functions r
 
 ===Use `when`, `if`, or `unless` to Limit the Scope of Validation===
 
-If you want to limit the scope of the validation, you have 3 arguments at your disposal: `when`, `if`, and `unless.
+If you want to limit the scope of the validation, you have 3 arguments at your disposal: `when`, `if`, and `unless`.
 
 ====`when` Argument====
 

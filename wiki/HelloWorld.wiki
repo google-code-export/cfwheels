@@ -78,7 +78,7 @@ So what happens if we try to call our new controller right now? Lets take a look
 
 If you did everything right, you will get the Wheels error shown below in _Figure 2_. (Ironic that getting an error is doing something right, huh? Don't get used to it, buddy!)
 
-http://cfwheels.googlecode.com/files/wheels-0.9-no-view-error-screen.jpg
+http://cfwheels.googlecode.com/files/wheels-0.9.4-no-view-error-screen.jpg
 
 _Figure 2: Wheels error after setting up your blank `say` controller._
 
@@ -123,7 +123,7 @@ Now inside the `say` directory, create a file called `hello.cfm`. In the `hello.
 
 Save your `hello.cfm` file, and let's call our `say/hello` action once again. You have your first working Wheels page if your browser looks like _Figure 3_ below.
 
-http://cfwheels.googlecode.com/files/wheels-0.9-hello-world-screen.jpg
+http://cfwheels.googlecode.com/files/wheels-0.9.4-hello-world-screen.jpg
 
 _Figure 3: Your first working Wheels action._
 
@@ -164,7 +164,7 @@ Next, we will modify our `say/hello.cfm` view file so that it looks like the cod
 
 Now call your `say/hello` action again in your browser. Your browser should look like _Figure 4_ below.
 
-http://cfwheels.googlecode.com/files/wheels-0.9-hello-world-dynamic-screen.jpg
+http://cfwheels.googlecode.com/files/wheels-0.9.4-hello-world-dynamic-screen.jpg
 
 _Figure 4: Hello World with the current date and time._
 
@@ -205,7 +205,7 @@ http://localhost/say/goodbye
 
 Your browser should look like _Figure 5_ below:
 
-http://cfwheels.googlecode.com/files/wheels-0.9-goodbye-world-screen.jpg
+http://cfwheels.googlecode.com/files/wheels-0.9.4-goodbye-world-screen.jpg
 
 _Figure 3: Your new `goodbye` action._
 
@@ -227,7 +227,7 @@ The [linkTo linkTo()] function is a built-in Wheels function. In this case, we a
 
 Once you have added the additional line of code to the end of the `say/hello.cfm` view file, save your file and call the `say/hello` action from your browser. Your browser should look like _Figure 6_ below.
 
-http://cfwheels.googlecode.com/files/wheels-0.9-hello-world-linked-screen.jpg
+http://cfwheels.googlecode.com/files/wheels-0.9.4-hello-world-linked-screen.jpg
 
 _Figure 6: Your `say/hello` action with a link to the `goodbye` action._
 
@@ -248,7 +248,7 @@ If you now call the goodbye action in your browser, your browser should look lik
 
 If you now call the say/goodbye action in your browser, your browser should look like Figure 7 below.
 
-http://cfwheels.googlecode.com/files/wheels-0.9-goodbye-world-linked-screen.jpg
+http://cfwheels.googlecode.com/files/wheels-0.9.4-goodbye-world-linked-screen.jpg
 
 _Figure 7: Your `say/goodbye` action with a link to the `hello` action._
 

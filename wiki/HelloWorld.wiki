@@ -9,7 +9,7 @@ Let's make sure we're all on the same page. I'm going to assume that you've alre
 
 Okay, so you have Wheels installed and can see the Wheels "Congratulations!" page as shown in _Figure 1_ below. That wasn't that hard now, was it?
 
-http://cfwheels.googlecode.com/files/wheels-0.9-congratulations-screen.jpg
+http://cfwheels.googlecode.com/files/wheels-0.9.4-congratulations-screen.jpg
 
 _Figure 1: Wheels congratulations screen._
 

@@ -118,7 +118,7 @@ Find the `views` directory in the root of your Wheels installation. There will b
 Now inside the `say` directory, create a file called `hello.cfm`. In the `hello.cfm` file, add the following line of code:
 
 {{{
-<h1>Hello World!<h1/>
+<h1>Hello World!</h1>
 }}}
 
 Save your `hello.cfm` file, and let's call our `say/hello` action once again. You have your first working Wheels page if your browser looks like _Figure 3_ below.

@@ -139,33 +139,25 @@ Example:
 {{{
 <cfcomponent extends="wheels.test">
 
-	<cffunction name="_setup">
-		<cfset global = {}>
-		<cfset global.controller = createobject("component", "wheels.tests.ControllerBlank")>
-		<cfset global.f = global.controller.distanceOfTimeInWords>
-		<cfset global.args = {}>
-		<cfset global.args.fromTime = now()>
-		<cfset global.args.includeSeconds = true>
-	</cffunction>
-
-	<cffunction name="setup">
-		<cfset loc = {}>
-		<cfset loc.a = duplicate(global.args)>
-	</cffunction>
+	<cfset global.controller = createobject("component", "wheels.Controller")>
+	<cfset global.f = global.controller.distanceOfTimeInWords>
+	<cfset global.args = {}>
+	<cfset global.args.fromTime = now()>
+	<cfset global.args.includeSeconds = true>
 
 	<cffunction name="test_with_seconds_below_5_seconds">
 		<cfset loc.c = 5 - 1>
-		<cfset loc.a.toTime = dateadd('s', loc.c, loc.a.fromTime)>
-		<cfinvoke method="global.f" argumentcollection="#loc.a#" returnvariable="loc.e">
+		<cfset loc.args.toTime = dateadd('s', loc.c, loc.args.fromTime)>
+		<cfinvoke method="loc.f" argumentcollection="#loc.args#" returnvariable="loc.e">
 		<cfset loc.r = "less than 5 seconds">
 		<cfset assert("loc.e eq loc.r")>
 	</cffunction>
 
 	<cffunction name="test_with_seconds_below_10_seconds">
 		<cfset loc.c = 10 - 1>
-		<cfset loc.a.toTime = dateadd('s', loc.c, loc.a.fromTime)>
-		<cfset halt(false, "global.controller.distanceOfTimeInWords(argumentcollection=loc.a)")>
-		<cfinvoke method="global.f" argumentcollection="#loc.a#" returnvariable="loc.e">
+		<cfset loc.args.toTime = dateadd('s', loc.c, loc.args.fromTime)>
+		<cfset halt(false, "loc.controller.distanceOfTimeInWords(argumentcollection=loc.args)")>
+		<cfinvoke method="loc.f" argumentcollection="#loc.args#" returnvariable="loc.e">
 		<cfset loc.r = "less than 10 seconds">
 		<cfset assert("loc.e eq loc.r")>
 	</cffunction>

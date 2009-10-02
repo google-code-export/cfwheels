@@ -107,7 +107,7 @@ To illustrate what the text helpers can help you with, let's see a piece of code
 <cfoutput>
     <p>
         #highlight(text="Your search for #params.q#", phrases=params.q)# 
-        returned #searchResults.RecordCount#
+        returned
         #pluralize(word="result", count=searchResults.RecordCount)#.</p>
 </cfoutput>
 }}}

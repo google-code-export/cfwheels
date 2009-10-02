@@ -53,7 +53,7 @@ Let's say that we wanted to instead require `lastName` but allow a blank value f
 <cfset validatesLengthOf(property="lastName", maximum=50)>
 }}}
 
-Now Wheels will only check for the maximum length on `firstName` if it's value is provided.
+Now Wheels will only check for the maximum length on `firstName` if its value is provided.
 
 ===Listing of Validation Functions===
 

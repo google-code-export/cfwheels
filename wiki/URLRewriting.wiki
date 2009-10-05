@@ -1,9 +1,9 @@
 #summary Making URLs prettier using URL rewriting.
-#labels chapter,0.9.4,published_prod
+#labels chapter,0.9.5,published_prod
 
 URL rewriting is a completely optional feature of Wheels, and all it does is get rid of the `index.cfm` part of the URL.
 
-For example, with URL rewriting off, a URL in your application could look like this:
+For example, with no URL rewriting, a URL in your application could look like this:
 
 {{{
 http://localhost/index.cfm/blog/new
@@ -15,9 +15,9 @@ After turning on URL rewriting, it would look like this:
 http://localhost/blog/new
 }}}
 
-Combine this with the routing functionality of Wheels, and you get the capablility of creating some really human-friendly (easier to remember, say over the phone, etc.) and search engine friendly URLs (easier to crawl, higher !PageRank, etc.).
+Combine this with the routing functionality of Wheels, and you get the capablility of creating some really human-friendly (easier to remember, say over the phone, etc.) and search engine friendly (easier to crawl, higher !PageRank, etc.) URLs.
 
-Unfortunately, if you're running your Wheels powered site in a sub folder of another site you will not be able to turn on URL rewriting (at least not without making some custom changes to your rewrite rules), so we recommend running the Wheels site as a stand-alone site whenever possible. If you've met this one requirement and want the shortest and prettiest URLs possible, then just follow the instructions below.
+Wheels will try and determine if your web server is capable of rewriting URLs and turn it on for you automatically. Depending on what web server you have and what folder you run Wheels from you sometimes need to tweak things a little though. Follow the instructions below details on how to set up your web server and customize the rewrite rules.
 
 ==Instructions for Apache==
 
@@ -26,7 +26,12 @@ Unfortunately, if you're running your Wheels powered site in a sub folder of ano
 
 That should be it, in fact, on some Apache setups you don't have to do anything at all. Apache will pick up and use the rewrite rules specified in the `.htaccess` file on server start-up.
 
-==Instructions for IIS==
+==Instructions for IIS 7==
+
+Similar to Apache
+
+
+==Instructions for IIS 6==
 
 Unfortunately, there is no built-in URL rewriting mechanism in IIS, so getting Wheels working with pretty URLs is a little more complicated than with Apache. Here's what you do:
 
@@ -35,4 +40,9 @@ Unfortunately, there is no built-in URL rewriting mechanism in IIS, so getting W
  # To enable the rewrite filter in IIS, click on `Properties` for your website, then go to the `ISAPI Filters` tab and click the `Add...` button.
  # Type in anything you want as the `Filter Name` and point the `Executable` to the `IsapiRewrite4.dll` file.
 
+You can delete files not related to your server
+
 Now restart your web server and ColdFusion server and enjoy those fancy new URLs. :)
+
+
+Unfortunately, if you're running your Wheels powered site in a sub folder of another site you will not be able to turn on URL rewriting (at least not without making some custom changes to your rewrite rules), so we recommend running the Wheels site as a stand-alone site whenever possible. If you've met this one requirement and want the shortest and prettiest URLs possible, then just follow the instructions below.

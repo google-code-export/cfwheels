@@ -32,9 +32,7 @@ If you have installed Apache yourself you may need to turn on the rewrite module
 
 If you have an older version of Apache and you're trying to run your Wheels site in a sub folder of an existing site you may need to hard code the name of this folder in your rewrite rules.
 
- # Change the last line of the `.htaccess` file to the following:
-`RewriteRule ^(.*)$ /sub_folder_name_goes_here/rewrite.cfm/$1 [L]`
-Don't forget to change `sub_folder_name_goes_here` to the actual folder name first of course.
+ # Change the last line of the `.htaccess` file to the following: `RewriteRule ^(.*)$ /sub_folder_name_goes_here/rewrite.cfm/$1 [L]`. Don't forget to change `sub_folder_name_goes_here` to the actual folder name first of course.
 
 ==Instructions for IIS 7==
 

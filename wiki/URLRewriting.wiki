@@ -36,8 +36,7 @@ If you have an older version of Apache and you're trying to run your Wheels site
 
 ==Instructions for IIS 7==
 
-Similar to Apache
-
+Similar to Apache IIS 7 will pick up the rewrite rules from the web.config file. This requires that the "URL Rewrite Module" is installed though. It's a free IIS extension from Microsoft that you can download for free from [http://www.iis.net/extensions/URLRewrite].
 
 ==Instructions for IIS 6==
 

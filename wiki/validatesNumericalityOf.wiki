@@ -1,5 +1,5 @@
 #summary validatesNumericalityOf(property[message,when,allowBlank,onlyInteger])
-#labels api,0.9
+#labels api,1.0,draft
 
 *Category*:
 
@@ -28,6 +28,8 @@ Void
 || *maximum* || numeric || false || 0 || The maximum length that the property value has to be ||
 || *minimum* || snumeric || false || 0 || The minimum length that the property value has to be ||
 || *within* || string || false ||   || A list of two values (minimum and maximum) that the length of the property value has to fall within ||
+|| *if* || string || false || - || See documentation for `validatesExclusionOf` ||
+|| *unless* || string || false || - || See documentation for `validatesExclusionOf` ||
 
 *Examples*:
 

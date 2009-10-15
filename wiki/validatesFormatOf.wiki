@@ -22,6 +22,7 @@ Void
 || *Name* || *Type* || *Required* || *Default* || *Description* ||
 || *property* || string || true || - || See documentation for `validatesExclusionOf` ||
 || *regEx* || string || true || - || Regular expression to verify against ||
+|| *type* || string || false || - || One of the following types to test against: creditcard, date, email, eurodate, guid, social_security_number, ssn, telephone, time, URL, USdate, UUID, zipcode (will be passed through to CFML's `isValid` function) ||
 || *message* || string || false ||   || See documentation for `validatesExclusionOf` ||
 || *when* || string || false || onSave || See documentation for `validatesExclusionOf` ||
 || *allowBlank* || boolean || false || false || See documentation for `validatesExclusionOf` ||

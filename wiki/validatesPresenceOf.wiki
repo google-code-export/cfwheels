@@ -1,5 +1,5 @@
 #summary validatesPresenceOf(property[message,when])
-#labels api,0.9
+#labels api,1.0,draft
 
 *Category*:
 
@@ -23,6 +23,8 @@ Void
 || *property* || string || true || - || See documentation for `validatesExclusionOf` ||
 || *message* || string || false ||   || See documentation for `validatesExclusionOf` ||
 || *when* || string || false || onSave || See documentation for `validatesExclusionOf` ||
+|| *if* || string || false || - || See documentation for `validatesExclusionOf` ||
+|| *unless* || string || false || - || See documentation for `validatesExclusionOf` ||
 
 *Examples*:
 

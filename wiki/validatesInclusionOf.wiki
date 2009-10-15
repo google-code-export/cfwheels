@@ -1,5 +1,5 @@
 #summary validatesInclusionOf(property,list[message,when,allowBlank])
-#labels api,0.9
+#labels api,1.0,draft
 
 *Category*:
 
@@ -25,6 +25,8 @@ Void
 || *message* || string || false ||   || See documentation for `validatesExclusionOf` ||
 || *when* || string || false || onSave || See documentation for `validatesExclusionOf` ||
 || *allowBlank* || boolean || false || false || See documentation for `validatesExclusionOf` ||
+|| *if* || string || false || - || See documentation for `validatesExclusionOf` ||
+|| *unless* || string || false || - || See documentation for `validatesExclusionOf` ||
 
 *Examples*:
 

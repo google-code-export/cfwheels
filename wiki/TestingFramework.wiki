@@ -176,3 +176,7 @@ Down in the debug area of your Wheels application (that grey area at the bottom 
 *Framework*: Runs any test that the Wheels Team has created for the Wheels framework itself. You should run these tests whenever you update your Wheels installation or are switching platforms.
 
 *Plugins*: A *Run Tests* link will be next to *each* installed plugin you have in your wheels installation. You should run these tests whenever you install or update a plugin.
+
+==Running Selected Test Packages==
+
+Very often you might want to only run a package of tests (a group of tests within a single directory). In order to do this, just append the *package* argument to the url with the name of the package you want ran. For instance, say you had a test package called UserVerifcation. To run only that test package, add *&package=UserVerifcation* to the end of the test url.

@@ -63,8 +63,6 @@ Most descriptions of Wheels' functions should follow this general format, inspir
  
  * *1.1:* History of how function behavior changes from version to version of Wheels.
  
- Of course, there will be exceptions to these rules, and we can trust that you'll use sound judgment before breaking them.
- 
  ===Parameters===
  
  || *Parameter* || *Type* || *Required* || *Default* || *Description* ||

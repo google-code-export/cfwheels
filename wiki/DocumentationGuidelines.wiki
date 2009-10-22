@@ -64,7 +64,7 @@ Most descriptions of Wheels' functions should follow this general format, inspir
  
  ====History====
  
- *For all versions past 1.0:* History of how function behavior changes from version to version of Wheels.
+ _For all versions past 1.0:_ History of how function behavior changes from version to version of Wheels.
  
  Of course, there will be exceptions to these rules, and we can trust that you'll use sound judgment before breaking them.
  

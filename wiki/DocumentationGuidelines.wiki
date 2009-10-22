@@ -113,21 +113,21 @@ Here is another example for the `new()` function:
 
 {{{
 <cffunction name="new" returntype="any" access="public" output="false"
-	hint="Creates a new object based on supplied properties and returns it. The object is not saved to the database, it only exists in memory. Property names and values can be passed in either using named arguments or as a struct to the `properties` argument."
-	examples='
-		{{
-		<--- Blank model object --->
-		<cfset newAuthor = model("author").new()>
-		}}
-		{{
-		<!--- Built with data from the `params.author` struct --->
-		<cfset newAuthor = model("author").new(params.author)>
-		}}
-		{{
-		<!--- Built with default values for `firstName` and `lastName` --->
-		<cfset newAuthor = model("author").new(firstName="John", lastName="Doe")>
-		}}'
-	categories="model-class" chapters="creating-records" functions="create"
+    hint="Creates a new object based on supplied properties and returns it. The object is not saved to the database, it only exists in memory. Property names and values can be passed in either using named arguments or as a struct to the `properties` argument."
+    examples='
+        {{
+        <--- Blank model object --->
+        <cfset newAuthor = model("author").new()>
+        }}
+        {{
+        <!--- Built with data from the `params.author` struct --->
+        <cfset newAuthor = model("author").new(params.author)>
+        }}
+        {{
+        <!--- Built with default values for `firstName` and `lastName` --->
+        <cfset newAuthor = model("author").new(firstName="John", lastName="Doe")>
+        }}'
+    categories="model-class" chapters="creating-records" functions="create"
 >
 }}}
 

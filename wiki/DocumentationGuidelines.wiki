@@ -118,11 +118,11 @@ Here is another example for the `new()` function:
         <cfset newAuthor = model("author").new()>
         }}
         {{
-        <!--- Built with data from the `params.author` struct --->
+        <!--- Built with data from the params.author struct --->
         <cfset newAuthor = model("author").new(params.author)>
         }}
         {{
-        <!--- Built with default values for `firstName` and `lastName` --->
+        <!--- Built with default values for firstName and lastName --->
         <cfset newAuthor = model("author").new(firstName="John", lastName="Doe")>
         }}'
     categories="model-class" chapters="creating-records" functions="create"

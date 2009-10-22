@@ -81,7 +81,9 @@ Most descriptions of Wheels' functions should follow this general format, inspir
 
 We will be generating all API documentation using attributes in the Wheels core code's `<cffunction>` and `<cfargument>` tags. This metadata will be parsed and imported into a database for use on the website.
 
-Use [http://en.wikipedia.org/wiki/Textile_%28markup_language%29 Textile] and <abbr title="Hypertext Markup Language">HTML</abbr> formatting where appropriate.
+Use [http://en.wikipedia.org/wiki/Textile_%28markup_language%29 Textile] and HTML formatting where appropriate.
+
+====Function Documentation====
 
 Within each public function (those not beginning with a `$` character), use the following attributes:
 
@@ -128,3 +130,15 @@ Here is another example for the `new()` function:
 	categories="model-class" chapters="creating-records" functions="create"
 >
 }}}
+
+====Argument Documentation====
+
+Use all standard CFML attributes to document what is expected of function arguments. Much like `<cffunction>`'s documentation, `<cfargument>`'s `hint` attribute should be used to clear up any ambiguities associated with `type="any"` as an expected type.
+
+One extra rule applies to argument documentation though. In some places of the source code, there are `hint`s that refer to other functions' versions of that argument. Take a look at the `defaults` argument of the `save()` function, for example:
+
+{{{
+<cfargument name="defaults" type="boolean" required="false" default="#application.wheels.functions.new.defaults#" hint="See documentation for @save">
+}}}
+
+In this case, the documentation in the website database will be copied from the `hint` attribute of the `save()` function's `defaults` argument. Prefix the associated function with the `@` character like in the example above.

@@ -1,7 +1,7 @@
 #summary We know what volunteering is like, so we want to make it as efficient for everyone as possible. Here are the rules of the road for contributing documentation to the project.
 #labels chapter,0.9.4,published_prod
 
-The Docs are as important as the code itself. How is anyone going to use Wheels if they can't learn how to? And the great docs by Allaire/Macromedia/Adobe are a big reason why you've always loved ColdFusion, right?
+The Docs are as important as the code itself. How is anyone going to use Wheels if they can't learn how to? And the great docs by Allaire/Macromedia/Adobe are a big reason why you've always loved !ColdFusion, right?
 
 ==Steve, Our Persona==
 
@@ -19,7 +19,7 @@ Here's a description of Steve's persona. Being a Wheels nerd, you'll probably fi
 
 ==Process==
 
-All documentation should go through these processes. Let's not be a bunch of cowboys like MySpace developers!
+All documentation should go through these processes. Let's not be a bunch of cowboys like !MySpace developers!
 
  # First off, let the [http://groups.google.com/group/cfwheels discussion group] know what you're planning on doing! We would hate for you to spend hours writing a document that someone else is also working on. Plus the group would be glad to help out answering any questions that you may have.
  # Draft content in the [http://code.google.com/p/cfwheels/w/list Google Code Wiki]. Access to edit Wiki articles is public.
@@ -38,17 +38,19 @@ The [http://www.cfwheels.com/docs reference guide] contains narrative chapters a
 
 ===Video Tutorials===
 
-Video tutorials should cover an area of Wheels that hasn't been covered in previous videos. Please publish the video in Flash or Quicktime format at a maximum width of 800 pixels. The core team will make the final decision on whether or not the video will be published on the Wheels site.
+Video tutorials should cover an area of Wheels that hasn't been covered in previous videos. Please publish the video in Flash or Quicktime format at a maximum width of 720 pixels. The core team will make the final decision on whether or not the video will be published on the Wheels site, but you may post the video anywhere else you please as well.
 
 ===API Documentation===
 
 The API documentation should be very clear and concise. Let's keep Steve out of it for the most part. He understands.
 
+====Example API Function Documentation====
+
 Most descriptions of Wheels' functions should follow this general format, inspired by the CFML function reference in the [http://livedocs.adobe.com/coldfusion/8/htmldocs/index.html ColdFusion 8 Live Docs].
 
  ====Description====
  
- A concise description of what the function does. Also include any notes like what types of values that are supported.
+ A concise description of what the function does. Also include any notes like what types of values that are supported and returned.
  
  ====Returns====
  
@@ -62,7 +64,7 @@ Most descriptions of Wheels' functions should follow this general format, inspir
  
  ====History====
  
- History of how function behavior changes from version to version of Wheels.
+ *For all versions past 1.0:* History of how function behavior changes from version to version of Wheels.
  
  Of course, there will be exceptions to these rules, and we can trust that you'll use sound judgment before breaking them.
  
@@ -76,3 +78,16 @@ Most descriptions of Wheels' functions should follow this general format, inspir
  ====Examples====
  
  Example code for common use cases.
+
+====Generating API Documentation in Core Source Code====
+
+We will be generating all API documentation using attributes in the Wheels core code's `<cffunction>` and `<cfargument>` tags. This metadata will be parsed and imported into a database for use on the website.
+
+Within each public `<cffunction>` tag (not starting with a `$` character), the following attributes should be used:
+
+|| *Attribute* || *Required* || *Default* || *Description* ||
+|| `hint` || Yes || || A concise description of what the function does. Also include any notes like what types of values that are supported and returned. ||
+|| `examples` || Yes || || Example code for common use cases. ||
+|| `categories` || Yes || || Comma-delimited list of categories that the function belongs to. Choices are `configuration`, `global`, `controller-initialization`, `controller-request`, `model-initialization`, `model-class`, `model-object`, and `view-helper`. ||
+|| `chapters` || No || `[empty string` || Comma-delimited list of related documentation chapters' URL slugs. For example, `using-routes` for the [UsingRoutes Using Routes] chapter. ||
+|| `functions` || No || `[empty string]` || Related Wheels core functions. For example, `validatesPresenceOf`, `addRoute`, or `timeAgoInWords`. ||

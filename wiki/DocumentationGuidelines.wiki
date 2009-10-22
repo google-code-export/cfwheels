@@ -24,7 +24,6 @@ All documentation should go through these processes. Let's not be a bunch of cow
  # First off, let the [http://groups.google.com/group/cfwheels discussion group] know what you're planning on doing! We would hate for you to spend hours writing a document that someone else is also working on. Plus the group would be glad to help out answering any questions that you may have.
  # Draft content in the [http://code.google.com/p/cfwheels/w/list Google Code Wiki]. Access to edit Wiki articles is public.
  # Label the Wiki article with the "chapter" tag for Reference Guide chapters and the "api" tag for API documentation.
- # Label the Wiki article with the version of Wheels that it applies to. For example, if an article was updated for the 1.0 release, make sure that the version tag is set to "1.0".
  # Post a request to review the content in the discussion group.
  # After you address any questions or issues that the group may bring up, a member of the core team will post the new documentation live on the website (if the Wiki entry applies to the current version). The core team member may also make minor stylistic edits to the content before posting as well. Please don't take offense to this; they're only trying to help!
 
@@ -36,7 +35,7 @@ The [http://www.cfwheels.com/docs reference guide] contains narrative chapters a
 
 Video tutorials should cover an area of Wheels that hasn't been covered in previous videos. Please publish the video in Flash or Quicktime format at a maximum width of 720 pixels.
 
-The core team will make the final decision on whether or not the video will be published on the Wheels website, but you may post the video on your blog, YouTube, or anywhere else that you please.
+The core team will make the final decision on whether or not the video will be published on the Wheels website, but you may post the video on your blog, !YouTube, or anywhere else that you please.
 
 ==API Documentation==
 
@@ -133,7 +132,7 @@ Here is another example for the `new()` function:
 
 ====Argument Documentation====
 
-Use all standard CFML attributes to document what is expected of function arguments. Much like `<cffunction>`'s documentation, `<cfargument>`'s `hint` attribute should be used to clear up any ambiguities associated with `type="any"` as an expected type.
+Use all standard CFML attributes to document what is expected of function arguments. Much like the functions' documentation, the argument's `hint` attribute should be used to clear up any ambiguities associated with `type="any"` as an expected type.
 
 One extra rule applies to argument documentation though. In some places of the source code, there are `hint`s that refer to other functions' versions of that argument. Take a look at the `defaults` argument of the `save()` function, for example:
 

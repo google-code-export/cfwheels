@@ -61,7 +61,7 @@ Most descriptions of Wheels' functions should follow this general format, inspir
  
  ===History (for All Versions Past 1.0)===
  
- History of how function behavior changes from version to version of Wheels.
+ * *1.1:* History of how function behavior changes from version to version of Wheels.
  
  Of course, there will be exceptions to these rules, and we can trust that you'll use sound judgment before breaking them.
  
@@ -90,8 +90,9 @@ Within each public function (those not beginning with a `$` character), use the 
 || `hint` || Yes || || A concise description of what the function does. Also include any notes like what types of values that are supported and returned. ||
 || `examples` || Yes || || Example code for common use cases. ||
 || `categories` || Yes || || Comma-delimited list of categories that the function belongs to. Choices are `configuration`, `global`, `controller-initialization`, `controller-request`, `model-initialization`, `model-class`, `model-object`, and `view-helper`. ||
-|| `chapters` || No || `[empty string` || Comma-delimited list of related documentation chapters' URL slugs. For example, `using-routes` for the [UsingRoutes Using Routes] chapter. ||
+|| `chapters` || No || `[empty string]` || Comma-delimited list of related documentation chapters' URL slugs. For example, `using-routes` for the [UsingRoutes Using Routes] chapter. ||
 || `functions` || No || `[empty string]` || Related Wheels core functions. For example, `validatesPresenceOf`, `addRoute`, or `timeAgoInWords`. ||
+|| `history` || No || || Bulleted list of how function behavior changes from version to version of Wheels. ||
 
 Note that you should use the `hint` attribute to clear up any ambiguities caused by the function's declaration. For example, if a function returns either an object or a string, this may only be indicated in the source code as `returntype="any"`. Clearly address this ambiguity in the `hint` attribute.
 
